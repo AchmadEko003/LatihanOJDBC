@@ -37,14 +37,9 @@ public class LatihanOJDBC {
         JobDAO jdao = new JobDAO(con.getConnection());
         System.out.println(jdao.getAllJob().size());
         
-        DepartmentDAO ddao = new DepartmentDAO(con.getConnection());
-        System.out.println(ddao.getAllDepartment().size());
-        
         EmployeeDAO edao = new EmployeeDAO(con.getConnection());
         System.out.println(edao.getAllEmployee().size());
         
-        CountryDAO cdao = new CountryDAO(con.getConnection());
-        System.out.println(cdao.getAllCountry().size());
         //Region region = new Region(13, "Ekoeksis");
         //System.out.println(rdao.deleteRegion(13));
 //        for(Region allregion : rdao.getAllRegions()){

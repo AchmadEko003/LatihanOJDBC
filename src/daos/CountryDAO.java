@@ -104,4 +104,22 @@ public class CountryDAO {
         }
         return datas;
 }
+     /**
+     * 
+     * @param id
+     * @return boolean which is true for success delete and false for fail delete
+     */
+    public boolean deleteCountry(int id){
+        boolean result = false;
+        String query ="DELETE FROM countries where country_id =" + id;        
+        try {
+            PreparedStatement preparedStatement = connection.prepareCall(query);
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+            result = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 }

@@ -5,6 +5,11 @@
  */
 package tools;
 
+import daos.CountryDAO;
+import daos.DepartmentDAO;
+import daos.EmployeeDAO;
+import daos.JobDAO;
+import daos.LocationDAO;
 import daos.RegionDAO;
 import model.Region;
 
@@ -26,8 +31,22 @@ public class LatihanOJDBC {
         RegionDAO rdao = new RegionDAO(con.getConnection());
         System.out.println(rdao.getAllRegions().size());
         
+        LocationDAO ldao = new LocationDAO(con.getConnection());
+        System.out.println(ldao.getAllLocations().size());
+        
+        JobDAO jdao = new JobDAO(con.getConnection());
+        System.out.println(jdao.getAllJob().size());
+        
+        DepartmentDAO ddao = new DepartmentDAO(con.getConnection());
+        System.out.println(ddao.getAllDepartment().size());
+        
+        EmployeeDAO edao = new EmployeeDAO(con.getConnection());
+        System.out.println(edao.getAllEmployee().size());
+        
+        CountryDAO cdao = new CountryDAO(con.getConnection());
+        System.out.println(cdao.getAllCountry().size());
         //Region region = new Region(13, "Ekoeksis");
-        System.out.println(rdao.deleteRegion(13));
+        //System.out.println(rdao.deleteRegion(13));
 //        for(Region allregion : rdao.getAllRegions()){
 //            System.out.println(allregion.getRegionId()+" - "
 //            + allregion.getRegionName());

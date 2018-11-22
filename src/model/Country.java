@@ -12,7 +12,7 @@ package model;
 public class Country {
     private String countryId;
     private String countryName;
-    private int region;
+    private int regionId;
 
     /**
      * @return the countryId
@@ -45,15 +45,15 @@ public class Country {
     /**
      * @return the region
      */
-    public int getRegion() {
-        return region;
+    public int getRegionId() {
+        return regionId;
     }
 
     /**
      * @param region the region to set
      */
-    public void setRegion(int region) {
-        this.region = region;
+    public void setRegionId(int region) {
+        this.regionId = region;
     }
     
     

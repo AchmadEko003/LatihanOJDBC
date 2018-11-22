@@ -117,7 +117,7 @@ public class DepartmentDAO {
         try {
             PreparedStatement preparedStatement = connection.prepareCall(query);
             preparedStatement.setInt(1, id);
-            preparedStatement.executeUpdate();
+            preparedStatement.execute();
             result = true;
         } catch (Exception e) {
             e.printStackTrace();

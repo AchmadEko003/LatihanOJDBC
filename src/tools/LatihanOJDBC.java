@@ -136,5 +136,37 @@ public class LatihanOJDBC {
             System.out.println(allcountry.getCountryName() + " - "
                     + allcountry.getCountryName() + " - " + allcountry.getRegionId());
         }
+        
+        JobDAO rdaojob = new JobDAO(con.getConnection());
+	for (Job allJob : rdaojob.searchByJobs("AD_PRES")){
+            System.out.println(allJob.getJobId() +"-" 
+                               + allJob.getJobTitle() +"-"
+                               + allJob.getMinSalary() +"-"
+                               + allJob.getMaxSalary());
+        }
+	LocationDAO rdaolocation = new LocationDAO(con.getConnection());
+        for (Location location : rdaolocation.searchByLocation("93091 Calle della Testa")) {
+            System.out.println(location.getLocationId() + "-"
+                    + location.getStreetAddress() + "-"
+                    + location.getPostalCode() + "-"
+                    + location.getCity() + "-"
+                    + location.getStateProvince() + "-"
+                    + location.getCountryId());
+        }
+        EmployeeDAO rdaoemployee = new EmployeeDAO(con.getConnection());
+        for (Employee  employee : rdaoemployee.searchByEmployees("Steven")) {
+            System.out.println(employee.getEmployeeId() + "-"
+                    + employee.getFirstName() + "-"
+                    + employee.getLastName() + "-"
+                    + employee.getEmail()+ "-"
+                    + employee.getPhoneNumber() + "-"
+                    + employee.getHireDate() + "-"
+                    + employee.getJobId() + "-"
+                    + employee.getSalary() + "-"
+                    + employee.getCommisionPct() + "-"
+                    + employee.getManagerId()+ "-"
+                    + employee.getDepartmentId());
+        }
+
     }
 }

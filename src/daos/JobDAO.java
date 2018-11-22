@@ -85,4 +85,30 @@ public class JobDAO {
         }
         return result;
     }
+     public List<Job> searchByJobs(Object data){
+        List<Job> datas = new ArrayList<>();
+        String query = "SELECT * FROM JOBS where job_id LIKE '%"+data+"%'"
+                + " OR job_title LIKE '%"+data+"%'"
+                + " OR max_salary LIKE '%"+data+"%'"
+                + " OR min_salary LIKE '%"+data+"%'"; 
+                
+        try {
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement
+                    .executeQuery();
+            while (resultSet.next()) {
+                Job job = new Job();
+                job.setJobId(resultSet.getString("job_id"));
+                job.setJobTitle(resultSet.getString("job_title"));
+                job.setMaxSalary(resultSet.getInt("max_salary"));
+                job.setMinSalary(resultSet.getInt("min_salary"));
+                datas.add(job);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return datas;
+    }
+     
 }

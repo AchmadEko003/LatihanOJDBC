@@ -99,4 +99,48 @@ public class EmployeeDAO {
         }
         return result;
     }
+    /**
+     * function 
+     * @param data
+     * @return 
+     */
+    public List<Employee> searchByEmployees(Object data){
+        List<Employee> datas = new ArrayList<>();
+        String query = "SELECT * FROM Employees where employee_id LIKE '%"+data+"%'"
+                + " OR first_name LIKE '%"+data+"%'"
+                + " OR last_name LIKE '%"+data+"%'"
+                + " OR email LIKE '%"+data+"%'"
+                + " OR phone_number LIKE '%"+data+"%'"
+                + " OR hire_date LIKE '%"+data+"%'"
+                + " OR job_id LIKE '%"+data+"%'"
+                + " OR salary LIKE '%"+data+"%'"
+                + " OR commission_pct LIKE '%"+data+"%'"
+                + " OR manager_id LIKE '%"+data+"%'"
+                + " OR department_id LIKE '%"+data+"%'"; 
+                
+        try {
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement
+                    .executeQuery();
+            while (resultSet.next()) {
+                Employee employee = new Employee();
+                employee.setEmployeeId(resultSet.getInt(1));
+                employee.setFirstName(resultSet.getString(2));
+                employee.setLastName(resultSet.getString(3));
+                employee.setEmail(resultSet.getString(4));
+                employee.setPhoneNumber(resultSet.getString(5));
+                employee.setHireDate(resultSet.getDate(6));
+                employee.setJobId(resultSet.getString(7));
+                employee.setSalary(resultSet.getInt(8));
+                employee.setCommisionPct(resultSet.getInt(9));
+                employee.setManagerId(resultSet.getInt(10));
+                employee.setDepartmentId(resultSet.getInt(11));
+                datas.add(employee);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return datas;
+    }
 }

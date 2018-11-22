@@ -94,7 +94,12 @@ public class LocationDAO {
         return result;
     }
     
-    
+    /**
+     * search location
+     * by Tika MP
+     * @param data
+     * @return 
+     */
     public List<Location> searchByLocation(Object data){
         List<Location> datas = new ArrayList<>();
         String query = "SELECT * FROM LOCATIONS"

@@ -85,6 +85,12 @@ public class JobDAO {
         }
         return result;
     }
+     /**
+      * search job
+      * by Tika MP
+      * @param data
+      * @return 
+      */
      public List<Job> searchByJobs(Object data){
         List<Job> datas = new ArrayList<>();
         String query = "SELECT * FROM JOBS where job_id LIKE '%"+data+"%'"

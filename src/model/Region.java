@@ -3,24 +3,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package models;
+package model;
 
 /**
  *
- * @author Nine
+ * @author Nitani
  */
 public class Region {
     private int regionId;
     private String regionName;
 
-//    //constructor
-//    public Region(int regionId, String regionName) {
-//        this.regionId = regionId;
-//        this.regionName = regionName;
-//    }
-
     public Region() {
-        
+       
+    }
+    
+    /**
+     * 
+     * @param regionId
+     * @param regionName 
+     */
+    public Region(int regionId, String regionName) {
+        this.regionId = regionId;
+        this.regionName = regionName;
     }
 
     /**
@@ -37,17 +41,11 @@ public class Region {
         this.regionId = regionId;
     }
 
-    
     /**
      * @return the regionName
      */
     public String getRegionName() {
         return regionName;
-    }
-
-    public Region(int regionId, String regionName) {
-        this.regionId = regionId;
-        this.regionName = regionName;
     }
 
     /**
@@ -57,4 +55,5 @@ public class Region {
         this.regionName = regionName;
     }
 
+    
 }

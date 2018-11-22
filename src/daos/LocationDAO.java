@@ -11,27 +11,28 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import models.Location;
-
+import models.Region;
 
 /**
  *
  * @author Nine
  */
 public class LocationDAO {
+
     private Connection connection;
-    
+
     public LocationDAO(Connection connection) {
         this.connection = connection;
     }
-    
+
     public List<Location> getAllLocations() {
         List<Location> datas = new ArrayList<>();
         String query = "SELECT * FROM HR.LOCATIONS";//mengambil dari tabel hr.locations
-        try{
-            PreparedStatement preparedStatement =
-                    connection.prepareStatement(query);
+        try {
+            PreparedStatement preparedStatement
+                    = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()){ //perulangan dilakukan selama data location ditemukan
+            while (resultSet.next()) { //perulangan dilakukan selama data location ditemukan
                 Location location = new Location(); //instansiasi Location
                 location.setLocationId(resultSet.getInt("location_id")); //untuk mengambil location_id
                 //job.setJobId(resultSet.getInt(1)); //untuk mengambil region_id
@@ -42,21 +43,20 @@ public class LocationDAO {
                 location.setCountryId(resultSet.getString("country_id")); //untuk mengambil country_id
                 datas.add(location); //penambahan data kedalam list tiap kali data location datemukan
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return datas;
     }
-    
-    
-    public List<Location> getLocationId(int id){
+
+    public List<Location> getLocationId(int id) {
         List<Location> datas = new ArrayList<>();
         String query = "SELECT * FROM HR.LOCATIONS WHERE LOCATION_ID = " + id;//mengambil data id dari tabel hr.location
-        try{
-            PreparedStatement preparedStatement =
-                    connection.prepareStatement(query);
+        try {
+            PreparedStatement preparedStatement
+                    = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()){ //perulangan dilakukan selama data Location ditemukan
+            while (resultSet.next()) { //perulangan dilakukan selama data Location ditemukan
                 Location location = new Location(); //instansiasi Location
                 location.setLocationId(resultSet.getInt("location_id")); //untuk mengambil Location_id
                 //region.setRegionId(resultSet.getInt(1)); //untuk mengambil job_id
@@ -67,10 +67,31 @@ public class LocationDAO {
                 location.setCountryId(resultSet.getString("country_id")); //untuk mengambil country_id
                 datas.add(location); //penambahan data kedalam list tiap kali data location ditemukan
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return datas;
     }
-    
+
+    /**
+     * this is function delete for table locations created by Aji
+     *
+     * @param id
+     * @return true if the query success executed
+     */
+    public boolean deleteLocations(int id) {
+        boolean result = false;
+        String query = "DELETE FROM locations where location_id =" + id;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.execute();
+            result = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+
 }
+    

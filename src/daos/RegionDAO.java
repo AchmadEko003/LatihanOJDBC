@@ -119,7 +119,20 @@ public class RegionDAO {
         }
         return result;
     }
-    //delete
-    
+    //delete 
+    public boolean deleteRegion(int id){
+        boolean result = false;
+        String query ="DELETE FROM REGIONS where region_id =" + id;        
+        try {
+            PreparedStatement preparedStatement = connection.prepareCall(query);
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+            result = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
     
 }

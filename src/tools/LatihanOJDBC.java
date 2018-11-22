@@ -5,10 +5,14 @@
  */
 package tools;
 
+import daos.CountryDAO;
+import daos.DepartmentDAO;
 import daos.EmployeeDAO;
 import daos.JobDAO;
 import daos.LocationDAO;
 import daos.RegionDAO;
+import model.Country;
+import model.Department;
 import models.Employee;
 import models.Job;
 import models.Location;
@@ -29,11 +33,13 @@ public class LatihanOJDBC {
 //        System.out.println("koneksi : "
 //                +connections.getConnection());
         
-//        RegionDAO rdao = new RegionDAO(connections.getConnection());
+        RegionDAO rdao = new RegionDAO(connections.getConnection());
         JobDAO jdao = new JobDAO(connections.getConnection());
         LocationDAO ldao = new LocationDAO(connections.getConnection());
         EmployeeDAO edao = new EmployeeDAO(connections.getConnection());
-        //// JOBS getById
+        DepartmentDAO ddao = new DepartmentDAO(connections.getConnection());
+        
+//// JOBS getById
           System.out.println(jdao.getAllJobs().size());
         //untuk mendapatkan data job berdasarkan ID
           for(Job allJob : jdao.getJobId("AD_VP")){
@@ -69,6 +75,98 @@ public class LatihanOJDBC {
                       + " Manager ID " + allEmployee.getManagerId() +"\n"
                       + " Department ID" + allEmployee.getDepartmentId());
     }
+
+          for (Department department : ddao.getById(90)) {
+              System.out.println(department.getDepartmentName());
+
+        }
+        /**
+         * Untuk ngecek search Country berdasarkan ID
+         */
+        CountryDAO cdao = new CountryDAO(connections.getConnection());
+        for (Country country : cdao.getById("AR")) {
+            System.out.println(country.getCountryName());
+
+        }
+        
+        /**
+         * insert region
+         */
+        Region region = new Region(8, "Palembang");
+        System.out.println(rdao.insertRegion(region));
+        
+        /**
+         * insert country
+         */
+        Country country = new Country("ID", "Indonesia", 5);
+        System.out.println(cdao.insertCountry(country));
+        
+        /**
+         * insert department
+         */
+        Department department = new Department(300, "JR Programmer", 200, 1800);
+        System.out.println(ddao.insertDepartment(department));
+        
+        //Region region = new Region(13, "Ekoeksis");
+        //System.out.println(rdao.deleteRegion(13));
+//        for(Region allregion : rdao.getAllRegions()){
+//            System.out.println(allregion.getRegionId()+" - "
+//            + allregion.getRegionName());
+//        }
+
+//        for(Region allregion : rdao.getByID(4)){
+//            System.out.println(allregion.getRegionId()+" - "
+//            + allregion.getRegionName());
+//        }
+        
+
+        for (Region allRegion : rdao.getAllRegions()) {
+            System.out.println(allRegion.getRegionId() + " - " + allRegion.getRegionName());
+        }        
+
+        for (Department allDepartment : ddao.getAllDepartments()) {
+            System.out.println(allDepartment.getDepartmentId() + " - " + allDepartment.getDepartmentName()
+                    + " - " + allDepartment.getManagerId() + " - " + allDepartment.getLocationId());
+        }
+        
+        for (Country allCountry : cdao.getAllCountries()) {
+            System.out.println(allCountry.getCountryId() + " - " + allCountry.getCountryName() 
+                    + " - " + allCountry.getRegionId());
+        }
+        
+        for (Region allRegion : rdao.getAllRegions()) {
+            System.out.println(allRegion.getRegionId() + " - " + allRegion.getRegionName());
+        }
+
+        for (Department allDepartment : ddao.getAllDepartments()) {
+            System.out.println(allDepartment.getDepartmentId() + " - " + allDepartment.getDepartmentName()
+                    + " - " + allDepartment.getManagerId() + " - " + allDepartment.getLocationId());
+        }
+
+        for (Country allCountry : cdao.getAllCountries()) {
+            System.out.println(allCountry.getCountryId() + " - " + allCountry.getCountryName()
+                    + " - " + allCountry.getRegionId());
+        }
+        /**
+         * memanggil data dari table departments fungsi search
+         */
+        System.out.println("==========================");
+        // Object data = "s";
+        for (Department alldeDepartment : ddao.search("s")) {
+            System.out.println(alldeDepartment.getDepartmentId() + " - "
+                    + alldeDepartment.getDepartmentName() + " - " + alldeDepartment.getManagerId() + " - " + alldeDepartment.getLocationId());
+        }
+
+        /**
+         * memanggil data dari table country fungsi search
+         */
+        System.out.println("==========================");
+        // Object data = "s";
+        for (Country allcountry : cdao.search("s")) {
+            System.out.println(allcountry.getCountryName() + " - "
+                    + allcountry.getCountryName() + " - " + allcountry.getRegionId());
+        }
+    }
         
 //        System.out.println(rdao.getAllRegions().size());
 //        
@@ -102,5 +200,5 @@ public class LatihanOJDBC {
 //        }
 ////          Delete
           
-    }
+    
 }

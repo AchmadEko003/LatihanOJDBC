@@ -23,6 +23,10 @@ public class JobDAO {
         this.connection = connection;
     }
     
+    /**
+ *
+ * @author Nitani
+ */
     public List<Job> getAllJobs() {
         List<Job> datas = new ArrayList<>();
         String query = "SELECT * FROM HR.JOBS";//mengambil dari tabel hr.jobs
@@ -66,6 +70,24 @@ public class JobDAO {
             e.printStackTrace();
         }
         return datas;
+    }
+    
+    /**
+     * this is function delete for table Jobs created by Aji.
+     * @param id
+     * @return true if the query is succes executed.
+     */
+    public boolean deleteJobs(String id) {
+        boolean result = false;
+        String query = "DELETE FROM JOBS where job_id = '" + id + "'";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.execute();
+            result = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
 }

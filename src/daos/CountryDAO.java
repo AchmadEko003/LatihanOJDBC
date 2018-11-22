@@ -122,4 +122,25 @@ public class CountryDAO {
         }
         return result;
     }
+    
+    /**
+     * insert country
+     * @param country
+     * @return 
+     */
+    public boolean insertCountry(Country country){
+        boolean result = false;
+        String query ="INSERT INTO countries VALUES (?,?,?)";        
+        try {
+            PreparedStatement preparedStatement = connection.prepareCall(query);
+            preparedStatement.setString(1, country.getCountryId());
+            preparedStatement.setString(2, country.getCountryName());
+            preparedStatement.setInt(3, country.getRegionId());
+            preparedStatement.executeUpdate();
+            result = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 }

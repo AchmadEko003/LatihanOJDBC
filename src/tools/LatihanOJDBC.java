@@ -58,6 +58,25 @@ public class LatihanOJDBC {
             System.out.println(country.getCountryName());
 
         }
+        
+        /**
+         * insert region
+         */
+        Region region = new Region(8, "Palembang");
+        System.out.println(rdao.insertRegion(region));
+        
+        /**
+         * insert country
+         */
+        Country country = new Country("ID", "Indonesia", 5);
+        System.out.println(cdao.insertCountry(country));
+        
+        /**
+         * insert department
+         */
+        Department department = new Department(300, "JR Programmer", 200, 1800);
+        System.out.println(ddao.insertDepartment(department));
+        
         //Region region = new Region(13, "Ekoeksis");
         //System.out.println(rdao.deleteRegion(13));
 //        for(Region allregion : rdao.getAllRegions()){

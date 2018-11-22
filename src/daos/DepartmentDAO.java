@@ -124,5 +124,26 @@ public class DepartmentDAO {
         }
         return result;
     }
-
+    
+    /**
+     * insert department
+     * @param department
+     * @return 
+     */
+    public boolean insertDepartment(Department department){
+        boolean result = false;
+        String query ="INSERT INTO department VALUES (?,?,?,?)";        
+        try {
+            PreparedStatement preparedStatement = connection.prepareCall(query);
+            preparedStatement.setInt(1, department.getDepartmentId());
+            preparedStatement.setString(2, department.getDepartmentName());
+            preparedStatement.setInt(3, department.getManagerId());
+            preparedStatement.setInt(4, department.getLocationId());
+            preparedStatement.executeUpdate();
+            result = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 }

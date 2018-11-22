@@ -13,6 +13,16 @@ public class Country {
     private String countryId;
     private String countryName;
     private int regionId;
+    
+    public Country() {
+        
+    }
+
+    public Country(String countryId, String countryName, int regionId) {
+        this.countryId = countryId;
+        this.countryName = countryName;
+        this.regionId = regionId;
+    }
 
     /**
      * @return the countryId

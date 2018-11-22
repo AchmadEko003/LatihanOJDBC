@@ -101,7 +101,7 @@ public class RegionDAO {
         String query = "DELETE FROM REGIONS where region_id =" + id;
         try {
             PreparedStatement preparedStatement = connection.prepareCall(query);
-            preparedStatement.setInt(1, id);
+            preparedStatement.setInt(0, id);
             preparedStatement.executeUpdate();
             result = true;
         } catch (Exception e) {

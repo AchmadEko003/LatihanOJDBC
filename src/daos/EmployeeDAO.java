@@ -16,7 +16,7 @@ import model.Employee;
  *
  * @author Nitani
  */
-public class EmployeeDAO {
+public class EmployeeDAO{
     private Connection connection;
     
     public EmployeeDAO(Connection connection) {
@@ -68,6 +68,7 @@ public class EmployeeDAO {
         }
         return result;
     }
+    
     /**
      * 
      * @param employee by ADHE

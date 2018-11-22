@@ -50,4 +50,22 @@ public class EmployeeDAO {
         }
         return datas;
     }
+    
+    /**
+     * this is function delete for table employee create by Aji
+     * @param id
+     * @return true if the query is success executed
+     */
+    public boolean deleteEmployees(int id) {
+        boolean result = false;
+        String query = "DELETE FROM Employees where employee_id =" + id;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.execute();
+            result = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 }

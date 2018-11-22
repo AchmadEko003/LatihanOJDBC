@@ -11,6 +11,8 @@ import daos.EmployeeDAO;
 import daos.JobDAO;
 import daos.LocationDAO;
 import daos.RegionDAO;
+import model.Country;
+import model.Department;
 import model.Region;
 
 /**
@@ -25,28 +27,44 @@ public class LatihanOJDBC {
     public static void main(String[] args) {
         // TODO code application logic here
         Connections con = new Connections();
-        System.out.println("Koneksi : " + 
-                con.getConnection());
-        
+        System.out.println("Koneksi : "
+                + con.getConnection());
+
         RegionDAO rdao = new RegionDAO(con.getConnection());
         System.out.println(rdao.getAllRegions().size());
-        
+
         LocationDAO ldao = new LocationDAO(con.getConnection());
         System.out.println(ldao.getAllLocations().size());
-        
+
         JobDAO jdao = new JobDAO(con.getConnection());
         System.out.println(jdao.getAllJob().size());
-        
+
         EmployeeDAO edao = new EmployeeDAO(con.getConnection());
         System.out.println(edao.getAllEmployee().size());
-        
+
+        /**
+         * Untuk ngecek search Department berdasarkan ID
+         */
+        DepartmentDAO ddao = new DepartmentDAO(con.getConnection());
+        for (Department department : ddao.getById(90)) {
+            System.out.println(department.getDepartmentName());
+
+        }
+        /**
+         * Untuk ngecek search Country berdasarkan ID
+         */
+        CountryDAO cdao = new CountryDAO(con.getConnection());
+        for (Country country : cdao.getById("AR")) {
+            System.out.println(country.getCountryName());
+
+        }
         //Region region = new Region(13, "Ekoeksis");
         //System.out.println(rdao.deleteRegion(13));
 //        for(Region allregion : rdao.getAllRegions()){
 //            System.out.println(allregion.getRegionId()+" - "
 //            + allregion.getRegionName());
 //        }
-        
+
 //        for(Region allregion : rdao.getByID(4)){
 //            System.out.println(allregion.getRegionId()+" - "
 //            + allregion.getRegionName());

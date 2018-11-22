@@ -17,5 +17,37 @@ import model.Country;
  * @author Nitani
  */
 public class CountryDAO {
-    
+
+    private Connection connection;
+
+    public CountryDAO(Connection connection) {
+        this.connection = connection;
+    }
+
+    public CountryDAO() {
+    }
+
+    /**
+     *
+     * @param countryId
+     * @return mencari Country berdasarkan country_id
+     */
+    public List<Country> getById(String countryId) {
+        List<Country> datac = new ArrayList<>();
+        String query = "SELECT * FROM COUNTRIES WHERE COUNTRY_ID = '" + countryId + "'";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Country country = new Country();
+                country.setCountryId(resultSet.getString("COUNTRY_ID"));
+                country.setCountryName(resultSet.getString("COUNTRY_NAME"));
+                country.setRegionId(resultSet.getInt("REGION_ID"));
+                datac.add(country);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return datac;
+    }
 }

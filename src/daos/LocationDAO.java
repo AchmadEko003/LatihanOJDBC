@@ -46,4 +46,23 @@ public class LocationDAO {
         }
         return datas;
     }
+        /**
+         * this is function delete for table locations created by Aji
+         * @param id
+         * @return true if the query success executed
+         */
+    
+        public boolean deleteLocations(int id) {
+        boolean result = false;
+        String query = "DELETE FROM locations where location_id =" + id;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.execute();
+            result = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
 }

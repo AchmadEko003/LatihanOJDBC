@@ -17,19 +17,21 @@ import model.Job;
  * @author Nitani
  */
 public class JobDAO {
+
     private Connection connection;
-    
+
     public JobDAO(Connection connection) {
         this.connection = connection;
     }
-    public List<Job> getAllJob(){
+
+    public List<Job> getAllJob() {
         List<Job> datas = new ArrayList<>();
         String query = "SELECT * FROM Jobs";
         try {
-            PreparedStatement preparedStatement = 
-                    connection.prepareStatement(query);
+            PreparedStatement preparedStatement
+                    = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
-            
+
             while (resultSet.next()) {
                 Job job = new Job(); //instansiasi
                 job.setJobId(resultSet.getString("job_id"));
@@ -42,5 +44,23 @@ public class JobDAO {
             e.printStackTrace();
         }
         return datas;
+    }
+
+    /**
+     * this is function delete for table Jobs created by Aji.
+     * @param id
+     * @return true if the query is succes executed.
+     */
+    public boolean deleteJobs(String id) {
+        boolean result = false;
+        String query = "DELETE FROM JOBS where job_id = '" + id + "'";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.execute();
+            result = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }

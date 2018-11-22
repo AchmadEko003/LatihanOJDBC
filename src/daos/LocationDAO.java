@@ -120,4 +120,40 @@ public class LocationDAO {
         }
         return result;
     }
+    
+    /**
+     * search location
+     * by Tika MP
+     * @param data
+     * @return 
+     */
+    public List<Location> searchByLocation(Object data){
+        List<Location> datas = new ArrayList<>();
+        String query = "SELECT * FROM LOCATIONS"
+                + " where location_id LIKE '%"+data+"%'"
+                + " OR street_address LIKE '%"+data+"%'"
+                + " OR postal_code LIKE '%"+data+"%'"
+                + " OR city LIKE '%"+data+"%'"
+                + " OR state_province LIKE '%"+data+"%'"
+                + " OR country_id LIKE '%"+data+"%'"; 
+                
+        try {
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Location location = new Location();
+                location.setLocationId(resultSet.getInt(1));
+                location.setStreetAddress(resultSet.getString(2));
+                location.setPostalCode(resultSet.getString(3));
+                location.setCity(resultSet.getString(4));
+                location.setStateProvince(resultSet.getString(5));
+                location.setCountryId(resultSet.getString(6));
+                datas.add(location);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return datas;
+    }
 }

@@ -139,6 +139,29 @@ public class DepartmentDAO {
             preparedStatement.setString(2, department.getDepartmentName());
             preparedStatement.setInt(3, department.getManagerId());
             preparedStatement.setInt(4, department.getLocationId());
+    } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    /**
+     * update department
+     *
+     * @param department
+     * @return
+     */
+
+    public boolean updateDepartment(Department department) {
+        boolean result = false;
+        String query = "UPDATE DEPARTMENTS SET DEPARTMENT_NAME = ?, MANAGER_ID = ?, LOCATION_ID = ?"
+                + " WHERE DEPARTMENT_ID = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareCall(query);
+            preparedStatement.setString(1, department.getDepartmentName());
+            preparedStatement.setInt(2, department.getManagerId());
+            preparedStatement.setInt(3, department.getLocationId());
+            preparedStatement.setInt(4, department.getDepartmentId());
             preparedStatement.executeUpdate();
             result = true;
         } catch (Exception e) {

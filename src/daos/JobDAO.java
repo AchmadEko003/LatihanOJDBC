@@ -89,5 +89,26 @@ public class JobDAO {
         }
         return result;
     }
-
+    /**
+     * 
+     * @param job by ADHE
+     * @return 
+     */
+     public boolean updateJob(Job job){
+        boolean result = false;
+        String query ="UPDATE JOBS SET job_title=?, min_salary=?,"
+                + " max_salary=? where job_id = ?";        
+        try {
+            PreparedStatement preparedStatement = connection.prepareCall(query);            
+            preparedStatement.setString(1, job.getJobTitle());
+            preparedStatement.setInt(2, job.getMinSalary());
+            preparedStatement.setInt(3, job.getMaxSalary());
+            preparedStatement.setString(4, job.getJobId());
+            preparedStatement.executeUpdate();   
+            result = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 }

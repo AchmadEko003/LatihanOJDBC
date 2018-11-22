@@ -48,7 +48,10 @@ public class LocationDAO {
         }
         return datas;
     }
-
+/**
+ *getById
+ * @author Nine
+ */
     public List<Location> getLocationId(int id) {
         List<Location> datas = new ArrayList<>();
         String query = "SELECT * FROM HR.LOCATIONS WHERE LOCATION_ID = " + id;//mengambil data id dari tabel hr.location
@@ -93,5 +96,28 @@ public class LocationDAO {
     }
 
 
+    /**
+     *
+     * @param location by ADHE
+     * @return
+     */
+    public boolean updateLoc(Location location) {
+        boolean result = false;
+        String query = "UPDATE LOCATIONS SET street_address=?, postal_code=?,"
+                + " city=?, state_province=?, country_id=? where location_id = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareCall(query);
+            preparedStatement.setString(1, location.getStreetAddress());
+            preparedStatement.setString(2, location.getPostalCode());
+            preparedStatement.setString(3, location.getCity());
+            preparedStatement.setString(4, location.getStateProvince());
+            preparedStatement.setString(5, location.getCountryId());
+            preparedStatement.setInt(6, location.getLocationId());
+            preparedStatement.executeUpdate();
+            result = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 }
-    

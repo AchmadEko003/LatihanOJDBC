@@ -28,6 +28,30 @@ public class CountryDAO {
     }
 
     /**
+     * 
+     * @return mengambil semua values dari tabel Countries
+     */
+    public List<Country> getAllCountries(){
+        List<Country> datas = new ArrayList<>();
+        String query = "SELECT * FROM COUNTRIES";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {                
+                Country countries = new Country();
+                countries.setCountryId(resultSet.getString("country_id"));
+                countries.setCountryName(resultSet.getString("country_name"));
+                countries.setRegionId(resultSet.getInt("region_id"));
+                datas.add(countries);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return datas;
+    }
+    
+    /**
      *
      * @param countryId
      * @return mencari Country berdasarkan country_id

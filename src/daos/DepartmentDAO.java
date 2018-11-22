@@ -27,6 +27,30 @@ public class DepartmentDAO {
         this.connection = connection;
     }
     /**
+     * @param department
+     * @return mengambil semua values dari tabel Departments
+     */
+    public List<Department> getAllDepartments() {
+        List<Department> datas = new ArrayList<>();
+        String query = "SELECT * FROM DEPARTMENTS";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery(); //kalau banyak data menggunakan ini
+            while (resultSet.next()) {                
+                Department department = new Department();
+                department.setDepartmentId(resultSet.getInt("department_id"));
+                department.setDepartmentName(resultSet.getString("department_name"));
+                department.setManagerId(resultSet.getInt("manager_id"));
+                department.setLocationId(resultSet.getInt("location_id"));
+                datas.add(department);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return datas;
+    }
+    
+    /**
      * 
      * @param departmentId
      * @return Mencari Department berdasarkan department_id

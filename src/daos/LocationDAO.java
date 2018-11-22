@@ -18,19 +18,21 @@ import model.Region;
  * @author Nitani
  */
 public class LocationDAO {
+
     private Connection connection;
-    
+
     public LocationDAO(Connection connection) {
         this.connection = connection;
     }
-    public List<Location> getAllLocations(){
+
+    public List<Location> getAllLocations() {
         List<Location> datas = new ArrayList<>();
         String query = "SELECT * FROM Locations";
         try {
-            PreparedStatement preparedStatement = 
-                    connection.prepareStatement(query);
+            PreparedStatement preparedStatement
+                    = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
-            
+
             while (resultSet.next()) {
                 Location location = new Location(); //instansiasi
                 location.setLocationId(resultSet.getInt("location_id"));
@@ -46,13 +48,15 @@ public class LocationDAO {
         }
         return datas;
     }
-        /**
-         * this is function delete for table locations created by Aji
-         * @param id
-         * @return true if the query success executed
-         */
-    
-        public boolean deleteLocations(int id) {
+
+    /**
+     * this is function delete for table locations created by Aji
+     *
+     * @param id
+     * @return true if the query success executed
+     */
+
+    public boolean deleteLocations(int id) {
         boolean result = false;
         String query = "DELETE FROM locations where location_id =" + id;
         try {
@@ -65,4 +69,28 @@ public class LocationDAO {
         return result;
     }
 
+    /**
+     *
+     * @param location by ADHE
+     * @return
+     */
+    public boolean updateLoc(Location location) {
+        boolean result = false;
+        String query = "UPDATE LOCATIONS SET street_address=?, postal_code=?,"
+                + " city=?, state_province=?, country_id=? where location_id = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareCall(query);
+            preparedStatement.setString(1, location.getStreetAddress());
+            preparedStatement.setString(2, location.getPostalCode());
+            preparedStatement.setString(3, location.getCity());
+            preparedStatement.setString(4, location.getStateProvince());
+            preparedStatement.setString(5, location.getCountryId());
+            preparedStatement.setInt(6, location.getLocationId());
+            preparedStatement.executeUpdate();
+            result = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 }

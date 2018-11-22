@@ -68,4 +68,35 @@ public class EmployeeDAO {
         }
         return result;
     }
+    /**
+     * 
+     * @param employee by ADHE
+     * @return 
+     */
+    public boolean updateEmployee(Employee employee){
+        boolean result = false;
+        String query ="UPDATE EMPLOYEES SET first_name=?, last_name=?,"
+                + " email=?, phone_number=?, hire_date=?, job_id=?,"
+                + "salary=?, commission_pct=?, manager_id=?, department_id=? where employee_id = ?";        
+        try {
+            PreparedStatement preparedStatement = connection.prepareCall(query);            
+            preparedStatement.setString(1, employee.getFirstName());
+            preparedStatement.setString(2, employee.getLastName());
+            preparedStatement.setString(3, employee.getEmail());
+            preparedStatement.setString(4, employee.getPhoneNumber());
+            preparedStatement.setDate(5, (employee.getHireDate()));
+            preparedStatement.setString(6, employee.getJobId());
+            preparedStatement.setInt(7, employee.getSalary());
+            preparedStatement.setInt(8, employee.getCommisionPct());
+            preparedStatement.setInt(9, employee.getManagerId());
+            preparedStatement.setInt(10, employee.getDepartmentId());
+            preparedStatement.setInt(11, employee.getEmployeeId());
+            
+            preparedStatement.executeUpdate();   
+            result = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 }

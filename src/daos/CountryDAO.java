@@ -57,7 +57,7 @@ public class CountryDAO {
      * @return mencari Country berdasarkan country_id
      */
     public List<Country> getById(String countryId) {
-        List<Country> datac = new ArrayList<>();
+        List<Country> datas = new ArrayList<>();
         String query = "SELECT * FROM COUNTRIES WHERE COUNTRY_ID = '" + countryId + "'";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -67,13 +67,14 @@ public class CountryDAO {
                 country.setCountryId(resultSet.getString("COUNTRY_ID"));
                 country.setCountryName(resultSet.getString("COUNTRY_NAME"));
                 country.setRegionId(resultSet.getInt("REGION_ID"));
-                datac.add(country);
+                datas.add(country);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return datac;
+        return datas;
     }
+
     /**
      * 
      * @param data

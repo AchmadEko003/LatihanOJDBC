@@ -57,7 +57,7 @@ public class DepartmentDAO {
      * @return Mencari Department berdasarkan department_id
      */
     public List<Department> getById(int departmentId) {
-        List<Department> dataId = new ArrayList<>();
+        List<Department> data = new ArrayList<>();
         String query = "SELECT * FROM DEPARTMENTS WHERE DEPARTMENT_ID = " + departmentId;
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -68,12 +68,12 @@ public class DepartmentDAO {
                 depart.setDepartmentName(resultSet.getString("DEPARTMENT_NAME"));
                 depart.setManagerId(resultSet.getInt("MANAGER_ID"));
                 depart.setLocationId(resultSet.getInt("LOCATION_ID"));
-                dataId.add(depart);
+                data.add(depart);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return dataId;
+        return data;
     }
 
     /**
@@ -104,6 +104,7 @@ public class DepartmentDAO {
             e.printStackTrace();
         }
         return datas;
+   
     }
 
 }

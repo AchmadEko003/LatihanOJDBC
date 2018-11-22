@@ -69,6 +69,22 @@ public class LatihanOJDBC {
 //            System.out.println(allregion.getRegionId()+" - "
 //            + allregion.getRegionName());
 //        }
+        
+
+        for (Region allRegion : rdao.getAllRegions()) {
+            System.out.println(allRegion.getRegionId() + " - " + allRegion.getRegionName());
+        }        
+
+        for (Department allDepartment : ddao.getAllDepartments()) {
+            System.out.println(allDepartment.getDepartmentId() + " - " + allDepartment.getDepartmentName()
+                    + " - " + allDepartment.getManagerId() + " - " + allDepartment.getLocationId());
+        }
+        
+        for (Country allCountry : cdao.getAllCountries()) {
+            System.out.println(allCountry.getCountryId() + " - " + allCountry.getCountryName() 
+                    + " - " + allCountry.getRegionId());
+        }
+        
         for (Region allRegion : rdao.getAllRegions()) {
             System.out.println(allRegion.getRegionId() + " - " + allRegion.getRegionName());
         }

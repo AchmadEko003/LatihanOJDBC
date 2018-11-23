@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import model.Employee;
 import model.Region;
 
 /**
@@ -125,4 +126,5 @@ public class RegionDAO {
         }
         return result;
     }
+
 }

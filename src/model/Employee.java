@@ -13,17 +13,50 @@ import java.util.Date;
  * @author Nitani
  */
 public class Employee {
+
     private int employeeId;
     private String firstName;
     private String lastName;
     private String email;
     private String phoneNumber;
-    private Date hireDate;
+    //private Date hireDate;
+    private String hireDate;
     private String jobId;
     private int salary;
-    private int commisionPct;
+    private double commisionPct;
     private int managerId;
     private int departmentId;
+
+    public Employee() {
+    }
+
+    public Employee(int employeeId, String firstName, String lastName, String email, String phoneNumber, Date hireDate, String jobId, int salary, double commisionPct, int managerId, int departmentId) {
+        this.employeeId = employeeId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        //this.hireDate = hireDate;
+        this.jobId = jobId;
+        this.salary = salary;
+        this.commisionPct = commisionPct;
+        this.managerId = managerId;
+        this.departmentId = departmentId;
+    }
+
+    public Employee(String firstName, String lastName, String email, String phoneNumber, String hireDate, String jobId, int salary, double commisionPct, int managerId, int departmentId, int employeeId) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.hireDate = hireDate;
+        this.jobId = jobId;
+        this.salary = salary;
+        this.commisionPct = commisionPct;
+        this.managerId = managerId;
+        this.departmentId = departmentId;
+        this.employeeId = employeeId;
+    }
 
     /**
      * @return the employeeId
@@ -108,15 +141,15 @@ public class Employee {
     /**
      * @return the hireDate
      */
-    public Date getHireDate() {
+    public String getHireDate() {
         return hireDate;
     }
 
     /**
      * @param hireDate the hireDate to set
      */
-    public void setHireDate(Date hireDate) {
-        java.util.Date oldHireDate = this.hireDate;
+    public void setHireDate(String hireDate) {
+        String oldHireDate = this.hireDate;
         this.hireDate = hireDate;
         propertyChangeSupport.firePropertyChange(PROP_HIREDATE, oldHireDate, hireDate);
     }
@@ -156,15 +189,15 @@ public class Employee {
     /**
      * @return the commisionPct
      */
-    public int getCommisionPct() {
+    public double getCommisionPct() {
         return commisionPct;
     }
 
     /**
      * @param commisionPct the commisionPct to set
      */
-    public void setCommisionPct(int commisionPct) {
-        int oldCommisionPct = this.commisionPct;
+    public void setCommisionPct(double commisionPct) {
+        double oldCommisionPct = this.commisionPct;
         this.commisionPct = commisionPct;
         propertyChangeSupport.firePropertyChange(PROP_COMMISIONPCT, oldCommisionPct, commisionPct);
     }
@@ -212,6 +245,5 @@ public class Employee {
     public static final String PROP_COMMISIONPCT = "commisionPct";
     public static final String PROP_MANAGERID = "managerId";
     public static final String PROP_DEPARTMENTID = "departmentId";
-    
-    
+
 }

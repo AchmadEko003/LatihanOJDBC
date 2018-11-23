@@ -20,6 +20,7 @@ import model.Employee;
  */
 public class EmployeeDAO {
 
+    
     private Connection connection;
 
     public EmployeeDAO(Connection connection) {
@@ -63,6 +64,34 @@ public class EmployeeDAO {
         return datas;
     }
 
+    public  List<Employee> getEmployeeId(int id){
+        List<Employee> datas = new ArrayList<>();
+        String query = "SELECT * FROM EMPLOYEES WHERE EMPLOYEE_ID= "+id;
+        try {
+            PreparedStatement preparedStatement = 
+                    connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            
+            while (resultSet.next()){
+                Employee employee = new Employee();
+                employee.setEmployeeId(resultSet.getInt(1));
+                employee.setFirstName(resultSet.getString(2));
+                employee.setLastName(resultSet.getString(3));
+                employee.setEmail(resultSet.getString(4));
+                employee.setPhoneNumber(resultSet.getString(5));
+                employee.setHireDate(resultSet.getString(6));
+                employee.setJobId(resultSet.getString(7));
+                employee.setSalary(resultSet.getInt(8));
+                employee.setCommisionPct(resultSet.getInt(9));
+                employee.setManagerId(resultSet.getInt(10));
+                employee.setDepartmentId(resultSet.getInt(11));
+                datas.add(employee);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return datas;
+    }
     /**
      * this is function delete for table employee create by Aji
      *
@@ -160,5 +189,34 @@ public class EmployeeDAO {
             e.printStackTrace();
         }
         return datas;
+    }
+    
+    
+    public boolean insertEmployee(Employee employee){
+        boolean result = false;
+        String query = "INSERT INTO EMPLOYEES (employee_id, first_name, last_name,"
+                + " email, phone_number, hire_date, job_id, salary, commission_pct,"
+                + " manager_id, department_id)"
+                + "     VALUES (?,?,?,?,?,to_date(?, 'mm/dd/yy'),?,?,?,?,?)";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, employee.getEmployeeId());
+            preparedStatement.setString(2, employee.getFirstName());
+            preparedStatement.setString(3, employee.getLastName());
+            preparedStatement.setString(4, employee.getEmail());
+            preparedStatement.setString(5, employee.getPhoneNumber());
+            preparedStatement.setString(6, employee.getHireDate());
+            preparedStatement.setString(7, employee.getJobId());
+            preparedStatement.setInt(8, employee.getSalary());
+            preparedStatement.setDouble(9, employee.getCommisionPct());
+            preparedStatement.setInt(10, employee.getManagerId());
+            preparedStatement.setInt(11, employee.getDepartmentId());
+            preparedStatement.executeUpdate();
+            result = true;
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }

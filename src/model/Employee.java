@@ -7,6 +7,7 @@ package model;
 
 import java.beans.PropertyChangeSupport;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -245,5 +246,8 @@ public class Employee {
     public static final String PROP_COMMISIONPCT = "commisionPct";
     public static final String PROP_MANAGERID = "managerId";
     public static final String PROP_DEPARTMENTID = "departmentId";
+
+    
+    
 
 }

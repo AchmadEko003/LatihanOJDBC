@@ -45,7 +45,10 @@ public class EmployeeController {
     public List<Employee> find(Object data) {
         return edao.searchByEmployees(data);
     }
-
+    public  List<Employee> getid(int id){
+        datas =edao.getEmployeeId(id);
+        return datas;
+    }
     public boolean delete(int id) {
         return edao.deleteEmployees(id);
     }
@@ -75,5 +78,14 @@ public class EmployeeController {
         Employee employee = new Employee(empFN, empLN, email, phoneNum, hireNum, jobId, sal, comm, managerId, departmentId, managerId);
         return edao.updateEmployee(employee);
     }
+    
+    public boolean insertt(Employee employee){
+        boolean result = false;
+        result = edao.insertEmployee(employee);
+        return result;
+    }
 
+    
 }
+    
+    

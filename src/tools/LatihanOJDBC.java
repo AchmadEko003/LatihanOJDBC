@@ -80,9 +80,9 @@ public class LatihanOJDBC {
 //        Department department = new Department(300, "JR Programmer", 200, 1800);
 //        System.out.println(ddao.insertDepartment(department));
         
-        Employee employee = new Employee(199, "JR Programmer", "JR Programmer", "JR Programmer");
-        System.out.println(edao.updateEmployee(employee));
-        
+//        Employee employee = new Employee(199, "JR Programmer", "JR Programmer", "JR Programmer");
+//        System.out.println(edao.updateEmployee(employee));
+//        
         //Region region = new Region(13, "Ekoeksis");
         //System.out.println(rdao.deleteRegion(13));
 //        for(Region allregion : rdao.getAllRegions()){

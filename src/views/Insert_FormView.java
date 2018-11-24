@@ -267,7 +267,7 @@ public class Insert_FormView extends javax.swing.JFrame {
                     !jobid.equals("") && !salary.equals("") && 
                     !commissionpct.equals("") && !managerid.equals("") && 
                     !departmentid.equals("")){
-                if(emp.insertt(employeeid, firstname, 
+                if(emp.insert(employeeid, firstname, 
                         lastname, email,
                         phonenumber, 
                         hiredate, jobid, 

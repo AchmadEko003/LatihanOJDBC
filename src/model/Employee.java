@@ -59,6 +59,21 @@ public class Employee {
         this.employeeId = employeeId;
     }
 
+    public Employee(int empid, String empFName, String empLName, String empMail, String empPhone, String empHireDate, String empJobId,
+                    int empSal, double empCom, int empmanager, int empdepartment) {
+        this.employeeId= empid;
+        this.firstName = empFName;
+        this.lastName = empLName;
+        this.email = empMail;
+        this.phoneNumber = empPhone;
+        this.hireDate = empHireDate;
+        this.jobId = empJobId;
+        this.salary = empSal;
+        this.commisionPct = empCom;
+        this.managerId= empmanager;
+        this.departmentId = empdepartment;
+    }
+
     /**
      * @return the employeeId
      */
@@ -234,6 +249,9 @@ public class Employee {
         this.departmentId = departmentId;
         propertyChangeSupport.firePropertyChange(PROP_DEPARTMENTID, oldDepartmentId, departmentId);
     }
+   /**
+    * ?????
+    */
     private final transient PropertyChangeSupport propertyChangeSupport = new java.beans.PropertyChangeSupport(this);
     public static final String PROP_EMPLOYEEID = "employeeId";
     public static final String PROP_FIRSTNAME = "firstName";

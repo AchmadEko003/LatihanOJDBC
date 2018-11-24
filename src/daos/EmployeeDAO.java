@@ -20,7 +20,10 @@ import model.Employee;
  */
 public class EmployeeDAO {
 
-    
+    /**
+     * public EmployeeDAO(Connection connection) --> database
+     * private static java.sql.Timestamp getCurrentTimeStamp()---------->????
+     */
     private Connection connection;
 
     public EmployeeDAO(Connection connection) {
@@ -33,6 +36,11 @@ public class EmployeeDAO {
         return new java.sql.Timestamp(today.getTime());
 
     }
+    
+    /**
+     * public List<Employee> getAllEmployee()----->menampilkan semua data ditabel
+     * @return 
+     */
 
     public List<Employee> getAllEmployee() {
         
@@ -63,7 +71,11 @@ public class EmployeeDAO {
         }
         return datas;
     }
-
+    /**
+     * public  List<Employee> getEmployeeId(int id)------->ambil berdasarkan ID
+     * @param id
+     * @return 
+     */
     public  List<Employee> getEmployeeId(int id){
         List<Employee> datas = new ArrayList<>();
         String query = "SELECT * FROM EMPLOYEES WHERE EMPLOYEE_ID= "+id;
@@ -94,7 +106,7 @@ public class EmployeeDAO {
     }
     /**
      * this is function delete for table employee create by Aji
-     *
+     * public boolean deleteEmployees(int id)-----> delete berdasarkan id;
      * @param id
      * @return true if the query is success executed
      */
@@ -112,7 +124,7 @@ public class EmployeeDAO {
     }
 
     /**
-     *
+     * public boolean updateEmployee(Employee employee)--->update
      * @param employee by ADHE
      * @return
      */
@@ -147,7 +159,7 @@ public class EmployeeDAO {
 
     /**
      * function search by Tika MP
-     *
+     * public List<Employee> searchByEmployees(Object data)--->fungsi cari seluruh karakter yang mengandung
      * @param data
      * @return
      */
@@ -191,7 +203,11 @@ public class EmployeeDAO {
         return datas;
     }
     
-    
+    /**
+     * insert employee--->menambah data
+     * @param employee
+     * @return 
+     */
     public boolean insertEmployee(Employee employee){
         boolean result = false;
         String query = "INSERT INTO EMPLOYEES (employee_id, first_name, last_name,"

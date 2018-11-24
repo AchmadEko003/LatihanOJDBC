@@ -18,7 +18,10 @@ import model.Employee;
  * @author Nitani
  */
 public class EmployeeController {
-
+    
+    /*
+    tot buat apa?
+    */
     private Connection connection;
     private EmployeeDAO edao;
     private Employee employee;
@@ -81,6 +84,28 @@ public class EmployeeController {
     
     public boolean insertt(Employee employee){
         boolean result = false;
+        result = edao.insertEmployee(employee);
+        return result;
+    }
+     public boolean insert(String employeeid, String firstname, String lastname, String email, String phonenumber, String hiredate, String jobid, String salary, String commissionpct, String managerid, String departmentid) {
+        boolean result = false;
+        int empid =Integer.valueOf(employeeid);
+        String empFName = firstname;
+        String empLName = lastname;
+        String empMail = email;
+        String empPhone = phonenumber;
+        String empHireDate = hiredate;
+        String empJobId = jobid;
+        int empSal =Integer.valueOf(salary);
+        double empCom =Double.valueOf(commissionpct);
+        int empmanager =Integer.valueOf(managerid);
+        int empdepartment =Integer.valueOf(departmentid);
+        Employee employee = new Employee(empid,empFName,
+                empLName,empMail,
+                empPhone,empHireDate,
+                empJobId,empSal,
+                empCom,empmanager,
+                empdepartment);
         result = edao.insertEmployee(employee);
         return result;
     }

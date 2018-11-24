@@ -412,7 +412,7 @@ public class Getid_Form_View extends javax.swing.JFrame {
                 String isi10 = String. valueOf(employee.getManagerId());
                 String isi11 = String. valueOf(employee.getDepartmentId());
 
-                String kolom[] = {isi1,isi2,isi3,isi4,isi5};
+                String kolom[] = {isi1,isi2,isi3,isi4,isi5,isi6, isi7, isi8, isi9,isi10,isi1};
                 model.addRow(kolom);
             }
         } catch (Exception e) {

@@ -75,9 +75,9 @@ public class RegionController extends javax.swing.JFrame{
      * @param object
      * @return
      */
-    public List<Region> searchByRegion(Object object) {
+    public List<Region> GetById(String regionId) {
         List<Region> result = new ArrayList<>();
-        return rdao.getByID(object);
+        return rdao.getByID(regionId);
     }
 
     /**

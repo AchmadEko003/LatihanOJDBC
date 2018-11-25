@@ -273,12 +273,11 @@ public class FrameRegion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnShowTableActionPerformed
 
     private void btnEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditMouseClicked
-        String regionidInt = String.valueOf(txtRegionId.getText());
-        Integer regionId = Integer.valueOf(regionidInt);
+        String idRegion = txtRegionId.getText();
         String nameRegion = txtRegionName.getText();
 
-        if (!regionidInt.equals("") && !nameRegion.equals("")) {
-            if (rc.update(regionidInt, nameRegion) == true) {
+        if (!idRegion.equals("") && !nameRegion.equals("")) {
+            if (rc.update(idRegion, nameRegion) == true) {
                 JOptionPane.showMessageDialog(null, "Update Region Berhasil");
             } else {
                 JOptionPane.showMessageDialog(null, "Update Region Gagal");
@@ -337,18 +336,18 @@ public class FrameRegion extends javax.swing.JFrame {
 
     private void btnSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseClicked
         // TODO add your handling code here:
-        String regionId = (String) txtRegionId.getText();
-        String regionName = txtRegionName.getText();
+        String regionId = (String) txtSearch.getText();
+        String regionName = txtSearch.getText();
 
         Object[] header = {"Region Id", "Region Name"};
         DefaultTableModel data = new DefaultTableModel(null, header);
         tabelregion.setModel(data);
 
         String object = txtSearch.getText();
-        if (!regionId.equals("") && !regionName.equals("")) {
+        if (regionId.equals("") && regionName.equals("")) {
             JOptionPane.showMessageDialog(null, "Form Cari Harus Terisi!");
-        } else {
-            for (Region region : rc.getAllRegion(data)) {
+        }else{
+            for (Region region : rc.getAllRegion(object)) {
                 String is1 = String.valueOf(region.getRegionId());
                 String is2 = String.valueOf(region.getRegionName());
 
@@ -362,16 +361,15 @@ public class FrameRegion extends javax.swing.JFrame {
      * @param evt 
      */
     private void btnGetByIdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGetByIdMouseClicked
-        String regionId = (String) txtRegionId.getText();
-        String regionName = txtRegionName.getText();
+       String regionId = txtSearch.getText();
 
         Object[] header = {"Region Id", "Region Name"};
         DefaultTableModel data = new DefaultTableModel(null, header);
         tabelregion.setModel(data);
 
         try {
-            String object = txtSearch.getText();
-            for (Region region : rc.getAllRegion(object)) {
+//            String object = txtSearch.getText();
+            for (Region region : rc.getAllRegion(regionId)) {
                 String is1 = String.valueOf(region.getRegionId());
                 String is2 = String.valueOf(region.getRegionName());
 
@@ -381,7 +379,6 @@ public class FrameRegion extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Oops!.." + e.getMessage());
         }
-
     }//GEN-LAST:event_btnGetByIdMouseClicked
     /**
      * Clear From Region

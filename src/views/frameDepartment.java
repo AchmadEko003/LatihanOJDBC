@@ -140,6 +140,11 @@ public class frameDepartment extends javax.swing.JFrame {
                 buttonDeleteMouseClicked(evt);
             }
         });
+        buttonDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonDeleteActionPerformed(evt);
+            }
+        });
 
         buttonSelect.setText("Select");
         buttonSelect.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -169,11 +174,21 @@ public class frameDepartment extends javax.swing.JFrame {
                 buttonSelectIdMouseClicked(evt);
             }
         });
+        buttonSelectId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSelectIdActionPerformed(evt);
+            }
+        });
 
         buttonSearch.setText("Search");
         buttonSearch.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 buttonSearchMouseClicked(evt);
+            }
+        });
+        buttonSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSearchActionPerformed(evt);
             }
         });
 
@@ -220,11 +235,10 @@ public class frameDepartment extends javax.swing.JFrame {
                             .addComponent(labelManagerId)
                             .addComponent(labelLocationId))
                         .addGap(42, 42, 42)
-                        .addGroup(panelDepartmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(panelDepartmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(textDepartmentId)
                             .addComponent(textDepartmentName)
                             .addComponent(comboManagerId, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(comboLocationId, javax.swing.GroupLayout.PREFERRED_SIZE, 598, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(panelDepartmentLayout.createSequentialGroup()
                                 .addGroup(panelDepartmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(panelDepartmentLayout.createSequentialGroup()
@@ -241,12 +255,14 @@ public class frameDepartment extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(textSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(buttonSearch))
+                                        .addComponent(buttonSearch)
+                                        .addGap(0, 0, Short.MAX_VALUE))
                                     .addGroup(panelDepartmentLayout.createSequentialGroup()
                                         .addComponent(buttonDelete)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(buttonReset)))))))
-                .addContainerGap(27, Short.MAX_VALUE))
+                                        .addComponent(buttonReset))))
+                            .addComponent(comboLocationId, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelDepartmentLayout.setVerticalGroup(
             panelDepartmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -267,21 +283,25 @@ public class frameDepartment extends javax.swing.JFrame {
                 .addGroup(panelDepartmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(labelLocationId)
                     .addComponent(comboLocationId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(panelDepartmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonInsert)
-                    .addComponent(buttonUpdate)
-                    .addComponent(buttonDelete)
-                    .addComponent(buttonSelect)
-                    .addComponent(buttonReset))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                .addGroup(panelDepartmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonSearch)
-                    .addComponent(buttonSelectId)
-                    .addComponent(textSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textSelectId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelDepartmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelDepartmentLayout.createSequentialGroup()
+                        .addGroup(panelDepartmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(buttonInsert)
+                            .addComponent(buttonUpdate)
+                            .addComponent(buttonDelete)
+                            .addComponent(buttonSelect))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addGroup(panelDepartmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(buttonSearch)
+                            .addComponent(buttonSelectId)
+                            .addComponent(textSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textSelectId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelDepartmentLayout.createSequentialGroup()
+                        .addComponent(buttonReset)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -391,6 +411,68 @@ public class frameDepartment extends javax.swing.JFrame {
         // TODO add your handling code here:
         panelDepartment.setVisible(false);
     }//GEN-LAST:event_menuDepartmentMouseClicked
+
+    private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteActionPerformed
+        /**
+         * execute delete function with parameter got from textfield values
+         */
+        if(textDepartmentId!=null){
+            if(dc.deleteDepartment(textDepartmentId.getText())==true){
+                JOptionPane.showMessageDialog(null, "Data dengan id = " + textDepartmentId.getText()+" berhasil dihapus");
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Gagal menghapus data!");
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Form input tidak boleh kosong");
+        }
+    }//GEN-LAST:event_buttonDeleteActionPerformed
+
+    private void buttonSelectIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelectIdActionPerformed
+         /**
+         * execute searchDepartment using parameter which got from texfield values
+         */
+        Object[] header = {"Department ID", "Department Name", "Manager ID", "Location ID"};
+        DefaultTableModel data = new DefaultTableModel(null, header);
+        tableDepartment.setModel(data); 
+        try {
+            for (Department department : dc.getById(textSelectId.getText())) {
+                String isi1 = String.valueOf(department.getDepartmentId());
+                String isi2 = department.getDepartmentName();
+                String isi3 = String.valueOf(department.getManagerId());
+                String isi4 = String.valueOf(department.getLocationId());
+
+                String kolom[] = {isi1, isi2, isi3, isi4};
+                data.addRow(kolom);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Oops! : " + e.getMessage());
+        }
+    }//GEN-LAST:event_buttonSelectIdActionPerformed
+
+    private void buttonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSearchActionPerformed
+        /**
+         * execute search input
+         */
+        Object[] header = {"Department ID", "Department Name", "Manager ID", "Location ID"};
+        DefaultTableModel data = new DefaultTableModel(null, header);
+        tableDepartment.setModel(data);
+        
+        try {
+            for (Department department : dc.searchDepartment(textSearch.getText())) {
+                String isi1 = String.valueOf(department.getDepartmentId());
+                String isi2 = department.getDepartmentName();
+                String isi3 = String.valueOf(department.getManagerId());
+                String isi4 = String.valueOf(department.getLocationId());
+
+                String kolom[] = {isi1, isi2, isi3, isi4};
+                data.addRow(kolom);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Oops! : " + e.getMessage());
+        }
+    }//GEN-LAST:event_buttonSearchActionPerformed
 
     /**
      * @param args the command line arguments

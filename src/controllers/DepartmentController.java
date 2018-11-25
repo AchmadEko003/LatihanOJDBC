@@ -29,13 +29,23 @@ public class DepartmentController {
     public DepartmentController() {
         
     }
-    
+    /**
+     * 
+     * @return list all department values
+     */
     public List<Department> selectDepartment() {
         List<Department> result = new ArrayList<>();
         result = ddao.getAllDepartments();
         return result;
     }
-    
+    /**
+     * 
+     * @param departmentId
+     * @param departmentName
+     * @param managerId
+     * @param locationId
+     * @return boolean which is true the insert function success and if false the insert function failed
+     */
     public boolean insertDepartment(String departmentId, String departmentName, String managerId, String locationId) {
         boolean result = false;
         int idDepartment = Integer.parseInt(departmentId);
@@ -45,7 +55,14 @@ public class DepartmentController {
         result = ddao.insertDepartment(department);
         return result;
     }
-    
+    /**
+     * 
+     * @param departmentName
+     * @param managerId
+     * @param locationId
+     * @param departmentId
+     * @return boolean which is true the update function success executed and if false the update function fail
+     */
     public boolean updateDepartment(String departmentName, String managerId, String locationId, String departmentId) {
         boolean result = false;
         int idManager    = Integer.parseInt(managerId);
@@ -66,5 +83,32 @@ public class DepartmentController {
         List<Location> result = new ArrayList<>();
         result = ddao.selectLocationId();
         return result;
+    }
+    /**
+     * 
+     * @param departmentId the id of department
+     * @return list of department id values which the id equal with parameter
+     */
+    public List<Department> getById(String departmentId) {
+        return ddao.getById(Integer.parseInt(departmentId));
+    }
+    /**
+     * 
+     * @param departmentId
+     * @return boolean which is true the delete function success and if false delete function failed
+     */
+    public boolean deleteDepartment(String departmentId) {
+        boolean result = false;
+        Department department = new Department(Integer.parseInt(departmentId));
+        result = ddao.deleteDepartment(department);
+        return result;
+    }
+    /**
+     * 
+     * @param obj object which is the id or name of department
+     * @return list of department which the values same as the parameter
+     */
+    public List<Department> searchDepartment(Object obj){
+        return ddao.search(obj);
     }
 }

@@ -134,4 +134,67 @@ public class DepartmentDAO {
         }
         return data;
     }
+    /**
+     *
+     * @param departmentId
+     * @return Mencari Department berdasarkan department_id
+     */
+    public List<Department> getById(int departmentId) {
+        
+        String query = "SELECT * FROM DEPARTMENTS WHERE DEPARTMENT_ID = " + departmentId;
+        return getDBValues(query);
+    }
+    /**
+     * function to get values from db each row per coloumn
+     * @param query
+     * @return list department based on query
+     */
+    private List<Department> getDBValues(String query){
+        List<Department> data = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {//perulangan sebanyak kursor jika masih ada, buat object baru
+                Department depart = new Department();//panggil kelas 
+                depart.setDepartmentId(resultSet.getInt("DEPARTMENT_ID"));
+                depart.setDepartmentName(resultSet.getString("DEPARTMENT_NAME"));
+                depart.setManagerId(resultSet.getInt("MANAGER_ID"));
+                depart.setLocationId(resultSet.getInt("LOCATION_ID"));
+                data.add(depart);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
+    /**
+     *
+     * @param id
+     * @return boolean which is true for success delete and false for fail
+     * delete
+     */
+    public boolean deleteDepartment(Department department) {
+        boolean result = false;
+        String query = "DELETE FROM departments WHERE department_id = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareCall(query);
+            preparedStatement.setInt(1, department.getDepartmentId());
+            preparedStatement.execute();
+            result = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    /**
+     *
+     * @param data
+     * @return search table departments
+     */
+    public List<Department> search(Object data) {
+        String query = "SELECT * FROM DEPARTMENTS where department_id LIKE '%" + data + "%'"
+                + "OR department_name like '%" + data + "%'"
+                + " OR manager_id like '%" + data + "%'" + "OR location_id like '%" + data + "%'";
+        return getDBValues(query);
+    }
 }

@@ -136,21 +136,6 @@ public class CountryDAO {
             preparedStatement.setString(1, country.getCountryId());
             preparedStatement.setString(2, country.getCountryName());
             preparedStatement.setInt(3, country.getRegionId());
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-    public boolean updateCountry(Country country) {
-        boolean result = false;
-        String query = "UPDATE COUNTRIES SET  COUNTRY_NAME = ?, REGION_ID = ?"
-                + " WHERE COUNTRY_ID = ?";
-        try {
-            PreparedStatement preparedStatement = connection.prepareCall(query);
-            preparedStatement.setString(1, country.getCountryName());
-            preparedStatement.setInt(2, country.getRegionId());
-            preparedStatement.setString(3, country.getCountryName());
             preparedStatement.executeUpdate();
             result = true;
         } catch (Exception e) {

@@ -104,9 +104,9 @@ public class Employee {
     /**
      * @param hireDate the hireDate to set
      */
-//    public void setHireDate(Date hireDate) {
-//        this.hireDate = hireDate;
-//    }
+    public void setHireDate(Date hireDate) {
+        this.hireDate = hireDate;
+    }
 
     /**
      * @return the jobId

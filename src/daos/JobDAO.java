@@ -89,6 +89,7 @@ public class JobDAO {
         }
         return result;
     }
+<<<<<<< HEAD
     /**
      * 
      * @param job by ADHE
@@ -145,3 +146,7 @@ public class JobDAO {
         return datas;
     }
 }
+=======
+
+}
+>>>>>>> parent of 1485792... getById Location, Employee, Departments 

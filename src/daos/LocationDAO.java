@@ -48,10 +48,7 @@ public class LocationDAO {
         }
         return datas;
     }
-/**
- *getById
- * @author Nine
- */
+
     public List<Location> getLocationId(int id) {
         List<Location> datas = new ArrayList<>();
         String query = "SELECT * FROM HR.LOCATIONS WHERE LOCATION_ID = " + id;//mengambil data id dari tabel hr.location
@@ -96,6 +93,7 @@ public class LocationDAO {
     }
 
 
+<<<<<<< HEAD
     /**
      *
      * @param location by ADHE
@@ -157,3 +155,7 @@ public class LocationDAO {
         return datas;
     }
 }
+=======
+}
+    
+>>>>>>> parent of 1485792... getById Location, Employee, Departments 

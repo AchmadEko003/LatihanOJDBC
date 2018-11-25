@@ -15,7 +15,7 @@ import tools.Connections;
  *
  * @author tikamhrdk
  */
-public class Getid_Form_View extends javax.swing.JFrame {
+public class EmployeeView extends javax.swing.JFrame {
 
     Connections con = new Connections();
     EmployeeController emp = new EmployeeController(con.getConnection());
@@ -23,7 +23,7 @@ public class Getid_Form_View extends javax.swing.JFrame {
     /**
      * Creates new form get_IdView
      */
-    public Getid_Form_View() {
+    public EmployeeView() {
         initComponents();
     }
 
@@ -563,20 +563,21 @@ public class Getid_Form_View extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Getid_Form_View.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EmployeeView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Getid_Form_View.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EmployeeView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Getid_Form_View.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EmployeeView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Getid_Form_View.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EmployeeView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Getid_Form_View().setVisible(true);
+                new EmployeeView().setVisible(true);
             }
         });
     }

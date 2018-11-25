@@ -18,9 +18,10 @@ import models.Job;
 import models.Location;
 import models.Region;
 
+
 /**
- *Main class
- * @author Nine
+ *
+ * @author Nitani
  */
 public class LatihanOJDBC {
 
@@ -76,14 +77,18 @@ public class LatihanOJDBC {
                       + " Department ID" + allEmployee.getDepartmentId());
     }
 
-          for (Department department : ddao.getById(90)) {
-              System.out.println(department.getDepartmentName());
+        JobDAO jdao = new JobDAO(con.getConnection());
+        System.out.println(jdao.getAllJobs().size());
 
+        EmployeeDAO edao = new EmployeeDAO(con.getConnection());
+        System.out.println(edao.getAllEmployees().size());
+        
+        DepartmentDAO ddao = new DepartmentDAO(con.getConnection());
+        for (Department department : ddao.getById(90)) {
+            System.out.println(department.getDepartmentName());
         }
-        /**
-         * Untuk ngecek search Country berdasarkan ID
-         */
-        CountryDAO cdao = new CountryDAO(connections.getConnection());
+        
+        CountryDAO cdao = new CountryDAO(con.getConnection());
         for (Country country : cdao.getById("AR")) {
             System.out.println(country.getCountryName());
 
@@ -119,7 +124,7 @@ public class LatihanOJDBC {
 //            + allregion.getRegionName());
 //        }
         
-
+    
         for (Region allRegion : rdao.getAllRegions()) {
             System.out.println(allRegion.getRegionId() + " - " + allRegion.getRegionName());
         }        
@@ -199,41 +204,4 @@ public class LatihanOJDBC {
         }
 
     }
-<<<<<<< HEAD
-=======
-        
-//        System.out.println(rdao.getAllRegions().size());
-//        
-//        for(Region allRegion : rdao.getAllRegions()){
-//            System.out.println(allRegion.getRegionId() + " - "
-//                    + allRegion.getRegionName());
-        
-        //System.out.println(rdao.getById().size());
-        
-        //untuk mendapatkan data region berdasarkan ID
-//        for(Region allRegion : rdao.getById(1)){
-//            System.out.println(allRegion.getRegionId() + " - "
-//                    + allRegion.getRegionName());
-//        }
-//        
-//        //untuk mencari data region berdasarkan ID atau Nama
-//        for(Region allRegion : rdao.searchRegion("A")){
-//            System.out.println("Region yang anda cari mungkin adalah ID = " + allRegion.getRegionId()
-//                    + " dengan nama region adalah "+ allRegion.getRegionName());
-//        }
-        
-////        Insert
-//        Region region = new Region();
-//        region.setRegionId(13);
-//        region.setRegionName("Fantura");
-//        System.out.println(rdao.insertRegion(region));
-//        
-//        for(Region allRegion : rdao.getAllRegions()){
-//            System.out.println(allRegion.getRegionId() + " - " 
-//                    + allRegion.getRegionName());
-//        }
-////          Delete
-          
-    
->>>>>>> parent of 1485792... getById Location, Employee, Departments 
 }

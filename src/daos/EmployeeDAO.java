@@ -36,7 +36,7 @@ public class EmployeeDAO {
                 employee.setLastName(resultSet.getString("last_name")); //untuk mengambil last_name
                 employee.setEmail(resultSet.getString("email")); //untuk mengambil email
                 employee.setPhoneNumber(resultSet.getString("phone_number")); //untuk mengambil phone_number
-                employee.setHireDate(resultSet.getDate("hire_date")); //untuk mengambil hire_date
+                //employee.setHireDate(resultSet.getDate("hire_date")); //untuk mengambil hire_date
                 employee.setJobId(resultSet.getString("job_id")); //untuk mengambil job_id
                 employee.setSalary(resultSet.getInt("salary")); //untuk mengambil salary
                 employee.setCommissionPct(resultSet.getInt("commission_pct")); //untuk mengambil commission_pct
@@ -64,7 +64,7 @@ public class EmployeeDAO {
                 employee.setLastName(resultSet.getString("last_name")); //untuk mengambil last_name
                 employee.setEmail(resultSet.getString("email")); //untuk mengambil email
                 employee.setPhoneNumber(resultSet.getString("phone_number")); //untuk mengambil phone_number
-                employee.setHireDate(resultSet.getDate("hire_date")); //untuk mengambil hire_date
+                //employee.setHireDate(resultSet.getDate("hire_date")); //untuk mengambil hire_date
                 employee.setJobId(resultSet.getString("job_id")); //untuk mengambil job_id
                 employee.setSalary(resultSet.getInt("salary")); //untuk mengambil salary
                 employee.setCommissionPct(resultSet.getInt("commission_pct")); //untuk mengambil commission_pct
@@ -78,39 +78,6 @@ public class EmployeeDAO {
         return datas;
     }
     
-    
-/**
- *
- * @author Nitani
- */
-    public List<Employee> getAllEmployee(){
-        List<Employee> datas = new ArrayList<>();
-        String query = "SELECT * FROM Employees";
-        try {
-            PreparedStatement preparedStatement = 
-                    connection.prepareStatement(query);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            
-            while (resultSet.next()) {
-                Employee employee = new Employee(); //instansiasi
-                employee.setEmployeeId(resultSet.getInt("employee_id"));
-                employee.setFirstName(resultSet.getString("first_name"));
-                employee.setLastName(resultSet.getString("last_name"));
-                employee.setEmail(resultSet.getString("email"));
-                employee.setPhoneNumber(resultSet.getString("phone_number"));
-                employee.setHireDate(resultSet.getDate("hire_date"));
-                employee.setJobId(resultSet.getString("job_id"));
-                employee.setSalary(resultSet.getInt("salary"));
-                employee.setCommissionPct(resultSet.getInt("commission_pct"));
-                employee.setManagerId(resultSet.getInt("manager_id"));
-                employee.setDepartmentId(resultSet.getInt("department_id"));
-                datas.add(employee);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return datas;
-    }
     
     /**
      * this is function delete for table employee create by Aji
@@ -129,7 +96,6 @@ public class EmployeeDAO {
         }
         return result;
     }
-<<<<<<< HEAD
         
     /**
      * 
@@ -209,6 +175,4 @@ public class EmployeeDAO {
         }
         return datas;
     }
-=======
->>>>>>> parent of 1485792... getById Location, Employee, Departments 
 }

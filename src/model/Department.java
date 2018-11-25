@@ -14,6 +14,28 @@ public class Department {
     private String departmentName;
     private int managerId;
     private int locationId;
+    
+    public Department() {
+        
+    }
+
+    public Department(int departmentId) {
+        this.departmentId = departmentId;
+    }
+
+    public Department(int departmentId, String departmentName, int managerId, int locationId) {
+        this.departmentId = departmentId;
+        this.departmentName = departmentName;
+        this.managerId = managerId;
+        this.locationId = locationId;
+    }
+    
+    public Department(String departmentName, int managerId, int locationId, int departmentId) {
+        this.departmentId = departmentId;
+        this.departmentName = departmentName;
+        this.managerId = managerId;
+        this.locationId = locationId;
+    }
 
     /**
      * @return the departmentId

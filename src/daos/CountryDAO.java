@@ -28,16 +28,16 @@ public class CountryDAO {
     }
 
     /**
-     *
+     * 
      * @return mengambil semua values dari tabel Countries
      */
-    public List<Country> getAllCountries() {
+    public List<Country> getAllCountries(){
         List<Country> datas = new ArrayList<>();
         String query = "SELECT * FROM COUNTRIES";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
+            while (resultSet.next()) {                
                 Country countries = new Country();
                 countries.setCountryId(resultSet.getString("country_id"));
                 countries.setCountryName(resultSet.getString("country_name"));
@@ -47,10 +47,10 @@ public class CountryDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        
         return datas;
     }
-
+    
     /**
      *
      * @param countryId
@@ -76,15 +76,15 @@ public class CountryDAO {
     }
 
     /**
-     *
+     * 
      * @param data
-     * @return search table Countries
+     * @return search table Countries 
      */
-    public List<Country> search(Object data) {
+     public List<Country> search(Object data) {
         List<Country> datas = new ArrayList<>();
-        String query = "SELECT * FROM COUNTRIES where country_id LIKE '%" + data + "%'"
-                + "OR country_name like '%" + data + "%'"
-                + " OR region_id like '%" + data + "%'";
+        String query = "SELECT * FROM COUNTRIES where country_id LIKE '%"+data+"%'"
+                + "OR country_name like '%"+data+"%'"
+                + " OR region_id like '%"+data+"%'";
         try {
             PreparedStatement preparedStatement
                     = connection.prepareStatement(query);
@@ -92,7 +92,7 @@ public class CountryDAO {
                     .executeQuery();
             while (resultSet.next()) {
                 Country country = new Country();
-                // country.setCountryId(resultSet.getInt("country_id"));
+               // country.setCountryId(resultSet.getInt("country_id"));
                 country.setCountryId(resultSet.getString("country_id"));
                 country.setCountryName(resultSet.getString("country_name"));
                 country.setRegionId(resultSet.getInt("region_id"));
@@ -103,17 +103,15 @@ public class CountryDAO {
             e.printStackTrace();
         }
         return datas;
-    }
-
-    /**
-     *
+}
+     /**
+     * 
      * @param id
-     * @return boolean which is true for success delete and false for fail
-     * delete
+     * @return boolean which is true for success delete and false for fail delete
      */
-    public boolean deleteCountry(int id) {
+    public boolean deleteCountry(int id){
         boolean result = false;
-        String query = "DELETE FROM countries where country_id =" + id;
+        String query ="DELETE FROM countries where country_id =" + id;        
         try {
             PreparedStatement preparedStatement = connection.prepareCall(query);
             preparedStatement.setInt(1, id);
@@ -124,24 +122,21 @@ public class CountryDAO {
         }
         return result;
     }
-
+    
     /**
      * insert country
-     *
      * @param country
-     * @return
+     * @return 
      */
-    public boolean insertCountry(Country country) {
+    public boolean insertCountry(Country country){
         boolean result = false;
-        String query = "INSERT INTO countries VALUES (?,?,?)";
+        String query ="INSERT INTO countries VALUES (?,?,?)";        
         try {
             PreparedStatement preparedStatement = connection.prepareCall(query);
             preparedStatement.setString(1, country.getCountryId());
             preparedStatement.setString(2, country.getCountryName());
             preparedStatement.setInt(3, country.getRegionId());
-            preparedStatement.executeUpdate();
-            result = true;
-        } catch (Exception e) {
+        }catch (Exception e) {
             e.printStackTrace();
         }
         return result;

@@ -18,6 +18,7 @@ import model.Job;
 import model.Location;
 import model.Region;
 
+
 /**
  *
  * @author Nitani
@@ -28,34 +29,65 @@ public class LatihanOJDBC {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        Connections con = new Connections();
-        System.out.println("Koneksi : "
-                + con.getConnection());
-
-        RegionDAO rdao = new RegionDAO(con.getConnection());
-        System.out.println(rdao.getAllRegions().size());
-
-        LocationDAO ldao = new LocationDAO(con.getConnection());
-        System.out.println(ldao.getAllLocations().size());
+        //tes koneksi
+        Connections connections = new Connections();
+//        System.out.println("koneksi : "
+//                +connections.getConnection());
+        
+        RegionDAO rdao = new RegionDAO(connections.getConnection());
+        JobDAO jdao = new JobDAO(connections.getConnection());
+        LocationDAO ldao = new LocationDAO(connections.getConnection());
+        EmployeeDAO edao = new EmployeeDAO(connections.getConnection());
+        DepartmentDAO ddao = new DepartmentDAO(connections.getConnection());
+        
+//// JOBS getById
+          System.out.println(jdao.getAllJobs().size());
+        //untuk mendapatkan data job berdasarkan ID
+          for(Job allJob : jdao.getJobId("AD_VP")){
+              System.out.println("ID job " + allJob.getJobId() +"\n"
+                      + " Title Job " + allJob.getJobTitle() +"\n"
+                      + " Min Salary " + allJob.getMinSalary() +"\n"
+                      + " Max Salary " + allJob.getMaxSalary());
+    }
+        //// LOCATIONS getById
+          System.out.println(ldao.getAllLocations().size());
+        //untuk mendapatkan data job berdasarkan ID
+          for(Location allLocation : ldao.getLocationId(1600)){
+              System.out.println("ID location " + allLocation.getLocationId() +"\n"
+                      + " Street Address " + allLocation.getStreetAddress() +"\n"
+                      + " Postal Code " + allLocation.getPostalCode() +"\n"
+                      + " City " + allLocation.getCity() +"\n"
+                      + " State Province" + allLocation.getStateProvince() +"\n"
+                      + " Country ID" + allLocation.getCountryId());
+    }
+        //// EMPLOYEES getById
+          System.out.println(edao.getAllEmployees().size());
+        //untuk mendapatkan data job berdasarkan ID
+          for(Employee allEmployee : edao.getEmployeesId(100)){
+              System.out.println("ID Employee " + allEmployee.getEmployeeId() +"\n"
+                      + " First Name " + allEmployee.getFirstName() +"\n"
+                      + " Last Name " + allEmployee.getLastName() +"\n"
+                      + " Email " + allEmployee.getEmail() +"\n"
+                      + " Phone Number" + allEmployee.getPhoneNumber() +"\n"
+                      + " Hire Date" + allEmployee.getHireDate() +"\n"
+                      + " Job ID" + allEmployee.getJobId() +"\n"
+                      + " Salary" + allEmployee.getSalary() +"\n"
+                      + " Commission " + allEmployee.getCommission() +"\n"
+                      + " Manager ID " + allEmployee.getManagerId() +"\n"
+                      + " Department ID" + allEmployee.getDepartmentId());
+    }
 
         JobDAO jdao = new JobDAO(con.getConnection());
-        System.out.println(jdao.getAllJob().size());
+        System.out.println(jdao.getAllJobs().size());
 
         EmployeeDAO edao = new EmployeeDAO(con.getConnection());
-        System.out.println(edao.getAllEmployee().size());
-
-        /**
-         * Untuk ngecek search Department berdasarkan ID
-         */
+        System.out.println(edao.getAllEmployees().size());
+        
         DepartmentDAO ddao = new DepartmentDAO(con.getConnection());
         for (Department department : ddao.getById(90)) {
             System.out.println(department.getDepartmentName());
-
         }
-        /**
-         * Untuk ngecek search Country berdasarkan ID
-         */
+        
         CountryDAO cdao = new CountryDAO(con.getConnection());
         for (Country country : cdao.getById("AR")) {
             System.out.println(country.getCountryName());
@@ -95,7 +127,7 @@ public class LatihanOJDBC {
 //            + allregion.getRegionName());
 //        }
         
-
+    
         for (Region allRegion : rdao.getAllRegions()) {
             System.out.println(allRegion.getRegionId() + " - " + allRegion.getRegionName());
         }        
@@ -173,6 +205,5 @@ public class LatihanOJDBC {
 //                    + employee.getManagerId()+ "-"
 //                    + employee.getDepartmentId());
 //        }
-
     }
 }

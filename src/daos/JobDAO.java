@@ -10,42 +10,68 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import model.Job;
+import models.Job;
 
 /**
  *
- * @author Nitani
+ * @author Nine
  */
 public class JobDAO {
-
     private Connection connection;
-
+    
     public JobDAO(Connection connection) {
         this.connection = connection;
     }
-
-    public List<Job> getAllJob() {
+    
+    /**
+ *
+ * @author Nitani
+ */
+    public List<Job> getAllJobs() {
         List<Job> datas = new ArrayList<>();
-        String query = "SELECT * FROM Jobs";
-        try {
-            PreparedStatement preparedStatement
-                    = connection.prepareStatement(query);
+        String query = "SELECT * FROM HR.JOBS";//mengambil dari tabel hr.jobs
+        try{
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                Job job = new Job(); //instansiasi
-                job.setJobId(resultSet.getString("job_id"));
-                job.setJobTitle(resultSet.getString("job_title"));
-                job.setMinSalary(resultSet.getInt("min_salary"));
-                job.setMaxSalary(resultSet.getInt("max_salary"));
-                datas.add(job);
+            while(resultSet.next()){ //perulangan dilakukan selama data region ditemukan
+                Job job = new Job(); //instansiasi Region
+                job.setJobId(resultSet.getString("job_id")); //untuk mengambil region_id
+                //job.setJobId(resultSet.getInt(1)); //untuk mengambil region_id
+                job.setJobTitle(resultSet.getString("job_title")); //untuk mengambil region_name
+                job.setMinSalary(resultSet.getInt("min_salary")); //untuk mengambil min_salary
+                job.setMaxSalary(resultSet.getInt("max_salary")); //untuk mengambil max_salary
+                datas.add(job); //penambahan data kedalam list tiap kali data region datemukan
             }
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
         return datas;
     }
-
+    
+    
+    public List<Job> getJobId(String id){
+        List<Job> datas = new ArrayList<>();
+        String query = "SELECT * FROM HR.JOBS WHERE JOB_ID = '" + id+"'";//mengambil dari tabel hr.job
+        try{
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){ //perulangan dilakukan selama data job ditemukan
+                Job job = new Job(); //instansiasi Region
+                job.setJobId(resultSet.getString("job_id")); //untuk mengambil job_id
+                //region.setRegionId(resultSet.getInt(1)); //untuk mengambil job_id
+                job.setJobTitle(resultSet.getString("job_title")); //untuk mengambil job_title
+                job.setMinSalary(resultSet.getInt("min_salary")); //untuk mengambil min_salary
+                job.setMaxSalary(resultSet.getInt("max_salary")); //untuk mengambil max_salary
+                datas.add(job); //penambahan data kedalam list tiap kali data job ditemukan
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return datas;
+    }
+    
     /**
      * this is function delete for table Jobs created by Aji.
      * @param id
@@ -85,6 +111,8 @@ public class JobDAO {
         }
         return result;
     }
+
+
      /**
       * search job
       * by Tika MP
@@ -116,5 +144,4 @@ public class JobDAO {
         }
         return datas;
     }
-     
 }

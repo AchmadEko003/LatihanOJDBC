@@ -12,11 +12,11 @@ import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import model.Employee;
+import models.Employee;
 
 /**
  *
- * @author Nitani
+ * @author Nine
  */
 public class EmployeeDAO {
 
@@ -58,12 +58,12 @@ public class EmployeeDAO {
                 employee.setDepartmentId(resultSet.getInt(11));
                 datas.add(employee);
             }
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
         return datas;
     }
-
+              
     /**
      * public List<Employee> getAllEmployee()----->get all data
      * ditabel
@@ -107,7 +107,7 @@ public class EmployeeDAO {
         }
         return result;
     }
-
+  
     /**
      * public boolean updateEmployee(Employee employee)--->update
      *

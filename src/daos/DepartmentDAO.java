@@ -104,18 +104,16 @@ public class DepartmentDAO {
             e.printStackTrace();
         }
         return datas;
-
+   
     }
-
     /**
-     *
+     * 
      * @param id
-     * @return boolean which is true for success delete and false for fail
-     * delete
+     * @return boolean which is true for success delete and false for fail delete
      */
-    public boolean deleteDepartment(int id) {
+    public boolean deleteDepartment(int id){
         boolean result = false;
-        String query = "DELETE FROM departments where department_id =" + id;
+        String query ="DELETE FROM departments where department_id =" + id;        
         try {
             PreparedStatement preparedStatement = connection.prepareCall(query);
             preparedStatement.setInt(1, id);
@@ -126,29 +124,33 @@ public class DepartmentDAO {
         }
         return result;
     }
-
+    
     /**
      * insert department
-     *
      * @param department
-     * @return
+     * @return 
      */
-    public boolean insertDepartment(Department department) {
+    public boolean insertDepartment(Department department){
         boolean result = false;
-        String query = "INSERT INTO department VALUES (?,?,?,?)";
+        String query ="INSERT INTO department VALUES (?,?,?,?)";        
         try {
             PreparedStatement preparedStatement = connection.prepareCall(query);
             preparedStatement.setInt(1, department.getDepartmentId());
             preparedStatement.setString(2, department.getDepartmentName());
             preparedStatement.setInt(3, department.getManagerId());
             preparedStatement.setInt(4, department.getLocationId());
-            preparedStatement.executeUpdate();
-            result = true;
-        } catch (Exception e) {
+    } catch (Exception e) {
             e.printStackTrace();
         }
         return result;
     }
+
+    /**
+     * update department
+     *
+     * @param department
+     * @return
+     */
 
     public boolean updateDepartment(Department department) {
         boolean result = false;

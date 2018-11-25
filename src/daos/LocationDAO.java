@@ -156,4 +156,22 @@ public class LocationDAO {
         }
         return datas;
     }
+    public boolean insertLocation(Location location) {
+        boolean result = false;
+        String query = "INSERT INTO LOCATIONS VALUES(?,?,?,?,?,?)";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, location.getLocationId());
+            preparedStatement.setString(2, location.getStreetAddress());
+            preparedStatement.setString(3, location.getPostalCode());
+            preparedStatement.setString(4, location.getCity());
+            preparedStatement.setString(5, location.getStateProvince());
+            preparedStatement.setString(6, location.getCountryId());
+            preparedStatement.executeUpdate();
+            result = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 }

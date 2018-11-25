@@ -18,6 +18,18 @@ public class Job {
     /**
      * @return the jobId
      */
+    
+    
+    public Job() {
+    }
+
+    public Job(String jobId, String jobTitle, int minSalary, int maxSalary) {
+        this.jobId = jobId;
+        this.jobTitle = jobTitle;
+        this.minSalary = minSalary;
+        this.maxSalary = maxSalary;
+    }
+
     public String getJobId() {
         return jobId;
     }
@@ -70,6 +82,4 @@ public class Job {
     public void setMaxSalary(int maxSalary) {
         this.maxSalary = maxSalary;
     }
-    
-    
 }

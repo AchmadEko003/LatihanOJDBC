@@ -10,8 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import models.Location;
-import models.Region;
+import model.Location;
+import model.Region;
 
 /**
  *

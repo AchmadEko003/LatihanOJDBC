@@ -56,25 +56,64 @@ public class EmployeeController {
     public List<Employee> find(Object data) {
         return edao.searchByEmployees(data);
     }
+    
+    /**
+     * getid(int id) --> function search by id
+     * @param id
+     * @return 
+     */
     public  List<Employee> getid(int id){
         return edao.getEmployeeId(id);
     }
+    
+    /**
+     * delete(int id) --> function delete by id
+     * @param id
+     * @return 
+     */
     public boolean delete(int id) {
         return edao.deleteEmployees(id);
     }
-
+    
     public void getname() {
         System.out.println(employee.getFirstName());
     }
 
+    /**
+     * update --> function for update employee
+     * @param empFN
+     * @param empLN
+     * @param email
+     * @param phoneNum
+     * @param hireNum
+     * @param jobId
+     * @param sal
+     * @param comm
+     * @param managerId
+     * @param departmentId
+     * @param ID
+     * @return 
+     */
     public boolean update(String empFN, String empLN, String email, String phoneNum, String hireNum, String jobId, int sal, double comm, int managerId, int departmentId, int ID) {
         Employee employee = new Employee(empFN, empLN, email, phoneNum, hireNum, jobId, sal, comm, managerId, departmentId, ID);
         return edao.updateEmployee(employee);
     }
     
-    public boolean insertt(Employee employee){
-        return edao.insertEmployee(employee);
-    }
+    /**
+     * insert --> function for add new data employee
+     * @param employeeid
+     * @param firstname
+     * @param lastname
+     * @param email
+     * @param phonenumber
+     * @param hiredate
+     * @param jobid
+     * @param salary
+     * @param commissionpct
+     * @param managerid
+     * @param departmentid
+     * @return 
+     */
      public boolean insert(String employeeid, String firstname, String lastname, String email, String phonenumber, String hiredate, String jobid, String salary, String commissionpct, String managerid, String departmentid) {
         boolean result = false;
         int empid =Integer.valueOf(employeeid);
@@ -91,8 +130,6 @@ public class EmployeeController {
         result = edao.insertEmployee(employee);
         return result;
     }
-
-    
 }
     
     

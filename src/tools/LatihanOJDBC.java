@@ -43,7 +43,7 @@ public class LatihanOJDBC {
 //// JOBS getById
           System.out.println(jdao.getAllJobs().size());
         //untuk mendapatkan data job berdasarkan ID
-          for(Job allJob : jdao.getJobId("AD_VP")){
+          for(Job jo : jdao.getJobId("AD_VP")){
               System.out.println("ID job " + allJob.getJobId() +"\n"
                       + " Title Job " + allJob.getJobTitle() +"\n"
                       + " Min Salary " + allJob.getMinSalary() +"\n"

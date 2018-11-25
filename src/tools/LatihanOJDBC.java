@@ -13,10 +13,10 @@ import daos.LocationDAO;
 import daos.RegionDAO;
 import model.Country;
 import model.Department;
-import models.Employee;
-import models.Job;
-import models.Location;
-import models.Region;
+import model.Employee;
+import model.Job;
+import model.Location;
+import model.Region;
 
 
 /**
@@ -97,21 +97,24 @@ public class LatihanOJDBC {
         /**
          * insert region
          */
-        Region region = new Region(8, "Palembang");
-        System.out.println(rdao.insertRegion(region));
+//        Region region = new Region(8, "Palembang");
+//        System.out.println(rdao.insertRegion(region));
         
         /**
          * insert country
          */
-        Country country = new Country("ID", "Indonesia", 5);
-        System.out.println(cdao.insertCountry(country));
+//        Country country = new Country("ID", "Indonesia", 5);
+//        System.out.println(cdao.insertCountry(country));
         
         /**
          * insert department
          */
-        Department department = new Department(300, "JR Programmer", 200, 1800);
-        System.out.println(ddao.insertDepartment(department));
+//        Department department = new Department(300, "JR Programmer", 200, 1800);
+//        System.out.println(ddao.insertDepartment(department));
         
+//        Employee employee = new Employee(199, "JR Programmer", "JR Programmer", "JR Programmer");
+//        System.out.println(edao.updateEmployee(employee));
+//        
         //Region region = new Region(13, "Ekoeksis");
         //System.out.println(rdao.deleteRegion(13));
 //        for(Region allregion : rdao.getAllRegions()){
@@ -189,19 +192,18 @@ public class LatihanOJDBC {
                     + location.getCountryId());
         }
         EmployeeDAO rdaoemployee = new EmployeeDAO(con.getConnection());
-        for (Employee  employee : rdaoemployee.searchByEmployees("Steven")) {
-            System.out.println(employee.getEmployeeId() + "-"
-                    + employee.getFirstName() + "-"
-                    + employee.getLastName() + "-"
-                    + employee.getEmail()+ "-"
-                    + employee.getPhoneNumber() + "-"
-                    //+ employee.getHireDate() + "-"
-                    + employee.getJobId() + "-"
-                    + employee.getSalary() + "-"
-                    + employee.getCommission() + "-"
-                    + employee.getManagerId()+ "-"
-                    + employee.getDepartmentId());
-        }
-
+//        for (Employee  employee : rdaoemployee.searchByEmployees("Steven")) {
+//            System.out.println(employee.getEmployeeId() + "-"
+//                    + employee.getFirstName() + "-"
+//                    + employee.getLastName() + "-"
+//                    + employee.getEmail()+ "-"
+//                    + employee.getPhoneNumber() + "-"
+//                    + employee.getHireDate() + "-"
+//                    + employee.getJobId() + "-"
+//                    + employee.getSalary() + "-"
+//                    + employee.getCommisionPct() + "-"
+//                    + employee.getManagerId()+ "-"
+//                    + employee.getDepartmentId());
+//        }
     }
 }

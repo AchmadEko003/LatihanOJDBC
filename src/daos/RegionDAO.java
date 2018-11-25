@@ -10,7 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import models.Region;
+import model.Employee;
+import model.Region;
 
 /**
  *
@@ -102,7 +103,7 @@ public class RegionDAO {
         String query ="DELETE FROM REGIONS where region_id =" + id;        
         try {
             PreparedStatement preparedStatement = connection.prepareCall(query);
-            preparedStatement.setInt(1, id);
+            preparedStatement.setInt(0, id);
             preparedStatement.executeUpdate();
             result = true;
         } catch (Exception e) {
@@ -153,4 +154,5 @@ public class RegionDAO {
         }
         return result;
     }
+
 }

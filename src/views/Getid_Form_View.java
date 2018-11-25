@@ -16,13 +16,42 @@ import tools.Connections;
  * @author tikamhrdk
  */
 public class Getid_Form_View extends javax.swing.JFrame {
+
     Connections con = new Connections();
     EmployeeController emp = new EmployeeController(con.getConnection());
+
     /**
      * Creates new form get_IdView
      */
     public Getid_Form_View() {
         initComponents();
+    }
+
+    public void getData() {
+        Object[] header = {"Employee Id", "First Name", "Last Name", "Email", "Phone Number", "Hire Date", "Job Id", "Salary", "Commission Pct", "Manager ID", "Department Id"};
+        DefaultTableModel model = new DefaultTableModel(null, header);
+        getidTable.setModel(model);
+
+        try {
+            for (Employee employee : emp.gets()) {
+                String isi1 = String.valueOf(employee.getEmployeeId());
+                String isi2 = employee.getFirstName();
+                String isi3 = employee.getLastName();
+                String isi4 = employee.getEmail();
+                String isi5 = employee.getPhoneNumber();
+                String isi6 = String.valueOf(employee.getHireDate());
+                String isi7 = employee.getJobId();
+                String isi8 = String.valueOf(employee.getSalary());
+                String isi9 = String.valueOf(employee.getCommisionPct());
+                String isi10 = String.valueOf(employee.getManagerId());
+                String isi11 = String.valueOf(employee.getDepartmentId());
+
+                String kolom[] = {isi1, isi2, isi3, isi4, isi5, isi6, isi7, isi8, isi9, isi10, isi1};
+                model.addRow(kolom);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Ops! " + e.getMessage());
+        }
     }
 
     /**
@@ -71,6 +100,11 @@ public class Getid_Form_View extends javax.swing.JFrame {
         update_Button = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         getidTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -102,7 +136,11 @@ public class Getid_Form_View extends javax.swing.JFrame {
 
         jLabel1.setText("GET ID");
 
-        jLabel2.setText("Employee");
+        jLabel2.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("EMPLOYEE");
+        jLabel2.setBorder(new javax.swing.border.MatteBorder(null));
+        jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         GetIdbutton.setText("select");
         GetIdbutton.addActionListener(new java.awt.event.ActionListener() {
@@ -229,8 +267,8 @@ public class Getid_Form_View extends javax.swing.JFrame {
                                         .addComponent(GetIdbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(63, 63, 63)
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(43, 43, 43)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -315,12 +353,7 @@ public class Getid_Form_View extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(update_Button)
-                            .addComponent(insertbutton))
-                        .addGap(86, 86, 86)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(getid_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(GetIdbutton)))
+                            .addComponent(insertbutton)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
@@ -342,10 +375,15 @@ public class Getid_Form_View extends javax.swing.JFrame {
                             .addComponent(jLabel12)
                             .addComponent(departmentid_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(153, 153, 153)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(deletebutton)
-                            .addComponent(search1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel1)
+                                .addComponent(getid_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(GetIdbutton))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(deletebutton)
+                                .addComponent(search1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(25, 25, 25)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(view)
@@ -356,39 +394,39 @@ public class Getid_Form_View extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void GetIdbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GetIdbuttonActionPerformed
-        
+
         // TODO add your handling code here:
-        Object [] header = {"EMPLOYEE_ID","FIRST_NAME","LAST_NAME","EMAIL","PHONE_NUMBER",
-                             "HIRE_DATE","JOB_ID","SALAR","COMMISSION_PCT","MANAGER_ID","DEPARTMENT_ID"};
+        Object[] header = {"EMPLOYEE_ID", "FIRST_NAME", "LAST_NAME", "EMAIL", "PHONE_NUMBER",
+            "HIRE_DATE", "JOB_ID", "SALAR", "COMMISSION_PCT", "MANAGER_ID", "DEPARTMENT_ID"};
         DefaultTableModel model = new DefaultTableModel(null, header);
         getidTable.setModel(model);
         try {
             String Nil = getid_field.getText();
             int idd = Integer.parseInt(Nil);
-            for(Employee employee : emp.getid(idd)){
-                String isi1 = String. valueOf(employee.getEmployeeId());
+            for (Employee employee : emp.getid(idd)) {
+                String isi1 = String.valueOf(employee.getEmployeeId());
                 String isi2 = employee.getFirstName();
                 String isi3 = employee.getLastName();
                 String isi4 = employee.getEmail();
                 String isi5 = employee.getPhoneNumber();
                 String isi6 = String.valueOf(employee.getHireDate());
                 String isi7 = employee.getJobId();
-                String isi8 = String. valueOf(employee.getSalary());
-                String isi9 = String. valueOf(employee.getCommisionPct());
-                String isi10 = String. valueOf(employee.getManagerId());
-                String isi11 = String. valueOf(employee.getDepartmentId());
-                
-                String kolom[] = {isi1,isi2,isi3,isi4,isi5,isi6,isi7,isi8,isi9,isi10,isi11};
+                String isi8 = String.valueOf(employee.getSalary());
+                String isi9 = String.valueOf(employee.getCommisionPct());
+                String isi10 = String.valueOf(employee.getManagerId());
+                String isi11 = String.valueOf(employee.getDepartmentId());
+
+                String kolom[] = {isi1, isi2, isi3, isi4, isi5, isi6, isi7, isi8, isi9, isi10, isi11};
                 model.addRow(kolom);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "ops!" + e.getMessage());
         }
-        
+
     }//GEN-LAST:event_GetIdbuttonActionPerformed
 
     private void getid_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getid_fieldActionPerformed
-        
+
         // TODO add your handling code here:
     }//GEN-LAST:event_getid_fieldActionPerformed
 
@@ -399,20 +437,20 @@ public class Getid_Form_View extends javax.swing.JFrame {
         getidTable.setModel(model);
 
         try {
-            for(Employee employee : emp.find(search.getText())){
-                String isi1 = String. valueOf(employee.getEmployeeId());
+            for (Employee employee : emp.find(search.getText())) {
+                String isi1 = String.valueOf(employee.getEmployeeId());
                 String isi2 = employee.getFirstName();
                 String isi3 = employee.getLastName();
                 String isi4 = employee.getEmail();
                 String isi5 = employee.getPhoneNumber();
                 String isi6 = String.valueOf(employee.getHireDate());
                 String isi7 = employee.getJobId();
-                String isi8 = String. valueOf(employee.getSalary());
-                String isi9 = String. valueOf(employee.getCommisionPct());
-                String isi10 = String. valueOf(employee.getManagerId());
-                String isi11 = String. valueOf(employee.getDepartmentId());
+                String isi8 = String.valueOf(employee.getSalary());
+                String isi9 = String.valueOf(employee.getCommisionPct());
+                String isi10 = String.valueOf(employee.getManagerId());
+                String isi11 = String.valueOf(employee.getDepartmentId());
 
-                String kolom[] = {isi1,isi2,isi3,isi4,isi5,isi6, isi7, isi8, isi9,isi10,isi1};
+                String kolom[] = {isi1, isi2, isi3, isi4, isi5, isi6, isi7, isi8, isi9, isi10, isi1};
                 model.addRow(kolom);
             }
         } catch (Exception e) {
@@ -431,7 +469,7 @@ public class Getid_Form_View extends javax.swing.JFrame {
     private void insertbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertbuttonActionPerformed
 
         // TODO add your handling code here:
-        String employeeid =  employeeid_field.getText();
+        String employeeid = employeeid_field.getText();
         String firstname = firstname_field.getText();
         String lastname = lastname_field.getText();
         String email = email_field.getText();
@@ -443,24 +481,24 @@ public class Getid_Form_View extends javax.swing.JFrame {
         String managerid = managerid_field.getText();
         String departmentid = departmentid_field.getText();
 
-        if(!employeeid.equals("") && !firstname.equals("") &&
-            !lastname.equals("") && !email.equals("") &&
-            !phonenumber.equals("") && !hiredate.equals("") &&
-            !jobid.equals("") && !salary.equals("") &&
-            !commissionpct.equals("") && !managerid.equals("") &&
-            !departmentid.equals("")){
-            if(emp.insert(employeeid, firstname,
-                lastname, email,
-                phonenumber,
-                hiredate, jobid,
-                salary, commissionpct,
-                managerid, departmentid) == true){
-            JOptionPane.showMessageDialog(null, "insert berhasil");
-        }else{
-            JOptionPane.showMessageDialog(null, "insert gagal");
-        }
+        if (!employeeid.equals("") && !firstname.equals("")
+                && !lastname.equals("") && !email.equals("")
+                && !phonenumber.equals("") && !hiredate.equals("")
+                && !jobid.equals("") && !salary.equals("")
+                && !commissionpct.equals("") && !managerid.equals("")
+                && !departmentid.equals("")) {
+            if (emp.insert(employeeid, firstname,
+                    lastname, email,
+                    phonenumber,
+                    hiredate, jobid,
+                    salary, commissionpct,
+                    managerid, departmentid) == true) {
+                JOptionPane.showMessageDialog(null, "insert berhasil");
+            } else {
+                JOptionPane.showMessageDialog(null, "insert gagal");
+            }
 
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "form input tidak boleh kosong");
         }
 
@@ -469,52 +507,6 @@ public class Getid_Form_View extends javax.swing.JFrame {
     private void lastname_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastname_fieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_lastname_fieldActionPerformed
-
-    private void viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewActionPerformed
-        // TODO add your handling code here:
-        Object[] header = {"Employee Id", "First Name", "Last Name", "Email", "Phone Number", "Hire Date", "Job Id", "Salary", "Commission Pct", "Manager ID", "Department Id"};
-        DefaultTableModel model = new DefaultTableModel(null, header);
-        getidTable.setModel(model);
-
-        try {
-            for(Employee employee : emp.gets()){
-                String isi1 = String. valueOf(employee.getEmployeeId());
-                String isi2 = employee.getFirstName();
-                String isi3 = employee.getLastName();
-                String isi4 = employee.getEmail();
-                String isi5 = employee.getPhoneNumber();
-                String isi6 = String.valueOf(employee.getHireDate());
-                String isi7 = employee.getJobId();
-                String isi8 = String. valueOf(employee.getSalary());
-                String isi9 = String. valueOf(employee.getCommisionPct());
-                String isi10 = String. valueOf(employee.getManagerId());
-                String isi11 = String. valueOf(employee.getDepartmentId());
-
-                String kolom[] = {isi1,isi2,isi3,isi4,isi5,isi6, isi7, isi8, isi9,isi10,isi1};
-                model.addRow(kolom);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Ops! " + e.getMessage());
-        }
-        //        int h;
-        //        try{
-            //        EmployeeController emp = new EmployeeController();
-            //        int record = emp.hitung();
-            //        for (int bar=0;bar<record;bar++){
-                //                GetAllTable.setValueAt(emp.gets().get(bar).getEmployeeId(), bar, 0);
-                //                GetAllTable.setValueAt(emp.gets().get(bar).getFirstName(), bar, 1);
-                //                GetAllTable.setValueAt(emp.gets().get(bar).getLastName(), bar, 2);
-                //                GetAllTable.setValueAt(emp.gets().get(bar).getEmail(), bar, 3);
-                ////                GetAllTable.setValueAt(emp.gets().get(bar).getHireDate(), bar, 4);
-                ////                GetAllTable.setValueAt(emp.gets().get(bar).getPhoneNumber(), bar, 5);
-                //                DefaultTableModel model = (DefaultTableModel) GetAllTable.getModel();
-                //                h=GetAllTable.getRowCount()+1;
-                //                model.setRowCount(h);
-                //            }
-            //        }catch(Exception e){
-            //            e.printStackTrace();
-            //        }
-    }//GEN-LAST:event_viewActionPerformed
 
     private void deletebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletebuttonActionPerformed
         // TODO add your handling code here:
@@ -529,7 +521,6 @@ public class Getid_Form_View extends javax.swing.JFrame {
         String empLN = lastname_field.getText();
         String email = email_field.getText();
         String phoneNum = phonenumber_field.getText();
-        //Date hireNum = pickHireDate.getDate();
         String hireNum = hiredate_field.getText();
         String jobId = jobid_field.getText();
         int sal = Integer.valueOf(salary_field.getText());
@@ -545,6 +536,16 @@ public class Getid_Form_View extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_update_ButtonActionPerformed
 
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        getData();
+    }//GEN-LAST:event_formWindowActivated
+
+    private void viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewActionPerformed
+        // TODO add your handling code here:
+        getData();
+    }//GEN-LAST:event_viewActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -556,7 +557,7 @@ public class Getid_Form_View extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -570,9 +571,6 @@ public class Getid_Form_View extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Getid_Form_View.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

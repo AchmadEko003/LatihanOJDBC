@@ -37,7 +37,6 @@ public class Employee {
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        //this.hireDate = hireDate;
         this.jobId = jobId;
         this.salary = salary;
         this.commisionPct = commisionPct;

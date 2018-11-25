@@ -15,15 +15,22 @@ import model.Region;
 
 /**
  *
- * @author Nine
+ * @author Nine EMDES
  */
 public class RegionDAO {
 
     private Connection connection;
 
+    /**
+     *
+     */
     public RegionDAO() {
     }
 
+    /**
+     *
+     * @param connection
+     */
     public RegionDAO(Connection connection) {
         this.connection = connection;
     }
@@ -31,7 +38,7 @@ public class RegionDAO {
     /**
      * membuat koneksi
      * dan menampilkan seluruh data dalam tabel region
-     * @param connection the connection to set
+     * @return 
      */
 
     public List<Region> getAllRegions() {
@@ -58,8 +65,7 @@ public class RegionDAO {
     
     /**
      *
-     * @param Name
-     * @param id
+     * @param data
      * @return
      */
     public List<Region> searchRegion(Object data){
@@ -83,6 +89,12 @@ public class RegionDAO {
         return datas;
     }
     //insert
+
+    /**
+     *
+     * @param region
+     * @return
+     */
     public boolean insertRegion(Region region){ //fungsi untuk mengetahui apakah proses insert suskes atau tidak
         boolean result = false; //jika di try akan gagal, dia tidak melanjutkan perintah
         String query = "INSERT INTO REGIONS VALUES(?,?)";
@@ -98,13 +110,18 @@ public class RegionDAO {
         return result;
     }
     //delete 
-    public boolean deleteRegion(int id){
+
+    /**
+     *
+     * @param regionId
+     * @return
+     */
+     public boolean deleteRegion(String regionId) {
         boolean result = false;
-        String query ="DELETE FROM REGIONS where region_id =" + id;        
+        String query = "DELETE FROM REGIONS where region_id =" + regionId + "";
         try {
-            PreparedStatement preparedStatement = connection.prepareCall(query);
-            preparedStatement.setInt(0, id);
-            preparedStatement.executeUpdate();
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.execute();
             result = true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -138,7 +155,11 @@ public class RegionDAO {
         return datas;
     }
 
- 
+    /**
+     *
+     * @param region
+     * @return
+     */
     public boolean updateRegion(Region region) {
         boolean result = false;
         String query = "UPDATE REGIONS SET REGION_NAME = ?"

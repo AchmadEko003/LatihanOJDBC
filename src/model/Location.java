@@ -7,19 +7,34 @@ package model;
 
 /**
  *
- * @author Nine
+ * @author Nitani
  */
 public class Location {
     private int locationId;
     private String streetAddress;
     private String postalCode;
     private String city;
-    private String stateprovince;
+    private String stateProvince;
     private String countryId;
 
     /**
      * @return the locationId
      */
+    
+    public Location() {
+    }
+
+    public Location(int locationId, String streetAddress, String postalCode, String city, String stateProvince, String countryId) {
+        this.locationId = locationId;
+        this.streetAddress = streetAddress;
+        this.postalCode = postalCode;
+        this.city = city;
+        this.stateProvince = stateProvince;
+        this.countryId = countryId;
+    }
+    
+    
+
     public int getLocationId() {
         return locationId;
     }
@@ -74,17 +89,17 @@ public class Location {
     }
 
     /**
-     * @return the stateprovince
+     * @return the stateProvince
      */
     public String getStateProvince() {
-        return stateprovince;
+        return stateProvince;
     }
 
     /**
-     * @param stateprovince the stateprovince to set
+     * @param stateProvince the stateProvince to set
      */
-    public void setStateProvince(String stateprovince) {
-        this.stateprovince = stateprovince;
+    public void setStateProvince(String stateProvince) {
+        this.stateProvince = stateProvince;
     }
 
     /**
@@ -101,5 +116,5 @@ public class Location {
         this.countryId = countryId;
     }
 
-
+    
 }

@@ -7,7 +7,7 @@ package model;
 
 /**
  *
- * @author Nine
+ * @author Nitani
  */
 public class Job {
     private String jobId;
@@ -70,4 +70,6 @@ public class Job {
     public void setMaxSalary(int maxSalary) {
         this.maxSalary = maxSalary;
     }
+    
+    
 }

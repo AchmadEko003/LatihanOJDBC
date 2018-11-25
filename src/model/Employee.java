@@ -5,24 +5,73 @@
  */
 package model;
 
+import java.beans.PropertyChangeSupport;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
- * @author Nine
+ * @author Nitani
  */
 public class Employee {
+
     private int employeeId;
     private String firstName;
     private String lastName;
     private String email;
     private String phoneNumber;
-    private Date hireDate;
+    //private Date hireDate;
+    private String hireDate;
     private String jobId;
     private int salary;
-    private int commission_pct;
+    private double commisionPct;
     private int managerId;
     private int departmentId;
+
+    public Employee() {
+    }
+
+    public Employee(int employeeId, String firstName, String lastName, String email, String phoneNumber, Date hireDate, String jobId, int salary, double commisionPct, int managerId, int departmentId) {
+        this.employeeId = employeeId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.jobId = jobId;
+        this.salary = salary;
+        this.commisionPct = commisionPct;
+        this.managerId = managerId;
+        this.departmentId = departmentId;
+    }
+
+    public Employee(String firstName, String lastName, String email, String phoneNumber, String hireDate, String jobId, int salary, double commisionPct, int managerId, int departmentId, int employeeId) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.hireDate = hireDate;
+        this.jobId = jobId;
+        this.salary = salary;
+        this.commisionPct = commisionPct;
+        this.managerId = managerId;
+        this.departmentId = departmentId;
+        this.employeeId = employeeId;
+    }
+
+    public Employee(int empid, String empFName, String empLName, String empMail, String empPhone, String empHireDate, String empJobId,
+                    int empSal, double empCom, int empmanager, int empdepartment) {
+        this.employeeId= empid;
+        this.firstName = empFName;
+        this.lastName = empLName;
+        this.email = empMail;
+        this.phoneNumber = empPhone;
+        this.hireDate = empHireDate;
+        this.jobId = empJobId;
+        this.salary = empSal;
+        this.commisionPct = empCom;
+        this.managerId= empmanager;
+        this.departmentId = empdepartment;
+    }
 
     /**
      * @return the employeeId
@@ -35,7 +84,9 @@ public class Employee {
      * @param employeeId the employeeId to set
      */
     public void setEmployeeId(int employeeId) {
+        int oldEmployeeId = this.employeeId;
         this.employeeId = employeeId;
+        propertyChangeSupport.firePropertyChange(PROP_EMPLOYEEID, oldEmployeeId, employeeId);
     }
 
     /**
@@ -49,7 +100,9 @@ public class Employee {
      * @param firstName the firstName to set
      */
     public void setFirstName(String firstName) {
+        java.lang.String oldFirstName = this.firstName;
         this.firstName = firstName;
+        propertyChangeSupport.firePropertyChange(PROP_FIRSTNAME, oldFirstName, firstName);
     }
 
     /**
@@ -63,7 +116,9 @@ public class Employee {
      * @param lastName the lastName to set
      */
     public void setLastName(String lastName) {
+        java.lang.String oldLastName = this.lastName;
         this.lastName = lastName;
+        propertyChangeSupport.firePropertyChange(PROP_LASTNAME, oldLastName, lastName);
     }
 
     /**
@@ -77,7 +132,9 @@ public class Employee {
      * @param email the email to set
      */
     public void setEmail(String email) {
+        java.lang.String oldEmail = this.email;
         this.email = email;
+        propertyChangeSupport.firePropertyChange(PROP_EMAIL, oldEmail, email);
     }
 
     /**
@@ -91,22 +148,26 @@ public class Employee {
      * @param phoneNumber the phoneNumber to set
      */
     public void setPhoneNumber(String phoneNumber) {
+        java.lang.String oldPhoneNumber = this.phoneNumber;
         this.phoneNumber = phoneNumber;
+        propertyChangeSupport.firePropertyChange(PROP_PHONENUMBER, oldPhoneNumber, phoneNumber);
     }
 
     /**
      * @return the hireDate
      */
-    public Date getHireDate() {
+    public String getHireDate() {
         return hireDate;
     }
 
     /**
      * @param hireDate the hireDate to set
      */
-//    public void setHireDate(Date hireDate) {
-//        this.hireDate = hireDate;
-//    }
+    public void setHireDate(String hireDate) {
+        String oldHireDate = this.hireDate;
+        this.hireDate = hireDate;
+        propertyChangeSupport.firePropertyChange(PROP_HIREDATE, oldHireDate, hireDate);
+    }
 
     /**
      * @return the jobId
@@ -119,7 +180,9 @@ public class Employee {
      * @param jobId the jobId to set
      */
     public void setJobId(String jobId) {
+        java.lang.String oldJobId = this.jobId;
         this.jobId = jobId;
+        propertyChangeSupport.firePropertyChange(PROP_JOBID, oldJobId, jobId);
     }
 
     /**
@@ -133,21 +196,25 @@ public class Employee {
      * @param salary the salary to set
      */
     public void setSalary(int salary) {
+        int oldSalary = this.salary;
         this.salary = salary;
+        propertyChangeSupport.firePropertyChange(PROP_SALARY, oldSalary, salary);
     }
 
     /**
-     * @return the commission
+     * @return the commisionPct
      */
-    public int getCommission() {
-        return commission_pct;
+    public double getCommisionPct() {
+        return commisionPct;
     }
 
     /**
-     * @param commission_pct the commission to set
+     * @param commisionPct the commisionPct to set
      */
-    public void setCommissionPct(int commission_pct) {
-        this.commission_pct = commission_pct;
+    public void setCommisionPct(double commisionPct) {
+        double oldCommisionPct = this.commisionPct;
+        this.commisionPct = commisionPct;
+        propertyChangeSupport.firePropertyChange(PROP_COMMISIONPCT, oldCommisionPct, commisionPct);
     }
 
     /**
@@ -161,7 +228,9 @@ public class Employee {
      * @param managerId the managerId to set
      */
     public void setManagerId(int managerId) {
+        int oldManagerId = this.managerId;
         this.managerId = managerId;
+        propertyChangeSupport.firePropertyChange(PROP_MANAGERID, oldManagerId, managerId);
     }
 
     /**
@@ -175,6 +244,27 @@ public class Employee {
      * @param departmentId the departmentId to set
      */
     public void setDepartmentId(int departmentId) {
+        int oldDepartmentId = this.departmentId;
         this.departmentId = departmentId;
+        propertyChangeSupport.firePropertyChange(PROP_DEPARTMENTID, oldDepartmentId, departmentId);
     }
+   /**
+    * ?????
+    */
+    private final transient PropertyChangeSupport propertyChangeSupport = new java.beans.PropertyChangeSupport(this);
+    public static final String PROP_EMPLOYEEID = "employeeId";
+    public static final String PROP_FIRSTNAME = "firstName";
+    public static final String PROP_LASTNAME = "lastName";
+    public static final String PROP_EMAIL = "email";
+    public static final String PROP_PHONENUMBER = "phoneNumber";
+    public static final String PROP_HIREDATE = "hireDate";
+    public static final String PROP_JOBID = "jobId";
+    public static final String PROP_SALARY = "salary";
+    public static final String PROP_COMMISIONPCT = "commisionPct";
+    public static final String PROP_MANAGERID = "managerId";
+    public static final String PROP_DEPARTMENTID = "departmentId";
+
+    
+    
+
 }

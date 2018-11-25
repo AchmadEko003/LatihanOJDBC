@@ -9,8 +9,8 @@ import daos.CountryDAO;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
-import models.Country;
-import models.Region;
+import model.Country;
+import model.Region;
 
 /**
  *

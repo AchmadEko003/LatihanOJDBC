@@ -8,8 +8,8 @@ package views;
 import controllers.CountryController;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import models.Country;
-import models.Region;
+import model.Country;
+import model.Region;
 import tools.Connections;
 
 /**

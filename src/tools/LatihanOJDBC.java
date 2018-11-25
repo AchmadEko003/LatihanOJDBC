@@ -13,12 +13,12 @@ import daos.JobDAO;
 import daos.LocationDAO;
 import daos.RegionDAO;
 import java.io.PrintStream;
-import models.Country;
-import models.Department;
-import models.Employee;
-import models.Job;
-import models.Location;
-import models.Region;
+import model.Country;
+import model.Department;
+import model.Employee;
+import model.Job;
+import model.Location;
+import model.Region;
 
 /**
  *

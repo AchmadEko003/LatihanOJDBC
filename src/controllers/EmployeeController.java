@@ -40,10 +40,19 @@ public class EmployeeController {
         return edao.getAllEmployee().size();
     }
 
+    /**
+     * gets() --> to get all data
+     * @return 
+     */
     public List<Employee> gets() {
         return edao.getAllEmployee();
     }
 
+    /**
+     * find(Object data) --> function search by object
+     * @param data
+     * @return 
+     */
     public List<Employee> find(Object data) {
         return edao.searchByEmployees(data);
     }

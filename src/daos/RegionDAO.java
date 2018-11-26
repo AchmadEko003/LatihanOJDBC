@@ -10,7 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import model.Employee;
 import model.Region;
 
 /**
@@ -35,46 +34,56 @@ public class RegionDAO {
         this.connection = connection;
     }
 
-    /**
-     * membuat koneksi
-     * dan menampilkan seluruh data dalam tabel region
-     * @return 
-     */
-
-    public List<Region> getAllRegions() {
+    public List<Region> getDatas(String query) {
         List<Region> datas = new ArrayList<>();
-        String query = "SELECT * FROM HR.REGIONS";//mengambil dari tabel hr.regions
-        try{
-            PreparedStatement preparedStatement =
-                    connection.prepareStatement(query);
+        try {
+            PreparedStatement preparedStatement
+                    = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()){ //perulangan dilakukan selama data region ditemukan
+            while (resultSet.next()) { //perulangan dilakukan selama data region ditemukan
                 Region region = new Region(); //instansiasi Region
                 region.setRegionId(resultSet.getInt("region_id")); //untuk mengambil region_id
                 region.setRegionId(resultSet.getInt(1)); //untuk mengambil region_id
                 region.setRegionName(resultSet.getString("region_name")); //untuk mengambil region_name
                 datas.add(region); //penambahan data kedalam list tiap kali data region datemukan
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return datas;
     }
-    
+    /**
+     * membuat koneksi dan menampilkan seluruh data dalam tabel region
+     *
+     * @return
+     */
+    public List<Region> getAllRegions() {
+        return getDatas("SELECT * FROM HR.REGIONS order by 1");
+    }
 
-    
     /**
      *
      * @param data
      * @return
      */
-    public List<Region> search(Object data){
+    public List<Region> search(Object data) {
+        String a = "SELECT * FROM REGIONS where region_id LIKE '%" + data + "%'"
+                + " OR region_name LIKE '%" + data + "%'";
+        return getDatas(a);
+    }
+    /**
+     *
+     * @param data
+     * @return
+     */
+    //Object = mengambil tipe data
+    public List<Region> getByID(String regionId) {
         List<Region> datas = new ArrayList<>();
-        String query = "SELECT * FROM REGIONS WHERE REGION_ID LIKE '%"+data+"%'" + "OR REGION_NAME LIKE '%"+data+"%'";
+        String query = "SELECT * FROM REGIONS WHERE REGION_ID = '" + regionId + "'";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()){
+            while (resultSet.next()) {
                 Region region = new Region();
                 region.setRegionId(resultSet.getInt("REGION_ID"));
                 region.setRegionName(resultSet.getString("REGION_NAME"));
@@ -85,35 +94,50 @@ public class RegionDAO {
         }
         return datas;
     }
-    //insert
+    /**
+     * Query Untuk Insert dan Reload Data Baru
+     * @param query
+     * @param region
+     * @return 
+     */
+    public boolean insertDatas(String query, Region region) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareCall(query);
+            preparedStatement.setString(1, region.getRegionName());
+            preparedStatement.setInt(2, region.getRegionId());
+            preparedStatement.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
     /**
      *
      * @param region
      * @return
      */
-    public boolean insertRegion(Region region){ //fungsi untuk mengetahui apakah proses insert suskes atau tidak
-        boolean result = false; //jika di try akan gagal, dia tidak melanjutkan perintah
-        String query = "INSERT INTO REGIONS VALUES(?,?)";
-        try{
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, region.getRegionId()); //untuk mengisi ? di index pertama diisi dengan id region
-            preparedStatement.setString(2, region.getRegionName()); //untuk mengisi ? di index kedua diisi dengan nama region
-            preparedStatement.executeUpdate();
-            result = true;
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        return result;
+    public boolean insertRegion(Region region) { //fungsi untuk mengetahui apakah proses insert suskes atau tidak
+        String query = "INSERT INTO REGIONS (Region_name, region_id)"
+                + "VALUES(?,?)";
+        return insertDatas(query, region);
     }
-    //delete 
-
+    /**
+     *
+     * @param region
+     * @return
+     */
+    public boolean updateRegion(Region region) {
+        String query = "UPDATE REGIONS SET REGION_NAME = ? WHERE REGION_ID = ?";
+        return insertDatas(query, region);
+    }
     /**
      *
      * @param regionId
      * @return
      */
-     public boolean deleteRegion(String regionId) {
+    public boolean deleteRegion(String regionId) {
         boolean result = false;
         String query = "DELETE FROM REGIONS where region_id =" + regionId + "";
         try {
@@ -125,51 +149,4 @@ public class RegionDAO {
         }
         return result;
     }
-
-
-    /**
-     *
-     * @param data
-     * @return
-     */
-    //Object = mengambil tipe data
-    public List<Region> getByID(Object data) {
-        List<Region> datas = new ArrayList<>();
-        String query = "SELECT * FROM REGIONS WHERE region_id like '%" + data + "%' OR region_name like'%" + data + "%'";
-        try {
-            PreparedStatement preparedStatement
-                    = connection.prepareStatement(query);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                Region region = new Region(); //instansiasi
-                region.setRegionId(resultSet.getInt("region_id"));
-                region.setRegionName(resultSet.getString("region_name"));
-                datas.add(region);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return datas;
-    }
-
-    /**
-     *
-     * @param region
-     * @return
-     */
-    public boolean updateRegion(Region region) {
-        boolean result = false;
-        String query = "UPDATE REGIONS SET REGION_NAME = ? WHERE REGION_ID = ?";
-        try {
-            PreparedStatement preparedStatement = connection.prepareCall(query);
-            preparedStatement.setString(1, region.getRegionName());
-            preparedStatement.setInt(2, region.getRegionId());
-            preparedStatement.executeUpdate();
-            result = true;            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
-
-}
 }

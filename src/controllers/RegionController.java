@@ -63,8 +63,8 @@ public class RegionController extends javax.swing.JFrame {
         return rdao.updateRegion(region);
     }
     
-    public List<Region> search(Object object){
-        return rdao.search(object);
+    public List<Region> search(){
+        return rdao.getAllRegions();
     }
 
     /**
@@ -74,7 +74,7 @@ public class RegionController extends javax.swing.JFrame {
      * @return
      */
     public List<Region> getByID(String regionId) {
-        List<Region> result = new ArrayList<>();
+        int data = Integer.parseInt(regionId);
         return rdao.getByID(regionId);
     }
 

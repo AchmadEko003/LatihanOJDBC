@@ -553,11 +553,11 @@ public class EmployeeView extends javax.swing.JFrame {
 
     private void searchID(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchID
         // TODO add your handling code here:
+        bindingTable(employeeController.getid(employeeid_field.getText()));
     }//GEN-LAST:event_searchID
 
     private void txtGetIdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGetIdKeyPressed
         // TODO add your handling code here:
-        bindingTable(employeeController.getid(txtGetId.getText()));
     }//GEN-LAST:event_txtGetIdKeyPressed
 
     private void txtSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyPressed

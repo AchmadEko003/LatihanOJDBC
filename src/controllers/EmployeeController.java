@@ -62,8 +62,9 @@ public class EmployeeController {
      * @param id
      * @return 
      */
-    public  List<Employee> getid(int id){
-        return edao.getEmployeeId(id);
+    public  List<Employee> getid(String id){
+        int idEmp = Integer.parseInt(id);
+        return edao.getEmployeeId(idEmp);
     }
     
     /**
@@ -71,8 +72,9 @@ public class EmployeeController {
      * @param id
      * @return 
      */
-    public boolean delete(int id) {
-        return edao.deleteEmployees(id);
+    public boolean delete(String id) {
+        int idEmp = Integer.parseInt(id);
+        return edao.deleteEmployees(idEmp);
     }
     
     public void getname() {
@@ -114,19 +116,19 @@ public class EmployeeController {
      * @param departmentid
      * @return 
      */
-     public boolean insert(String employeeid, String firstname, String lastname, String email, String phonenumber, String hiredate, String jobid, String salary, String commissionpct, String managerid, String departmentid) {
+     public boolean insert( String firstname, String lastname, String email, String phonenumber, String hiredate, String jobid, String salary, String commissionpct, String managerid, String departmentid, String employeeid) {
         boolean result = false;
         int empid =Integer.valueOf(employeeid);
         int empSal =Integer.valueOf(salary);
         double empCom =Double.valueOf(commissionpct);
         int empmanager =Integer.valueOf(managerid);
         int empdepartment =Integer.valueOf(departmentid);
-        Employee employee = new Employee(empid,firstname,
+        Employee employee = new Employee(firstname,
                 lastname,email,
                 phonenumber,hiredate,
                 jobid,empSal,
                 empCom,empmanager,
-                empdepartment);
+                empdepartment, empid);
         result = edao.insertEmployee(employee);
         return result;
     }

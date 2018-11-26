@@ -55,19 +55,22 @@ public class DepartmentDAO {
     
     /**
      * insert department
+     *
      * @param department
-     * @return 
+     * @return
      */
-    public boolean insertDepartment(Department department){
+    public boolean insertDepartment(Department department) {
         boolean result = false;
-        String query ="INSERT INTO department VALUES (?,?,?,?)";        
+        String query = "INSERT INTO departments VALUES (?,?,?,?)";
         try {
             PreparedStatement preparedStatement = connection.prepareCall(query);
             preparedStatement.setInt(1, department.getDepartmentId());
             preparedStatement.setString(2, department.getDepartmentName());
             preparedStatement.setInt(3, department.getManagerId());
             preparedStatement.setInt(4, department.getLocationId());
-    } catch (Exception e) {
+            preparedStatement.executeUpdate();
+            result = true;
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return result;

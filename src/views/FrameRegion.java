@@ -317,7 +317,7 @@ public class FrameRegion extends javax.swing.JFrame {
 
         if (dialogResult == 0) {
             if (!regionId.equals("")) {
-                if (rc.Delete(regionId) == true) {
+                if (rc.delete(regionId) == true) {
                     JOptionPane.showMessageDialog(null, "Data berhasil di Hapus !");
                     txtRegionId.setText("");
                     txtRegionName.setText("");
@@ -361,23 +361,25 @@ public class FrameRegion extends javax.swing.JFrame {
      * @param evt 
      */
     private void btnGetByIdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGetByIdMouseClicked
-       String regionId = txtSearch.getText();
+       String regionId = (String) txtSearch.getText();
+//        String countryName = txtSearch.getText();
+//        String regionId = (String) txtSearch.getText();
 
-        Object[] header = {"Region Id", "Region Name"};
+        Object[] header = {"Region ID", "Region Name"};
         DefaultTableModel data = new DefaultTableModel(null, header);
         tabelregion.setModel(data);
 
         try {
 //            String object = txtSearch.getText();
-            for (Region region : rc.getAllRegion(regionId)) {
-                String is1 = String.valueOf(region.getRegionId());
-                String is2 = String.valueOf(region.getRegionName());
+            for (Region region : rc.getByID(regionId)) {
+                String isi1 = String.valueOf(region.getRegionId());// region.getRegionId();
+                String isi2 = region.getRegionName();
 
-                String kolom[] = {is1, is2};
+                String kolom[] = {isi1, isi2};
                 data.addRow(kolom);
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Oops!.." + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Oops! : " + e.getMessage());
         }
     }//GEN-LAST:event_btnGetByIdMouseClicked
     /**

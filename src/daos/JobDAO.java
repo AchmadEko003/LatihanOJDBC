@@ -14,66 +14,43 @@ import model.Job;
 
 /**
  *
- * @author Nine
+ * @author Nitani
  */
 public class JobDAO {
+
     private Connection connection;
-    
+
+    public JobDAO() {
+    }
+
     public JobDAO(Connection connection) {
         this.connection = connection;
     }
-    
-    /**
- *
- * @author Nitani
- */
-    public List<Job> getAllJobs() {
+
+    public List<Job> getAllJob() {
         List<Job> datas = new ArrayList<>();
-        String query = "SELECT * FROM HR.JOBS";//mengambil dari tabel hr.jobs
-        try{
-            PreparedStatement preparedStatement =
-                    connection.prepareStatement(query);
+        String query = "SELECT * FROM Jobs";
+        try {
+            PreparedStatement preparedStatement
+                    = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()){ //perulangan dilakukan selama data region ditemukan
-                Job job = new Job(); //instansiasi Region
-                job.setJobId(resultSet.getString("job_id")); //untuk mengambil region_id
-                //job.setJobId(resultSet.getInt(1)); //untuk mengambil region_id
-                job.setJobTitle(resultSet.getString("job_title")); //untuk mengambil region_name
-                job.setMinSalary(resultSet.getInt("min_salary")); //untuk mengambil min_salary
-                job.setMaxSalary(resultSet.getInt("max_salary")); //untuk mengambil max_salary
-                datas.add(job); //penambahan data kedalam list tiap kali data region datemukan
+            while (resultSet.next()) {
+                Job job = new Job(); //instansiasi
+                job.setJobId(resultSet.getString("job_id"));
+                job.setJobTitle(resultSet.getString("job_title"));
+                job.setMinSalary(resultSet.getInt("min_salary"));
+                job.setMaxSalary(resultSet.getInt("max_salary"));
+                datas.add(job);
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return datas;
     }
-    
-    
-    public List<Job> getJobId(String id){
-        List<Job> datas = new ArrayList<>();
-        String query = "SELECT * FROM HR.JOBS WHERE JOB_ID = '" + id+"'";//mengambil dari tabel hr.job
-        try{
-            PreparedStatement preparedStatement =
-                    connection.prepareStatement(query);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()){ //perulangan dilakukan selama data job ditemukan
-                Job job = new Job(); //instansiasi Region
-                job.setJobId(resultSet.getString("job_id")); //untuk mengambil job_id
-                //region.setRegionId(resultSet.getInt(1)); //untuk mengambil job_id
-                job.setJobTitle(resultSet.getString("job_title")); //untuk mengambil job_title
-                job.setMinSalary(resultSet.getInt("min_salary")); //untuk mengambil min_salary
-                job.setMaxSalary(resultSet.getInt("max_salary")); //untuk mengambil max_salary
-                datas.add(job); //penambahan data kedalam list tiap kali data job ditemukan
-            }
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        return datas;
-    }
-    
+
     /**
      * this is function delete for table Jobs created by Aji.
+     *
      * @param id
      * @return true if the query is succes executed.
      */
@@ -89,22 +66,23 @@ public class JobDAO {
         }
         return result;
     }
+
     /**
-     * 
+     *
      * @param job by ADHE
-     * @return 
+     * @return
      */
-     public boolean updateJob(Job job){
+    public boolean updateJob(Job job) {
         boolean result = false;
-        String query ="UPDATE JOBS SET job_title=?, min_salary=?,"
-                + " max_salary=? where job_id = ?";        
+        String query = "UPDATE JOBS SET job_title=?, min_salary=?,"
+                + " max_salary=? where job_id = ?";
         try {
-            PreparedStatement preparedStatement = connection.prepareCall(query);            
+            PreparedStatement preparedStatement = connection.prepareCall(query);
             preparedStatement.setString(1, job.getJobTitle());
             preparedStatement.setInt(2, job.getMinSalary());
             preparedStatement.setInt(3, job.getMaxSalary());
             preparedStatement.setString(4, job.getJobId());
-            preparedStatement.executeUpdate();   
+            preparedStatement.executeUpdate();
             result = true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -112,23 +90,21 @@ public class JobDAO {
         return result;
     }
 
-
-     /**
-      * search job
-      * by Tika MP
-      * @param data
-      * @return 
-      */
-     public List<Job> searchByJobs(Object data){
+    /**
+     * search job by Tika MP
+     *
+     * @param data
+     * @return
+     */
+    public List<Job> searchByJobs(Object data) {
         List<Job> datas = new ArrayList<>();
-        String query = "SELECT * FROM JOBS where job_id LIKE '%"+data+"%'"
-                + " OR job_title LIKE '%"+data+"%'"
-                + " OR max_salary LIKE '%"+data+"%'"
-                + " OR min_salary LIKE '%"+data+"%'"; 
-                
+        String query = "SELECT * FROM JOBS where job_id LIKE '%" + data + "%'"
+                + " OR job_title LIKE '%" + data + "%'"
+                + " OR max_salary LIKE '%" + data + "%'"
+                + " OR min_salary LIKE '%" + data + "%'";
         try {
-            PreparedStatement preparedStatement =
-                    connection.prepareStatement(query);
+            PreparedStatement preparedStatement
+                    = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement
                     .executeQuery();
             while (resultSet.next()) {
@@ -144,4 +120,42 @@ public class JobDAO {
         }
         return datas;
     }
+
+    public boolean insertJob(Job job) {
+        boolean result = false;
+        String query = "INSERT INTO JOBS VALUES (?,?,?,?)";
+        try {
+            PreparedStatement preparedStatement = connection.prepareCall(query);
+            preparedStatement.setString(1, job.getJobId());
+            preparedStatement.setString(2, job.getJobTitle());
+            preparedStatement.setInt(3, job.getMinSalary());
+            preparedStatement.setInt(4, job.getMaxSalary());
+            preparedStatement.executeUpdate();
+            result = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public List<Job> getById(String jobId) {
+        List<Job> data = new ArrayList<>();
+        String query = "SELECT * FROM JOBS WHERE JOB_ID = '" + jobId + "'";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {//perulangan sebanyak kursor jika masih ada, buat object baru
+                Job job = new Job();//panggil kelas 
+                job.setJobId(resultSet.getString("job_id"));
+                job.setJobTitle(resultSet.getString("job_title"));
+                job.setMinSalary(resultSet.getInt("min_salary"));
+                job.setMaxSalary(resultSet.getInt("max_salary"));
+                data.add(job);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
+
 }

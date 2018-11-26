@@ -15,36 +15,27 @@ import model.Region;
  *
  * @author EMDES
  */
-public class RegionController extends javax.swing.JFrame{
-     private Connection connection;
+public class RegionController extends javax.swing.JFrame {
+
+    private Connection connection;
     private RegionDAO rdao;
 
-    /**
-     *
-     */
     public RegionController() {
 
     }
 
-    /**
-     *
-     * @param connection
-     */
     public RegionController(Connection connection) {
         this.connection = connection;
         this.rdao = new RegionDAO(connection);
     }
 
-    /**
-     *
-     * @param connection
-     */
     public void setConnection(Connection connection) {
         this.connection = connection;
         this.rdao = new RegionDAO(connection);
     }
 
     /**
+     * Insert Data Ragions
      *
      * @param regionId
      * @param regionName
@@ -54,49 +45,55 @@ public class RegionController extends javax.swing.JFrame{
         boolean result = false;
         int idRegion = Integer.parseInt(regionId);
         Region region = new Region(idRegion, regionName);
-        return rdao.insertRegion(region);
+        result = rdao.insertRegion(region);
+        return result;
     }
 
     /**
+     * Edit data Regions
      *
      * @param regionId
      * @param regionName
      * @return
      */
-    public boolean update(String regionId, String regionName) {
-        boolean result = false;
+    public boolean update(String regionName, String regionId) {
+        //boolean result = false;
         int idRegion = Integer.parseInt(regionId);
         Region region = new Region(idRegion, regionName);
         return rdao.updateRegion(region);
     }
+    
+    public List<Region> search(Object object){
+        return rdao.search(object);
+    }
 
     /**
+     * SetById Regions
      *
      * @param object
      * @return
      */
-    public List<Region> GetById(String regionId) {
+    public List<Region> getByID(String regionId) {
         List<Region> result = new ArrayList<>();
         return rdao.getByID(regionId);
     }
 
     /**
+     * View All Data Regions
      *
      * @param object
      * @return
      */
     public List<Region> getAllRegion(Object object) {
         List<Region> result = new ArrayList<>();
-        return rdao.getAllRegions();
+        result = rdao.getAllRegions();
+        return result;
     }
 
-    /**
-     *
-     * @param regionId
-     * @return
-     */
-    public boolean Delete(String regionId) {
+    public boolean delete(String regionId){
         boolean result = false;
-        return rdao.deleteRegion(regionId);
+        result = rdao.deleteRegion(regionId);
+        return result;
     }
+
 }

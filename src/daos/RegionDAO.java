@@ -68,17 +68,16 @@ public class RegionDAO {
      * @param data
      * @return
      */
-    public List<Region> getByID(String regionId) {
+    public List<Region> search(Object data){
         List<Region> datas = new ArrayList<>();
-        String query = "SELECT * FROM REGIONS WHERE REGION_ID '" + regionId + "'";
+        String query = "SELECT * FROM REGIONS WHERE REGION_ID LIKE '%"+data+"%'" + "OR REGION_NAME LIKE '%"+data+"%'";
         try {
-            PreparedStatement preparedStatement
-                    = connection.prepareStatement(query);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                Region region = new Region(); //instansiasi
-                region.setRegionId(resultSet.getInt("region_id"));
-                region.setRegionName(resultSet.getString("region_name"));
+            while(resultSet.next()){
+                Region region = new Region();
+                region.setRegionId(resultSet.getInt("REGION_ID"));
+                region.setRegionName(resultSet.getString("REGION_NAME"));
                 datas.add(region);
             }
         } catch (Exception e) {
@@ -160,18 +159,17 @@ public class RegionDAO {
      */
     public boolean updateRegion(Region region) {
         boolean result = false;
-        String query = "UPDATE REGIONS SET REGION_NAME = ?"
-                + " WHERE REGION_ID = ?";
+        String query = "UPDATE REGIONS SET REGION_NAME = ? WHERE REGION_ID = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareCall(query);
             preparedStatement.setString(1, region.getRegionName());
             preparedStatement.setInt(2, region.getRegionId());
             preparedStatement.executeUpdate();
-            result = true;
+            result = true;            
         } catch (Exception e) {
             e.printStackTrace();
         }
         return result;
-    }
 
+}
 }

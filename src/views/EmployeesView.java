@@ -90,7 +90,6 @@ public class EmployeesView extends javax.swing.JInternalFrame {
         phonenumber_field = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        view = new javax.swing.JButton();
         employeeid_field = new javax.swing.JTextField();
         hiredate_field = new javax.swing.JTextField();
         deletebutton = new javax.swing.JButton();
@@ -153,13 +152,6 @@ public class EmployeesView extends javax.swing.JInternalFrame {
         jLabel14.setText("Hire Date");
 
         jLabel8.setText("Job ID");
-
-        view.setText("View");
-        view.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewActionPerformed(evt);
-            }
-        });
 
         employeeid_field.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -308,8 +300,6 @@ public class EmployeesView extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(deletebutton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(view, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE)
@@ -373,8 +363,7 @@ public class EmployeesView extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(update_Button)
                             .addComponent(insertbutton)
-                            .addComponent(deletebutton)
-                            .addComponent(view))))
+                            .addComponent(deletebutton))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -420,6 +409,8 @@ public class EmployeesView extends javax.swing.JInternalFrame {
                 managerid_field.setText(" ");
                 departmentid_field.setText(" ");
                 employeeid_field.setText(" ");
+                employeeid_field.setEnabled(true);
+                bindingTable(employeeController.gets());
             } else {
                 JOptionPane.showMessageDialog(null, "insert gagal");
             }
@@ -433,11 +424,6 @@ public class EmployeesView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_lastname_fieldActionPerformed
 
-    private void viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewActionPerformed
-        // TODO add your handling code here:
-        bindingTable(employeeController.gets());
-    }//GEN-LAST:event_viewActionPerformed
-
     private void employeeid_fieldsearchID(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_employeeid_fieldsearchID
         // TODO add your handling code here:                       
         bindingTable(employeeController.getid(employeeid_field.getText()));
@@ -447,7 +433,8 @@ public class EmployeesView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         String nil = employeeid_field.getText();
         employeeController.delete(nil);
-        
+        bindingTable(employeeController.gets());
+
         firstname_field.setText(" ");
         lastname_field.setText(" ");
         email_field.setText(" ");
@@ -488,7 +475,11 @@ public class EmployeesView extends javax.swing.JInternalFrame {
             managerid_field.setText(" ");
             departmentid_field.setText(" ");
             employeeid_field.setText(" ");
-
+            employeeid_field.setEnabled(true);
+            insertbutton.setEnabled(true);
+            deletebutton.setEnabled(true);
+            update_Button.setEnabled(false);
+            bindingTable(employeeController.gets());
         } else {
             JOptionPane.showMessageDialog(null, "Update Gagal");
         }
@@ -510,7 +501,9 @@ public class EmployeesView extends javax.swing.JInternalFrame {
         managerid_field.setText(model.getValueAt(i, 9).toString());
         departmentid_field.setText(model.getValueAt(i, 10).toString());
         deletebutton.setEnabled(false);
-        
+        employeeid_field.setEnabled(false);
+        insertbutton.setEnabled(false);
+        update_Button.setEnabled(true);
     }//GEN-LAST:event_getidTabletableClick
 
     private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
@@ -534,6 +527,7 @@ public class EmployeesView extends javax.swing.JInternalFrame {
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
         // TODO add your handling code here:
         bindingTable(employeeController.gets());
+        update_Button.setEnabled(false);
     }//GEN-LAST:event_formInternalFrameActivated
 
 
@@ -567,6 +561,5 @@ public class EmployeesView extends javax.swing.JInternalFrame {
     private javax.swing.JButton searchButton;
     private javax.swing.JTextField txtSearch;
     private javax.swing.JButton update_Button;
-    private javax.swing.JButton view;
     // End of variables declaration//GEN-END:variables
 }

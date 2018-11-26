@@ -28,7 +28,6 @@ public class frameDepartment extends javax.swing.JFrame {
         initComponents();
         selectEmployeeId();
         selectLocatoId();
-        selectDepartmentAll();
     }
     
     /**
@@ -82,13 +81,6 @@ public class frameDepartment extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Oops! : " + e.getMessage());
         }
-    }
-    
-    /**
-     * reset table department
-     */
-    public void resetTable() {
-        selectDepartmentAll();
     }
 
     /**
@@ -342,7 +334,7 @@ public class frameDepartment extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Form input tidak boleh kosong");
         }
         
-        resetTable();
+        selectDepartmentAll();
     }//GEN-LAST:event_buttonInsertMouseClicked
     
     private void tableDepartmentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableDepartmentMouseClicked
@@ -380,7 +372,7 @@ public class frameDepartment extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Form input tidak boleh kosong");
         }
         
-        resetTable();
+        selectDepartmentAll();
     }//GEN-LAST:event_buttonUpdateMouseClicked
 
     private void buttonDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonDeleteMouseClicked

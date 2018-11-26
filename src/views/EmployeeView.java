@@ -149,9 +149,15 @@ public class EmployeeView extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(getidTable);
 
+        txtGetId.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         txtGetId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtGetIdActionPerformed(evt);
+            }
+        });
+        txtGetId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtGetIdKeyPressed(evt);
             }
         });
 
@@ -167,6 +173,11 @@ public class EmployeeView extends javax.swing.JFrame {
         txtSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSearchActionPerformed(evt);
+            }
+        });
+        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtSearchKeyPressed(evt);
             }
         });
 
@@ -449,6 +460,17 @@ public class EmployeeView extends javax.swing.JFrame {
                     salary, commissionpct,
                     managerid, departmentid, employeeid)) {
                 JOptionPane.showMessageDialog(null, "insert berhasil");
+                firstname_field.setText(" ");
+                lastname_field.setText(" ");
+                email_field.setText(" ");
+                phonenumber_field.setText(" ");
+                hiredate_field.setText(" ");
+                jobid_field.setText(" ");
+                salary_field.setText(" ");
+                commissionpct_field.setText(" ");
+                managerid_field.setText(" ");
+                departmentid_field.setText(" ");
+                employeeid_field.setText(" ");
             } else {
                 JOptionPane.showMessageDialog(null, "insert gagal");
             }
@@ -485,6 +507,18 @@ public class EmployeeView extends javax.swing.JFrame {
 
         if (employeeController.update(empFN, empLN, email, phoneNum, hireNum, jobId, sal, comm, managerId, departmentId, ID) == true) {
             JOptionPane.showMessageDialog(null, "Update Berhasil");
+            firstname_field.setText(" ");
+            lastname_field.setText(" ");
+            email_field.setText(" ");
+            phonenumber_field.setText(" ");
+            hiredate_field.setText(" ");
+            jobid_field.setText(" ");
+            salary_field.setText(" ");
+            commissionpct_field.setText(" ");
+            managerid_field.setText(" ");
+            departmentid_field.setText(" ");
+            employeeid_field.setText(" ");
+            
         } else {
             JOptionPane.showMessageDialog(null, "Update Gagal");
         }
@@ -520,6 +554,16 @@ public class EmployeeView extends javax.swing.JFrame {
     private void searchID(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchID
         // TODO add your handling code here:
     }//GEN-LAST:event_searchID
+
+    private void txtGetIdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGetIdKeyPressed
+        // TODO add your handling code here:
+        bindingTable(employeeController.getid(txtGetId.getText()));
+    }//GEN-LAST:event_txtGetIdKeyPressed
+
+    private void txtSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyPressed
+        // TODO add your handling code here:
+         bindingTable(employeeController.find(txtSearch.getText()));
+    }//GEN-LAST:event_txtSearchKeyPressed
 
     /**
      * @param args the command line arguments

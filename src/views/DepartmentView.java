@@ -19,8 +19,10 @@ import tools.Connections;
  * @author yudafatah
  */
 public class DepartmentView extends javax.swing.JInternalFrame {
+
     Connections con = new Connections();
     DepartmentController departmentController = new DepartmentController(con.getConnection());
+
     /**
      * Creates new form DepartmentView
      */
@@ -30,7 +32,7 @@ public class DepartmentView extends javax.swing.JInternalFrame {
         selectEmployeeId();
         selectLocatoId();
     }
-    
+
     public void reset() {
         txtDepartID.setEditable(true);
         txtDepartID.setText("");
@@ -172,7 +174,7 @@ public class DepartmentView extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 749, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 17, Short.MAX_VALUE))))
+                        .addGap(0, 14, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,39 +216,40 @@ public class DepartmentView extends javax.swing.JInternalFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
-        if (btnSave.getText().equals("Save")){
-        String idDepartment = txtDepartID.getText();
-        String nameDepartment = txtDepartName.getText();
-        String idManager = (String) cbxManagID.getSelectedItem();
-        String idLocation = (String) cbxLocaId.getSelectedItem();
-        
-        if (!idDepartment.equals("") && !nameDepartment.equals("") && !idManager.equals("Pilih Manager") && !idDepartment.equals("Pilih Location")) {
-            if (departmentController.insertDepartment(nameDepartment, idManager, idLocation,idDepartment)) {
-                JOptionPane.showMessageDialog(null, "Insert departmen berhasil");
-                reset();
-            } else {
-                JOptionPane.showMessageDialog(null, "Insert departmen gagal");
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Form input tidak boleh kosong");
-        }
-        }
-        if (btnSave.getText().equals("Update")){
+        if (btnSave.getText().equals("Save")) {
             String idDepartment = txtDepartID.getText();
-        String nameDepartment = txtDepartName.getText();
-        String idManager = (String) cbxManagID.getSelectedItem();
-        String idLocation = (String) cbxLocaId.getSelectedItem();
-        
-        if (!idDepartment.equals("") && !nameDepartment.equals("")) {
-            if (departmentController.updateDepartment(nameDepartment, idManager, idLocation, idDepartment) == true) {
-                JOptionPane.showMessageDialog(null, "Update departmen berhasil");
-                reset();
+            String nameDepartment = txtDepartName.getText();
+            String idManager = (String) cbxManagID.getSelectedItem();
+            String idLocation = (String) cbxLocaId.getSelectedItem();
+
+            if (!idDepartment.equals("") && !nameDepartment.equals("") && !idManager.equals("Pilih Manager") && !idDepartment.equals("Pilih Location")) {
+                if (departmentController.insertDepartment(nameDepartment, idManager, idLocation, idDepartment)) {
+                    JOptionPane.showMessageDialog(null, "Insert departmen berhasil");
+                    reset();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Insert departmen gagal");
+                }
             } else {
-                JOptionPane.showMessageDialog(null, "Update departmen gagal");
+                JOptionPane.showMessageDialog(null, "Form input tidak boleh kosong");
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Form input tidak boleh kosong");
-        } 
+        }
+        
+        if (btnSave.getText().equals("Update")) {
+            String idDepartment = txtDepartID.getText();
+            String nameDepartment = txtDepartName.getText();
+            String idManager = (String) cbxManagID.getSelectedItem();
+            String idLocation = (String) cbxLocaId.getSelectedItem();
+
+            if (!idDepartment.equals("") && !nameDepartment.equals("")) {
+                if (departmentController.updateDepartment(nameDepartment, idManager, idLocation, idDepartment) == true) {
+                    JOptionPane.showMessageDialog(null, "Update departmen berhasil");
+                    reset();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Update departmen gagal");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Form input tidak boleh kosong");
+            }
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -264,7 +267,7 @@ public class DepartmentView extends javax.swing.JInternalFrame {
         txtDepartID.setEditable(false);
         txtDepartID.setText(idDepartment);
         txtDepartName.setText(nameDepartment);
-        
+
         if (idManager.equals("0")) {
             cbxManagID.setSelectedItem("Pilih Manager");
             cbxLocaId.setSelectedItem(idLocation);
@@ -278,7 +281,7 @@ public class DepartmentView extends javax.swing.JInternalFrame {
             cbxManagID.setSelectedItem(idManager);
             cbxLocaId.setSelectedItem(idLocation);
         }
-        
+
         btnSave.setText("Update");
     }//GEN-LAST:event_tableDepartMouseClicked
 
@@ -287,16 +290,14 @@ public class DepartmentView extends javax.swing.JInternalFrame {
         /**
          * execute delete function with parameter got from textfield values
          */
-        if(!txtDepartID.getText().equals("")){
-            if(departmentController.deleteDepartment(txtDepartID.getText())==true){
-                JOptionPane.showMessageDialog(null, "Data dengan id = " + txtDepartID.getText()+" berhasil dihapus");
+        if (!txtDepartID.getText().equals("")) {
+            if (departmentController.deleteDepartment(txtDepartID.getText()) == true) {
+                JOptionPane.showMessageDialog(null, "Data dengan id = " + txtDepartID.getText() + " berhasil dihapus");
                 reset();
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Gagal menghapus data!");
             }
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(null, "Pilih data yang ingin dihapus!");
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
@@ -308,7 +309,7 @@ public class DepartmentView extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Form input tidak boleh kosong");
         }
-        
+
     }//GEN-LAST:event_btnSearchIdActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
@@ -318,7 +319,7 @@ public class DepartmentView extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Form input tidak boleh kosong");
         }
-            
+
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
@@ -326,10 +327,10 @@ public class DepartmentView extends javax.swing.JInternalFrame {
         reset();
     }//GEN-LAST:event_btnResetActionPerformed
 
-    private void getDatas(List<Department> dpm){
+    private void getDatas(List<Department> dpm) {
         Object[] header = {"Department ID", "Department Name", "Manager ID", "Location ID"};
         DefaultTableModel data = new DefaultTableModel(null, header);
-        tableDepart.setModel(data); 
+        tableDepart.setModel(data);
         try {
             for (Department department : dpm) {
                 String isi1 = String.valueOf(department.getDepartmentId());
@@ -344,6 +345,7 @@ public class DepartmentView extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Oops! : " + e.getMessage());
         }
     }
+
     public void selectEmployeeId() {
         String employeeId;
         try {
@@ -355,11 +357,12 @@ public class DepartmentView extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "selectEmployeeId is " + e.getMessage());
         }
     }
+
     /**
      * select locationid for combo box location id
      */
     public void selectLocatoId() {
-         String locationId;
+        String locationId;
         try {
             for (Location location : departmentController.selectLocationId()) {
                 locationId = String.valueOf(location.getLocationId());

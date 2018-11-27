@@ -52,7 +52,7 @@ public class MainFrame extends javax.swing.JFrame {
         );
         dsktpMainLayout.setVerticalGroup(
             dsktpMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 502, Short.MAX_VALUE)
+            .addGap(0, 563, Short.MAX_VALUE)
         );
 
         mnEmployees.setText("File");
@@ -219,7 +219,6 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem Regions;
     private javax.swing.JDesktopPane dsktpMain;
     private javax.swing.JMenuItem insertCountriesView;
     private javax.swing.JMenu jMenu2;

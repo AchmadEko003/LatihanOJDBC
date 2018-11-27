@@ -86,6 +86,28 @@ public class EmployeeDAO {
         return getDatas("SELECT * FROM EMPLOYEES WHERE EMPLOYEE_ID= " + id);
     }
 
+    public List<Employee> getManagerId(int id){
+        String query = "SELECT employee_id, first_name, last_name FROM employees "
+                + "ORDER BY first_name ASC where manager_id ="+id;
+        return execEmployee(query);
+    }
+    public List<Employee> execEmployee(String query){
+        List<Employee> data = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Employee employee = new Employee();
+                employee.setEmployeeId(resultSet.getInt("employee_id"));
+                employee.setFirstName(resultSet.getString("first_name"));
+                employee.setLastName(resultSet.getString("last_name"));
+                data.add(employee);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
     /**
      * this is function delete for table employee create by Aji public boolean
      * deleteEmployees(int id)-----> delete berdasarkan id;

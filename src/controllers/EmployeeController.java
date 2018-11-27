@@ -98,8 +98,8 @@ public class EmployeeController {
      * @param ID
      * @return 
      */
-    public boolean update(String empFN, String empLN, String email, String phoneNum, String hireNum, String jobId, int sal, double comm, int managerId, int departmentId, int ID) {
-        Employee employee = new Employee(empFN, empLN, email, phoneNum, hireNum, jobId, sal, comm, managerId, departmentId, ID);
+    public boolean update(String empFN, String empLN, String email, String phoneNum, String hireNum, String jobId, int sal, double comm, String managerId, int departmentId, int ID) {
+        Employee employee = new Employee(empFN, empLN, email, phoneNum, hireNum, jobId, sal, comm, Integer.valueOf(managerId), departmentId, ID);
         return edao.updateEmployee(employee);
     }
     
@@ -134,10 +134,15 @@ public class EmployeeController {
         result = edao.insertEmployee(employee);
         return result;
     }
+     
     public List<Job> selectJobId() {
         List<Job> result = new ArrayList<>();
         result = edao.selectJobId();
         return result;
+    }
+    
+    public List<Employee> getManagerId(String id){
+        return edao.getManagerId(Integer.parseInt(id));
     }
 }
     

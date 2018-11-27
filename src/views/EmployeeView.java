@@ -505,23 +505,23 @@ public class EmployeeView extends javax.swing.JFrame {
         int departmentId = Integer.valueOf(departmentid_field.getText());
         int ID = Integer.valueOf(employeeid_field.getText());
 
-        if (employeeController.update(empFN, empLN, email, phoneNum, hireNum, jobId, sal, comm, managerId, departmentId, ID) == true) {
-            JOptionPane.showMessageDialog(null, "Update Berhasil");
-            firstname_field.setText(" ");
-            lastname_field.setText(" ");
-            email_field.setText(" ");
-            phonenumber_field.setText(" ");
-            hiredate_field.setText(" ");
-            jobid_field.setText(" ");
-            salary_field.setText(" ");
-            commissionpct_field.setText(" ");
-            managerid_field.setText(" ");
-            departmentid_field.setText(" ");
-            employeeid_field.setText(" ");
-            
-        } else {
-            JOptionPane.showMessageDialog(null, "Update Gagal");
-        }
+//        if (employeeController.update(empFN, empLN, email, phoneNum, hireNum, jobId, sal, comm, managerId, departmentId, ID) == true) {
+//            JOptionPane.showMessageDialog(null, "Update Berhasil");
+//            firstname_field.setText(" ");
+//            lastname_field.setText(" ");
+//            email_field.setText(" ");
+//            phonenumber_field.setText(" ");
+//            hiredate_field.setText(" ");
+//            jobid_field.setText(" ");
+//            salary_field.setText(" ");
+//            commissionpct_field.setText(" ");
+//            managerid_field.setText(" ");
+//            departmentid_field.setText(" ");
+//            employeeid_field.setText(" ");
+//            
+//        } else {
+//            JOptionPane.showMessageDialog(null, "Update Gagal");
+//        }
     }//GEN-LAST:event_update_ButtonActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated

@@ -6,6 +6,8 @@
 package views;
 
 import controllers.EmployeeController;
+import daos.DepartmentDAO;
+import daos.EmployeeDAO;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -21,6 +23,8 @@ import tools.Connections;
 public class EmployeesView extends javax.swing.JInternalFrame {
 
     Connections con = new Connections();
+    private DepartmentDAO ddao;
+    private EmployeeDAO edao;
     EmployeeController employeeController = new EmployeeController(con.getConnection());
 
     /**
@@ -29,7 +33,7 @@ public class EmployeesView extends javax.swing.JInternalFrame {
     public EmployeesView() {
         initComponents();
         selectJobId();
-       
+        selectEmployeeId();
     }
 
     public void getTextInput() {
@@ -111,7 +115,9 @@ public class EmployeesView extends javax.swing.JInternalFrame {
         managerid_field = new javax.swing.JTextField();
         firstname_field = new javax.swing.JTextField();
         jobid_field = new javax.swing.JComboBox<>();
+        cbxmanageId = new javax.swing.JComboBox<>();
 
+        setClosable(true);
         setTitle("Employees Views");
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
@@ -128,6 +134,7 @@ public class EmployeesView extends javax.swing.JInternalFrame {
             public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
             }
             public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameOpened(evt);
             }
         });
 
@@ -237,9 +244,17 @@ public class EmployeesView extends javax.swing.JInternalFrame {
             }
         });
 
+        jobid_field.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Job" }));
         jobid_field.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jobid_fieldActionPerformed(evt);
+            }
+        });
+
+        cbxmanageId.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Manager" }));
+        cbxmanageId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxmanageIdActionPerformed(evt);
             }
         });
 
@@ -251,66 +266,67 @@ public class EmployeesView extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(344, 344, 344)
+                        .addComponent(managerid_field, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(searchButton))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(employeeid_field, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(phonenumber_field, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(hiredate_field, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(managerid_field, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(cbxmanageId, 0, 200, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+                                    .addComponent(deletebutton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(update_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(insertbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(departmentid_field)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(employeeid_field))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(commissionpct_field, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(commissionpct_field))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(firstname_field, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(salary_field))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lastname_field, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jobid_field, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(hiredate_field))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(phonenumber_field))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(email_field, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(email_field))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(deletebutton))
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(update_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(insertbutton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addComponent(departmentid_field, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jobid_field, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(salary_field, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(lastname_field))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(firstname_field)))
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 834, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -319,7 +335,8 @@ public class EmployeesView extends javax.swing.JInternalFrame {
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(searchButton))
+                    .addComponent(searchButton)
+                    .addComponent(managerid_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -361,7 +378,7 @@ public class EmployeesView extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel11)
-                            .addComponent(managerid_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbxmanageId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel12)
@@ -372,7 +389,7 @@ public class EmployeesView extends javax.swing.JInternalFrame {
                             .addComponent(insertbutton)
                             .addComponent(deletebutton)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         pack();
@@ -390,21 +407,23 @@ public class EmployeesView extends javax.swing.JInternalFrame {
         String jobid = (String) jobid_field.getSelectedItem();
         String salary = salary_field.getText();
         String commissionpct = commissionpct_field.getText();
-        String managerid = managerid_field.getText();
+        String managerId = (String) cbxmanageId.getSelectedItem();
         String departmentid = departmentid_field.getText();
-
+        String jobId= jobid.substring(0, jobid.indexOf(" ")); 
+        String mngId= managerId.substring(0, managerId.indexOf(" ")); 
+        
         if (!employeeid.equals("") && !firstname.equals("")
                 && !lastname.equals("") && !email.equals("")
                 && !phonenumber.equals("") && !hiredate.equals("")
                 && !jobid.equals("") && !salary.equals("")
-                && !commissionpct.equals("") && !managerid.equals("")
+                && !commissionpct.equals("") && !managerId.equals("")
                 && !departmentid.equals("")) {
             if (employeeController.insert(firstname,
                     lastname, email,
                     phonenumber,
                     hiredate, jobid,
                     salary, commissionpct,
-                    managerid, departmentid, employeeid)) {
+                    managerId, departmentid, employeeid)) {
                 JOptionPane.showMessageDialog(null, "insert berhasil");
                 firstname_field.setText("");
                 lastname_field.setText("");
@@ -473,14 +492,16 @@ public class EmployeesView extends javax.swing.JInternalFrame {
         String email = email_field.getText();
         String phoneNum = phonenumber_field.getText();
         String hireNum = hiredate_field.getText();
-        String jobId = (String) jobid_field.getSelectedItem();
+        String jobid = (String) jobid_field.getSelectedItem();
         int sal = Integer.valueOf(salary_field.getText());
         double comm = Double.valueOf(commissionpct_field.getText());
-        int managerId = Integer.valueOf(managerid_field.getText());
+        String managerId = (String) cbxmanageId.getSelectedItem();
         int departmentId = Integer.valueOf(departmentid_field.getText());
         int ID = Integer.valueOf(employeeid_field.getText());
+        String jobId= jobid.substring(0, jobid.indexOf(" ")); 
+        String mngId= managerId.substring(0, managerId.indexOf(" ")); 
 
-        if (employeeController.update(empFN, empLN, email, phoneNum, hireNum, jobId, sal, comm, managerId, departmentId, ID) == true) {
+        if (employeeController.update(empFN, empLN, email, phoneNum, hireNum, jobId, sal, comm, mngId, departmentId, ID) == true) {
             JOptionPane.showMessageDialog(null, "Update Berhasil");
             firstname_field.setText("");
             lastname_field.setText("");
@@ -516,7 +537,7 @@ public class EmployeesView extends javax.swing.JInternalFrame {
         jobid_field.setSelectedItem(model.getValueAt(i, 6).toString());
         salary_field.setText(model.getValueAt(i, 7).toString());
         commissionpct_field.setText(model.getValueAt(i, 8).toString());
-        managerid_field.setText(model.getValueAt(i, 9).toString());
+        cbxmanageId.setSelectedItem(model.getValueAt(i, 9).toString());
         departmentid_field.setText(model.getValueAt(i, 10).toString());
         employeeid_field.setEnabled(false);
         insertbutton.setEnabled(false);
@@ -558,26 +579,52 @@ public class EmployeesView extends javax.swing.JInternalFrame {
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
         // TODO add your handling code here:
-        bindingTable(employeeController.gets());
-        update_Button.setEnabled(false);
     }//GEN-LAST:event_formInternalFrameActivated
 
     private void jobid_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jobid_fieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jobid_fieldActionPerformed
+
+    private void cbxmanageIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxmanageIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxmanageIdActionPerformed
+
+    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
+        // TODO add your handling code here:
+        update_Button.setEnabled(false);
+        bindingTable(employeeController.gets());
+    }//GEN-LAST:event_formInternalFrameOpened
+    
     public void selectJobId() {
          String jobId;
         try {
             for (Job job : employeeController.selectJobId()) {
                 jobId = job.getJobId();
-                jobid_field.addItem(jobId);
+                String jobName = job.getJobTitle();
+                String mix = jobId +" "+ jobName;
+                jobid_field.addItem(mix);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "selectLocationId is " + e.getMessage());
         }
     }
+    
+    public void selectEmployeeId() {
+        String employeeId;
+        try {
+            for (Employee employee : employeeController.gets()) {
+                employeeId = String.valueOf(employee.getManagerId());
+                String employeeName = employee.getLastName();
+                String mix = employeeId +" "+ employeeName;
+                cbxmanageId.addItem(mix);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "selectEmployeeId is " + e.getMessage());
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cbxmanageId;
     private javax.swing.JTextField commissionpct_field;
     private javax.swing.JButton deletebutton;
     private javax.swing.JTextField departmentid_field;

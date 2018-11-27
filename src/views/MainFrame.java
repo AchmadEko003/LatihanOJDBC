@@ -158,9 +158,9 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void insertCountriesViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertCountriesViewActionPerformed
         // TODO add your handling code here:
-        CountriesView countriesView = new CountriesView();
-        countriesView.show();
-        dsktpMain.add(countriesView);
+        CountriesView countries = new CountriesView();
+        countries.show();
+        dsktpMain.add(countries);
     }//GEN-LAST:event_insertCountriesViewActionPerformed
 
     /**

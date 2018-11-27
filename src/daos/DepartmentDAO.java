@@ -60,20 +60,8 @@ public class DepartmentDAO {
      * @return
      */
     public boolean insertDepartment(Department department) {
-        boolean result = false;
         String query = "INSERT INTO departments VALUES (?,?,?,?)";
-        try {
-            PreparedStatement preparedStatement = connection.prepareCall(query);
-            preparedStatement.setInt(1, department.getDepartmentId());
-            preparedStatement.setString(2, department.getDepartmentName());
-            preparedStatement.setInt(3, department.getManagerId());
-            preparedStatement.setInt(4, department.getLocationId());
-            preparedStatement.executeUpdate();
-            result = true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
+        return DBExecution(query, department);
     }
 
     /**
@@ -84,9 +72,12 @@ public class DepartmentDAO {
      */
 
     public boolean updateDepartment(Department department) {
-        boolean result = false;
         String query = "UPDATE DEPARTMENTS SET DEPARTMENT_NAME = ?, MANAGER_ID = ?, LOCATION_ID = ?"
                 + " WHERE DEPARTMENT_ID = ?";
+        return DBExecution(query, department);
+    }
+    
+    private boolean DBExecution(String query, Department department){
         try {
             PreparedStatement preparedStatement = connection.prepareCall(query);
             preparedStatement.setString(1, department.getDepartmentName());
@@ -94,11 +85,11 @@ public class DepartmentDAO {
             preparedStatement.setInt(3, department.getLocationId());
             preparedStatement.setInt(4, department.getDepartmentId());
             preparedStatement.executeUpdate();
-            result = true;
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return result;
+        return false;
     }
     
     public List<Employee> selectManagerId() {

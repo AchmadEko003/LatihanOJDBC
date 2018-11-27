@@ -10,6 +10,7 @@ package model;
  * @author EMDES
  */
 public class Region {
+
     private int regionId;
     private String regionName;
 
@@ -17,11 +18,11 @@ public class Region {
      *
      */
     public Region() {
-       
+
     }
-    
+
     /**
-     * 
+     *
      * @param regionId
      * @param regionId
      * @param regionName

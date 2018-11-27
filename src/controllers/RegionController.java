@@ -17,6 +17,7 @@ import model.Region;
  */
 public class RegionController extends javax.swing.JFrame {
 
+    public static List<Region> getByID;
     private Connection connection;
     private RegionDAO rdao;
 
@@ -34,6 +35,9 @@ public class RegionController extends javax.swing.JFrame {
         this.rdao = new RegionDAO(connection);
     }
 
+        public List<Region> find(Object data) {
+        return rdao.search(data);
+    }
     /**
      * Insert Data Ragions
      *

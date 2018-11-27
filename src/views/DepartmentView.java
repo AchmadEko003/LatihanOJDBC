@@ -12,13 +12,15 @@ import javax.swing.table.DefaultTableModel;
 import model.Department;
 import model.Employee;
 import model.Location;
+import tools.Connections;
 
 /**
  *
  * @author yudafatah
  */
 public class DepartmentView extends javax.swing.JInternalFrame {
-    DepartmentController departmentController = new DepartmentController();
+    Connections connection = new Connections();
+    DepartmentController departmentController = new DepartmentController(connection.getConnection());
     /**
      * Creates new form DepartmentView
      */
@@ -75,8 +77,6 @@ public class DepartmentView extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(tableDepart);
 
         jLabel1.setText("Department ID");
-
-        txtDepartID.setEditable(false);
 
         jLabel2.setText("Department Name");
 
@@ -199,7 +199,7 @@ public class DepartmentView extends javax.swing.JInternalFrame {
         String idLocation = (String) cbxLocaId.getSelectedItem();
         
         if (!idDepartment.equals("") && !nameDepartment.equals("") && !idManager.equals("") && !idLocation.equals("")) {
-            if (departmentController.insertDepartment(idDepartment, nameDepartment, idManager, idLocation) == true) {
+            if (departmentController.insertDepartment(nameDepartment, idManager, idLocation,idDepartment)) {
                 JOptionPane.showMessageDialog(null, "Insert departmen berhasil");
             } else {
                 JOptionPane.showMessageDialog(null, "Insert departmen gagal");

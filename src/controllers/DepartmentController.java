@@ -46,12 +46,12 @@ public class DepartmentController {
      * @param locationId
      * @return boolean which is true the insert function success and if false the insert function failed
      */
-    public boolean insertDepartment(String departmentId, String departmentName, String managerId, String locationId) {
+    public boolean insertDepartment(String departmentName, String managerId, String locationId, String departmentId) {
         boolean result = false;
         int idDepartment = Integer.parseInt(departmentId);
         int idManager    = Integer.parseInt(managerId);
         int idLocation   = Integer.parseInt(locationId);
-        Department department = new Department(idDepartment, departmentName,idManager,idLocation);
+        Department department = new Department(departmentName,idManager,idLocation,idDepartment);
         result = ddao.insertDepartment(department);
         return result;
     }

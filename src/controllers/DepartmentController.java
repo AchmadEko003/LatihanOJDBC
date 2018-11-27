@@ -5,6 +5,8 @@
  */
 package controllers;
 import daos.DepartmentDAO;
+import daos.EmployeeDAO;
+import daos.LocationDAO;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -20,24 +22,30 @@ import model.Location;
 public class DepartmentController {
     private Connection connection;
     private DepartmentDAO ddao;
+    private EmployeeDAO edao;
+    private LocationDAO ldao;
     
     public DepartmentController(Connection connection) {
         this.connection = connection;
         this.ddao = new DepartmentDAO(connection);
+        this.edao = new EmployeeDAO(connection);
+        this.ldao = new LocationDAO(connection);
     }
 
     public DepartmentController() {
         
     }
+    
     /**
      * 
      * @return list all department values
      */
     public List<Department> selectDepartment() {
         List<Department> result = new ArrayList<>();
-        result = ddao.getAllDepartments();
+        result = ddao.selectAllDepartment();
         return result;
     }
+    
     /**
      * 
      * @param departmentId
@@ -55,6 +63,7 @@ public class DepartmentController {
         result = ddao.insertDepartment(department);
         return result;
     }
+    
     /**
      * 
      * @param departmentName
@@ -75,13 +84,13 @@ public class DepartmentController {
     
     public List<Employee> selectEmployeeId() {
         List<Employee> result = new ArrayList<>();
-        result = ddao.selectManagerId();
+        result = edao.getAllEmployee();
         return result;
     }
     
     public List<Location> selectLocationId() {
         List<Location> result = new ArrayList<>();
-        result = ddao.selectLocationId();
+        result = ldao.getAllLocations();
         return result;
     }
     /**
@@ -92,6 +101,11 @@ public class DepartmentController {
     public List<Department> getById(String departmentId) {
         return ddao.getById(Integer.parseInt(departmentId));
     }
+    
+    public int maxDepartmentId() {
+        return ddao.maxDepartmentId();
+    }
+    
     /**
      * 
      * @param departmentId
@@ -103,6 +117,7 @@ public class DepartmentController {
         result = ddao.deleteDepartment(department);
         return result;
     }
+    
     /**
      * 
      * @param obj object which is the id or name of department

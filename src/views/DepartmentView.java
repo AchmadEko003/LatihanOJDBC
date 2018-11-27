@@ -19,10 +19,8 @@ import tools.Connections;
  * @author yudafatah
  */
 public class DepartmentView extends javax.swing.JInternalFrame {
-
     Connections con = new Connections();
     DepartmentController departmentController = new DepartmentController(con.getConnection());
-
     /**
      * Creates new form DepartmentView
      */
@@ -32,13 +30,14 @@ public class DepartmentView extends javax.swing.JInternalFrame {
         selectEmployeeId();
         selectLocatoId();
     }
-
+    
     public void reset() {
-        txtDepartID.setEditable(true);
-        txtDepartID.setText("");
+        txtDepartID.setEditable(false);
+        txtDepartID.setText(String.valueOf(departmentController.maxDepartmentId()));
         txtDepartName.setText("");
         txtSearch.setText("");
         txtSearchId.setText("");
+        //btnDelete.setEnabled(false);
         btnSave.setText("Save");
         cbxManagID.setSelectedItem("Pilih Manager");
         cbxLocaId.setSelectedItem("Pilih Location");
@@ -72,20 +71,39 @@ public class DepartmentView extends javax.swing.JInternalFrame {
         btnSearch = new javax.swing.JButton();
         btnReset = new javax.swing.JButton();
 
+        setClosable(true);
+        setMaximizable(true);
+        setResizable(true);
+
         tableDepart.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Department ID", "Department Name", "Manager ID", "Location ID"
+                "No", "Department ID", "Department Name", "Manager", "Location"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tableDepart.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableDepartMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tableDepart);
+        if (tableDepart.getColumnModel().getColumnCount() > 0) {
+            tableDepart.getColumnModel().getColumn(0).setResizable(false);
+            tableDepart.getColumnModel().getColumn(1).setResizable(false);
+            tableDepart.getColumnModel().getColumn(2).setResizable(false);
+            tableDepart.getColumnModel().getColumn(3).setResizable(false);
+            tableDepart.getColumnModel().getColumn(4).setResizable(false);
+        }
 
         jLabel1.setText("Department ID");
 
@@ -93,9 +111,9 @@ public class DepartmentView extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Department Name");
 
-        jLabel3.setText("Manager ID");
+        jLabel3.setText("Manager");
 
-        jLabel4.setText("Location ID");
+        jLabel4.setText("Location");
 
         cbxManagID.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Manager" }));
 
@@ -165,6 +183,7 @@ public class DepartmentView extends javax.swing.JInternalFrame {
                         .addGap(17, 17, 17))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 749, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(txtSearchId, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -172,9 +191,8 @@ public class DepartmentView extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 749, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 14, Short.MAX_VALUE))))
+                                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 17, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,14 +234,14 @@ public class DepartmentView extends javax.swing.JInternalFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
-        if (btnSave.getText().equals("Save")) {
+        if (btnSave.getText().equals("Save")){
             String idDepartment = txtDepartID.getText();
             String nameDepartment = txtDepartName.getText();
             String idManager = (String) cbxManagID.getSelectedItem();
             String idLocation = (String) cbxLocaId.getSelectedItem();
 
             if (!idDepartment.equals("") && !nameDepartment.equals("") && !idManager.equals("Pilih Manager") && !idDepartment.equals("Pilih Location")) {
-                if (departmentController.insertDepartment(nameDepartment, idManager, idLocation, idDepartment)) {
+                if (departmentController.insertDepartment(nameDepartment, idManager, idLocation,idDepartment)) {
                     JOptionPane.showMessageDialog(null, "Insert departmen berhasil");
                     reset();
                 } else {
@@ -233,8 +251,7 @@ public class DepartmentView extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Form input tidak boleh kosong");
             }
         }
-        
-        if (btnSave.getText().equals("Update")) {
+        if (btnSave.getText().equals("Update")){
             String idDepartment = txtDepartID.getText();
             String nameDepartment = txtDepartName.getText();
             String idManager = (String) cbxManagID.getSelectedItem();
@@ -249,7 +266,7 @@ public class DepartmentView extends javax.swing.JInternalFrame {
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Form input tidak boleh kosong");
-            }
+            } 
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -258,16 +275,16 @@ public class DepartmentView extends javax.swing.JInternalFrame {
         int baris = tableDepart.getSelectedRow();
         int kolom = tableDepart.getSelectedColumn();
         String dataTerpilih = tableDepart.getValueAt(baris, kolom).toString();
-        String idDepartment = tableDepart.getValueAt(baris, 0).toString();
-        String nameDepartment = tableDepart.getValueAt(baris, 1).toString();
-        String idManager = tableDepart.getValueAt(baris, 2).toString();
-        String idLocation = tableDepart.getValueAt(baris, 3).toString();
+        String idDepartment = tableDepart.getValueAt(baris, 1).toString();
+        String nameDepartment = tableDepart.getValueAt(baris, 2).toString();
+        String idManager = tableDepart.getValueAt(baris, 3).toString();
+        String idLocation = tableDepart.getValueAt(baris, 4).toString();
 
         //set from
         txtDepartID.setEditable(false);
         txtDepartID.setText(idDepartment);
         txtDepartName.setText(nameDepartment);
-
+        
         if (idManager.equals("0")) {
             cbxManagID.setSelectedItem("Pilih Manager");
             cbxLocaId.setSelectedItem(idLocation);
@@ -281,21 +298,23 @@ public class DepartmentView extends javax.swing.JInternalFrame {
             cbxManagID.setSelectedItem(idManager);
             cbxLocaId.setSelectedItem(idLocation);
         }
-
+        
         btnSave.setText("Update");
     }//GEN-LAST:event_tableDepartMouseClicked
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-        /**
-         * execute delete function with parameter got from textfield values
-         */
-        if (!txtDepartID.getText().equals("")) {
-            if (departmentController.deleteDepartment(txtDepartID.getText()) == true) {
-                JOptionPane.showMessageDialog(null, "Data dengan id = " + txtDepartID.getText() + " berhasil dihapus");
-                reset();
-            } else {
-                JOptionPane.showMessageDialog(null, "Gagal menghapus data!");
+        if(!txtDepartID.getText().equals("") && !txtDepartName.getText().equals("")){
+            int dialogButton = 0;
+            int dialog = JOptionPane.showConfirmDialog (null, "Yakin hapus data?","Warning",dialogButton);
+            if(dialog == JOptionPane.YES_OPTION){
+                if(departmentController.deleteDepartment(txtDepartID.getText()) == true){
+                    JOptionPane.showMessageDialog(null, "Data dengan id : " + txtDepartID.getText()+" berhasil dihapus");
+                    reset();
+                } else{
+                    JOptionPane.showMessageDialog(null, "Gagal menghapus data!");
+                    reset();
+                }
             }
         } else {
             JOptionPane.showMessageDialog(null, "Pilih data yang ingin dihapus!");
@@ -309,7 +328,7 @@ public class DepartmentView extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Form input tidak boleh kosong");
         }
-
+        
     }//GEN-LAST:event_btnSearchIdActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
@@ -319,7 +338,7 @@ public class DepartmentView extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Form input tidak boleh kosong");
         }
-
+            
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
@@ -327,45 +346,50 @@ public class DepartmentView extends javax.swing.JInternalFrame {
         reset();
     }//GEN-LAST:event_btnResetActionPerformed
 
-    private void getDatas(List<Department> dpm) {
-        Object[] header = {"Department ID", "Department Name", "Manager ID", "Location ID"};
+    private void getDatas(List<Department> dpm){
+        Object[] header = {"No", "Department ID", "Department Name", "Manager", "Location"};
         DefaultTableModel data = new DefaultTableModel(null, header);
-        tableDepart.setModel(data);
+        tableDepart.setModel(data); 
         try {
+            int no = 1;
             for (Department department : dpm) {
+                String isi0 = String.valueOf(no);
                 String isi1 = String.valueOf(department.getDepartmentId());
                 String isi2 = department.getDepartmentName();
                 String isi3 = String.valueOf(department.getManagerId());
                 String isi4 = String.valueOf(department.getLocationId());
 
-                String kolom[] = {isi1, isi2, isi3, isi4};
+                String kolom[] = {isi0, isi1, isi2, isi3, isi4};
                 data.addRow(kolom);
+                no++;
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Oops! : " + e.getMessage());
         }
     }
-
     public void selectEmployeeId() {
         String employeeId;
+        String lastName;
         try {
             for (Employee employee : departmentController.selectEmployeeId()) {
                 employeeId = String.valueOf(employee.getEmployeeId());
+                lastName = employee.getLastName();
                 cbxManagID.addItem(employeeId);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "selectEmployeeId is " + e.getMessage());
         }
     }
-
     /**
      * select locationid for combo box location id
      */
     public void selectLocatoId() {
         String locationId;
+        String city;
         try {
             for (Location location : departmentController.selectLocationId()) {
                 locationId = String.valueOf(location.getLocationId());
+                city = location.getCity();
                 cbxLocaId.addItem(locationId);
             }
         } catch (Exception e) {

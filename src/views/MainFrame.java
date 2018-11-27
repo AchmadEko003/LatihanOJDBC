@@ -27,6 +27,7 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem4 = new javax.swing.JMenuItem();
         dsktpMain = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnEmployees = new javax.swing.JMenu();
@@ -35,8 +36,10 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         menuJob = new javax.swing.JMenuItem();
         insertCountriesView = new javax.swing.JMenuItem();
-        Regions = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+
+        jMenuItem4.setText("jMenuItem4");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("HR Database");
@@ -99,14 +102,14 @@ public class MainFrame extends javax.swing.JFrame {
         });
         mnEmployees.add(insertCountriesView);
 
-        Regions.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.ALT_MASK));
-        Regions.setText("Regions");
-        Regions.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.ALT_MASK));
+        jMenuItem5.setText("Regions");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RegionsActionPerformed(evt);
+                jMenuItem5ActionPerformed(evt);
             }
         });
-        mnEmployees.add(Regions);
+        mnEmployees.add(jMenuItem5);
 
         jMenuBar1.add(mnEmployees);
 
@@ -173,12 +176,12 @@ public class MainFrame extends javax.swing.JFrame {
         dsktpMain.add(countries);
     }//GEN-LAST:event_insertCountriesViewActionPerformed
 
-    private void RegionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegionsActionPerformed
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
-        RegionsView regionsView = new RegionsView();
-        regionsView.show();
-        dsktpMain.add(regionsView);
-    }//GEN-LAST:event_RegionsActionPerformed
+        RegionsView rv = new RegionsView();
+        rv.show();
+        dsktpMain.add(rv);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -224,6 +227,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem menuJob;
     private javax.swing.JMenu mnEmployees;
     // End of variables declaration//GEN-END:variables

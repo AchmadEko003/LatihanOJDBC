@@ -90,6 +90,11 @@ public class CountriesView extends javax.swing.JInternalFrame {
 
         btnDataTable.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         btnDataTable.setText("Data Table");
+        btnDataTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDataTableMouseClicked(evt);
+            }
+        });
         btnDataTable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDataTableActionPerformed(evt);
@@ -98,6 +103,11 @@ public class CountriesView extends javax.swing.JInternalFrame {
 
         btnInsert.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         btnInsert.setText("Insert");
+        btnInsert.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnInsertMouseClicked(evt);
+            }
+        });
         btnInsert.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInsertActionPerformed(evt);
@@ -106,6 +116,11 @@ public class CountriesView extends javax.swing.JInternalFrame {
 
         btnUpdate.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         btnUpdate.setText("Update");
+        btnUpdate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnUpdateMouseClicked(evt);
+            }
+        });
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUpdateActionPerformed(evt);
@@ -114,6 +129,11 @@ public class CountriesView extends javax.swing.JInternalFrame {
 
         btnDelete.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         btnDelete.setText("Delete");
+        btnDelete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDeleteMouseClicked(evt);
+            }
+        });
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteActionPerformed(evt);
@@ -214,62 +234,19 @@ public class CountriesView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tableCountryMouseClicked
 
     private void btnDataTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDataTableActionPerformed
-        Object[] header = {"Country ID", "Country Name", "Region ID"};
-        DefaultTableModel data = new DefaultTableModel(null, header);
-        tableCountry.setModel(data);
-        try {
-            for (Country country : Cr.selectCountry()) {
-                String isi1 = country.getCountryId();
-                String isi2 = country.getCountryName();
-                String isi3 = String.valueOf(country.getRegionId());
 
-                String kolom[] = {isi1, isi2, isi3};
-                data.addRow(kolom);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Oops! : " + e.getMessage());
-
-        }
     }//GEN-LAST:event_btnDataTableActionPerformed
 
     private void btnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertActionPerformed
-        // TODO add your handling code here:
-        String idCountry = txtCountryId.getText();
-        String nameCountry = txtCountryName.getText();
-        String idRegion = txtRegionId.getText();
 
-        if (Cr.insert(idCountry, nameCountry, idRegion) == true) {
-            JOptionPane.showMessageDialog(null, "Insert Country Berhasil");
-        } else {
-            JOptionPane.showMessageDialog(null, "Insert Country Gagal");
-        }
     }//GEN-LAST:event_btnInsertActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        // TODO add your handling code here:
-        String idCountry = txtCountryId.getText();
-        String nameCountry = txtCountryName.getText();
-        String idRegion = txtRegionId.getText();
 
-        if (Cr.update(idCountry, nameCountry, idRegion) == true) {
-            JOptionPane.showMessageDialog(null, "Update Country Berhasil");
-        } else {
-            JOptionPane.showMessageDialog(null, "Update Country Gagal");
-        }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
-        if (txtCountryId != null) {
-            if (Cr.delete(txtCountryId.getText()) == true) {
-                JOptionPane.showMessageDialog(null, "Data dengan ID : " + txtCountryId.getText() + "Berhasil Dihapus");
-            } else {
-                JOptionPane.showMessageDialog(null, "Gagal Menghapus Data");
-            }
 
-        } else {
-            JOptionPane.showMessageDialog(null, "Form input tidak boleh kosong");
-        }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
@@ -296,6 +273,67 @@ public class CountriesView extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void btnDataTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDataTableMouseClicked
+        // TODO add your handling code here:
+                Object[] header = {"Country ID", "Country Name", "Region ID"};
+        DefaultTableModel data = new DefaultTableModel(null, header);
+        tableCountry.setModel(data);
+        try {
+            for (Country country : Cr.selectCountry()) {
+                String isi1 = country.getCountryId();
+                String isi2 = country.getCountryName();
+                String isi3 = String.valueOf(country.getRegionId());
+
+                String kolom[] = {isi1, isi2, isi3};
+                data.addRow(kolom);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Oops! : " + e.getMessage());
+
+        }
+    }//GEN-LAST:event_btnDataTableMouseClicked
+
+    private void btnInsertMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInsertMouseClicked
+        // TODO add your handling code here:
+                // TODO add your handling code here:
+        String idCountry = txtCountryId.getText();
+        String nameCountry = txtCountryName.getText();
+        String idRegion = txtRegionId.getText();
+
+        if (Cr.insert(idCountry, nameCountry, idRegion) == true) {
+            JOptionPane.showMessageDialog(null, "Insert Country Berhasil");
+        } else {
+            JOptionPane.showMessageDialog(null, "Insert Country Gagal");
+        }
+    }//GEN-LAST:event_btnInsertMouseClicked
+
+    private void btnUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUpdateMouseClicked
+                // TODO add your handling code here:
+        String idCountry = txtCountryId.getText();
+        String nameCountry = txtCountryName.getText();
+        String idRegion = txtRegionId.getText();
+
+        if (Cr.update(idCountry, nameCountry, idRegion) == true) {
+            JOptionPane.showMessageDialog(null, "Update Country Berhasil");
+        } else {
+            JOptionPane.showMessageDialog(null, "Update Country Gagal");
+        }
+    }//GEN-LAST:event_btnUpdateMouseClicked
+
+    private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
+                // TODO add your handling code here:
+        if (txtCountryId != null) {
+            if (Cr.delete(txtCountryId.getText()) == true) {
+                JOptionPane.showMessageDialog(null, "Data dengan ID : " + txtCountryId.getText() + "Berhasil Dihapus");
+            } else {
+                JOptionPane.showMessageDialog(null, "Gagal Menghapus Data");
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Form input tidak boleh kosong");
+        }
+    }//GEN-LAST:event_btnDeleteMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

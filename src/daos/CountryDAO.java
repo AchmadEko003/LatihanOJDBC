@@ -28,38 +28,8 @@ public class CountryDAO {
     public CountryDAO() {
     }
 
-    /**
-     * 
-     * @return mengambil semua values dari tabel Countries
-     */
-    public List<Country> getAllCountries(){
+        public List<Country> getDatas(String query) {
         List<Country> datas = new ArrayList<>();
-        String query = "SELECT * FROM COUNTRIES";
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {                
-                Country countries = new Country();
-                countries.setCountryId(resultSet.getString("country_id"));
-                countries.setCountryName(resultSet.getString("country_name"));
-                countries.setRegionId(resultSet.getInt("region_id"));
-                datas.add(countries);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        
-        return datas;
-    }
-    
-    /**
-     *
-     * @param countryId
-     * @return mencari Country berdasarkan country_id
-     */
-    public List<Country> getById(String countryId) {
-        List<Country> datas = new ArrayList<>();
-        String query = "SELECT * FROM COUNTRIES WHERE COUNTRY_ID = '" + countryId + "'";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -70,10 +40,28 @@ public class CountryDAO {
                 country.setRegionId(resultSet.getInt("REGION_ID"));
                 datas.add(country);
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
         return datas;
+    }
+    /**
+     * 
+     * @return mengambil semua values dari tabel Countries
+     */
+    
+    public List<Country> getAllCountries() {
+        return getDatas("SELECT * FROM COUNTRIES ORDER BY 1");
+    }
+    
+    /**
+     *
+     * @param countryId
+     * @return mencari Country berdasarkan country_id
+     */
+    public List<Country> getById(String countryId) {
+        return getDatas("SELECT * FROM COUNTRIES WHERE COUNTRY_ID = '" + countryId + "'");
     }
 
     /**
@@ -81,30 +69,12 @@ public class CountryDAO {
      * @param data
      * @return search table Countries 
      */
-     public List<Country> search(Object data) {
-        List<Country> datas = new ArrayList<>();
-        String query = "SELECT * FROM COUNTRIES where country_id LIKE '%"+data+"%'"
-                + "OR country_name like '%"+data+"%'"
-                + " OR region_id like '%"+data+"%'";
-        try {
-            PreparedStatement preparedStatement
-                    = connection.prepareStatement(query);
-            ResultSet resultSet = preparedStatement
-                    .executeQuery();
-            while (resultSet.next()) {
-                Country country = new Country();
-               // country.setCountryId(resultSet.getInt("country_id"));
-                country.setCountryId(resultSet.getString("country_id"));
-                country.setCountryName(resultSet.getString("country_name"));
-                country.setRegionId(resultSet.getInt("region_id"));
-                datas.add(country);
-
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return datas;
-}
+    public List<Country> search(Object data) {
+        String search = "SELECT * FROM COUNTRIES where country_id LIKE '%" + data + "%'"
+                + "OR country_name like '%" + data + "%'"
+                + " OR region_id like '%" + data + "%'";
+        return getDatas(search);
+    }
      /**
      * 
      * @param id
@@ -112,7 +82,7 @@ public class CountryDAO {
      */
     public boolean deleteCountry(String  id){
         boolean result = false;
-        String query ="DELETE FROM COUNTRIES where country_id = '" + id + "'";  
+        String query = "DELETE FROM COUNTRIES where country_id = '" + id + "'";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.execute();
@@ -122,18 +92,7 @@ public class CountryDAO {
         }
         return result;
     }
-//        public boolean deleteJobs(String id) {
-//        boolean result = false;
-//        String query = "DELETE FROM JOBS where job_id = '" + id + "'";
-//        try {
-//            PreparedStatement preparedStatement = connection.prepareStatement(query);
-//            preparedStatement.execute();
-//            result = true;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return result;
-//    }
+
        
     
     /**

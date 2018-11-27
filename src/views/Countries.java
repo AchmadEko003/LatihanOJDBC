@@ -295,17 +295,15 @@ public class Countries extends javax.swing.JFrame {
     private void btnInsertMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInsertMouseClicked
         String idCountry = txtCountryId.getText();
         String nameCountry = txtCountryName.getText();
-         String idRegion = txtRegionId.getText();
+        String idRegion = txtRegionId.getText();
 
-        if (!idCountry.equals("") && !nameCountry.equals("") && !idRegion.equals("")) {
+      
             if (Cr.insert(idCountry, nameCountry, idRegion) == true) {
                 JOptionPane.showMessageDialog(null, "Insert Country Berhasil");
             } else {
                 JOptionPane.showMessageDialog(null, "Insert Country Gagal");
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Insert Tidak Boleh Kosong");
-        }
+  
     }//GEN-LAST:event_btnInsertMouseClicked
 
     private void btnUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUpdateMouseClicked
@@ -313,66 +311,44 @@ public class Countries extends javax.swing.JFrame {
         String nameCountry = txtCountryName.getText();
         String idRegion = txtRegionId.getText();
 
-        if (!idCountry.equals("") && !nameCountry.equals("") && !idRegion.equals("")) {
             if (Cr.update(idCountry, nameCountry, idRegion) == true) {
                 JOptionPane.showMessageDialog(null, "Update Country Berhasil");
             } else {
                 JOptionPane.showMessageDialog(null, "Update Country Gagal");
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Form Tidak Boleh Kosong");
-        }
+
+     
     }//GEN-LAST:event_btnUpdateMouseClicked
 
     private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
-//        String countryId = txtCountryId.getText();
-//        if (Cr.delete(countryId) == true) {
-//            JOptionPane.showMessageDialog(null, "Hapus Data berhasil");
-//        } else {
-//            JOptionPane.showMessageDialog(null, "Hapus Data gagal");
-//        }  
-//        String idCountry = txtCountryId.getText();
-//       String nameCountry = txtCountryName.getText();
-//       String idRegion = txtRegionId.getText();
-//
-//      if (!idCountry.equals("")) {
-//            if (Cr.delete(idCountry) == true) {
-//                JOptionPane.showMessageDialog(null, "Delete Country Berhasil");
-//            } else {
-//                JOptionPane.showMessageDialog(null, "Delete Country Gagal");
-//            }
-//        } else {
-//            JOptionPane.showMessageDialog(null, "Form Tidak Boleh Kosong");
-//        }
-        if(txtCountryId!=null){
-           if(Cr.delete(txtCountryId.getText())== true){
-               JOptionPane.showMessageDialog(null, "Data dengan ID : " + txtCountryId.getText()+ "Berhasil Dihapus");
-           }
-           else {
-               JOptionPane.showMessageDialog(null, "Gagal Menghapus Data");
-           }
-        
+
+        if (txtCountryId != null) {
+            if (Cr.delete(txtCountryId.getText()) == true) {
+                JOptionPane.showMessageDialog(null, "Data dengan ID : " + txtCountryId.getText() + "Berhasil Dihapus");
+            } else {
+                JOptionPane.showMessageDialog(null, "Gagal Menghapus Data");
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Form input tidak boleh kosong");
         }
-        else {
-               JOptionPane.showMessageDialog(null, "Form input tidak boleh kosong");
-          }
     }//GEN-LAST:event_btnDeleteMouseClicked
 
     private void tableCountryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCountryMouseClicked
         // TODO add your handling code here:
-        
+
         int row = tableCountry.getSelectedRow();
         int column = tableCountry.getSelectedColumn();
         String data = tableCountry.getValueAt(row, column).toString();
         String countryId = tableCountry.getValueAt(row, 0).toString();
         String countryName = tableCountry.getValueAt(row, 1).toString();
         String idRegion = tableCountry.getValueAt(row, 2).toString();
-        
+
         txtCountryId.setText(countryId);
 //        txtCountryId.setEditable(false);
         txtCountryName.setText(countryName);
         txtRegionId.setText(idRegion);
-        
+
     }//GEN-LAST:event_tableCountryMouseClicked
 
     private void btnGetIdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGetIdMouseClicked
@@ -381,7 +357,6 @@ public class Countries extends javax.swing.JFrame {
         String countryId = txtSearch.getText();
 //        String countryName = txtSearch.getText();
 //        String regionId = (String) txtSearch.getText();
-        
 
         Object[] header = {"Country ID", "Country Name", "Region ID"};
         DefaultTableModel data = new DefaultTableModel(null, header);
@@ -403,32 +378,11 @@ public class Countries extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGetIdMouseClicked
 
     private void btnSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseClicked
-         // TODO add your handling code here:
-         
-//        String Object = txtSearch.getText();
-//        Object[] header = {"Country ID", "Country Name", "Region ID"};
-//        DefaultTableModel data = new DefaultTableModel(null, header);
-//        tableCountry.setModel(data);
-//        
-//        try {
-//            for (Country country : Cr.search(btnSearch.getText())) {
-//                String isi1 = country.getCountryId();
-//                String isi2 = country.getCountryName();
-//                String isi3 = String.valueOf(country.getRegionId());
-//               
-//
-//                String kolom[] = {isi1, isi2, isi3};
-//                data.addRow(kolom);
-//            }
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(null, "Oops! : " + e.getMessage());
-//        }
         String countryId = txtSearch.getText();
         String countryName = txtSearch.getText();
         String regionId = (String) txtSearch.getText();
-     
 
-        Object[] header = {"Country ID","Country Name","Region ID"};
+        Object[] header = {"Country ID", "Country Name", "Region ID"};
         DefaultTableModel data = new DefaultTableModel(null, header);
         tableCountry.setModel(data);
 
@@ -436,7 +390,7 @@ public class Countries extends javax.swing.JFrame {
         if (countryId.equals("") && countryName.equals("") && regionId.equals("")) {
             JOptionPane.showMessageDialog(null, "Form tidak boleh kosong");
         } else {
-            for (Country country: Cr.search(object)) {
+            for (Country country : Cr.search(object)) {
                 String isi1 = country.getCountryId();
                 String isi2 = country.getCountryName();
                 String isi3 = String.valueOf(country.getRegionId());
@@ -445,7 +399,7 @@ public class Countries extends javax.swing.JFrame {
                 data.addRow(kolom);
             }
         }
-        
+
     }//GEN-LAST:event_btnSearchMouseClicked
 
     /**

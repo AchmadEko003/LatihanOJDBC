@@ -23,8 +23,6 @@ public class Country {
         this.regionId = regionId;
     }
 
-    
-
     /**
      * @return the countryId
      */

@@ -52,10 +52,11 @@ public class LocationsView extends javax.swing.JInternalFrame {
         Object[] header = {"No","Locations Id", "Street address", "Postal code", "City", "State province", "country id"};
         DefaultTableModel data = new DefaultTableModel(null, header);
         tblLocation.setModel(data);
+        int Number = 1;
 
         try {
             for (Location location : locations) {
-                String number ="";
+                String number = String.valueOf(Number);
                 String isi1 = String.valueOf(location.getLocationId());
                 String isi2 = String.valueOf(location.getStreetAddress());
                 String isi3 = String.valueOf(location.getPostalCode());
@@ -63,7 +64,7 @@ public class LocationsView extends javax.swing.JInternalFrame {
                 String isi5 = String.valueOf(location.getStateProvince());
                 String isi6 = String.valueOf(location.getCountryId());
                 String kolom[] = {number, isi1, isi2, isi3, isi4, isi5, isi6};
-
+                Number++;
                 data.addRow(kolom);
             }
         } catch (Exception e) {

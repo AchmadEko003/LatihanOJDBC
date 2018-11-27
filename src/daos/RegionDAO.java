@@ -7,8 +7,10 @@ package daos;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -70,6 +72,27 @@ public class RegionDAO {
     public List<Region> getRegionId(int id) {
         return getDatas("SELECT * FROM REGIONS WHERE REGIONS_ID= " + id);
     }
+
+    /**
+     *
+     * @return
+     */
+    public int maxRegionId() {
+        int id = 0;
+        try {
+            String query = "SELECT max(region_id) as maxregionId FROM regions";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Region region = new Region();
+                id = resultSet.getInt("maxregionId") + 1;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
+    
 
     /**
      *

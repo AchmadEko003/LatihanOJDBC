@@ -10,33 +10,33 @@ import oracle.jdbc.pool.OracleDataSource;
 
 /**
  *
- * @author Nitani
+ * @author Nine
  */
 public class Connections {
-    /*
-    ini adalah attribut connection dari java.sql
-    */
-    private Connection connection;
-    
     /**
-     * ini dokumentasi tentang connection database
-     * @return nilai kembaliannya Connection
+     * Ini adalah atribut connection dari java.sql
      */
-    public Connection getConnection(){
+    private Connection connection;
+    /**
+     * ini dokumentasi tentang getConnection
+     *
+     * @return nilai kembalian Connection
+     */
+    public Connection getConnection(){ //buat koneksi
         try {
             OracleDataSource ods = new OracleDataSource();
             ods.setServerName("localhost");
             ods.setDriverType("thin");
             ods.setPortNumber(1521);
             ods.setServiceName("XE");
-            //ods.setDatabaseName("HR");
+//            ods.setDatabaseName("HR");
             ods.setUser("system");
-            ods.setPassword("sys");
+            ods.setPassword("pass");
             this.connection = ods.getConnection();
-            this.connection.createStatement().execute("alter session" + " set current_schema=hr");
+            this.connection.createStatement().execute("alter session set current_schema=hr");
         } catch (Exception e) {
-            e.printStackTrace();
-            //System.out.println(e.getMessage());
+            e.printStackTrace(); //untuk menampilkan pesan error secara detail
+            System.out.println(e.getMessage()); // untuk menampilkan garis besar pesan error
         }
         return connection;
     }

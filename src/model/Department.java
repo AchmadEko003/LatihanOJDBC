@@ -5,11 +5,9 @@
  */
 package model;
 
-import java.beans.PropertyChangeSupport;
-
 /**
  *
- * @author Nitani
+ * @author Nine
  */
 public class Department {
     private int departmentId;
@@ -21,7 +19,18 @@ public class Department {
         
     }
 
+    public Department(int departmentId) {
+        this.departmentId = departmentId;
+    }
+
     public Department(int departmentId, String departmentName, int managerId, int locationId) {
+        this.departmentId = departmentId;
+        this.departmentName = departmentName;
+        this.managerId = managerId;
+        this.locationId = locationId;
+    }
+    
+    public Department(String departmentName, int managerId, int locationId, int departmentId) {
         this.departmentId = departmentId;
         this.departmentName = departmentName;
         this.managerId = managerId;
@@ -39,9 +48,7 @@ public class Department {
      * @param departmentId the departmentId to set
      */
     public void setDepartmentId(int departmentId) {
-        int oldDepartmentId = this.departmentId;
         this.departmentId = departmentId;
-        propertyChangeSupport.firePropertyChange(PROP_DEPARTMENTID, oldDepartmentId, departmentId);
     }
 
     /**
@@ -55,9 +62,7 @@ public class Department {
      * @param departmentName the departmentName to set
      */
     public void setDepartmentName(String departmentName) {
-        java.lang.String oldDepartmentName = this.departmentName;
         this.departmentName = departmentName;
-        propertyChangeSupport.firePropertyChange(PROP_DEPARTMENTNAME, oldDepartmentName, departmentName);
     }
 
     /**
@@ -71,9 +76,7 @@ public class Department {
      * @param managerId the managerId to set
      */
     public void setManagerId(int managerId) {
-        int oldManagerId = this.managerId;
         this.managerId = managerId;
-        propertyChangeSupport.firePropertyChange(PROP_MANAGERID, oldManagerId, managerId);
     }
 
     /**
@@ -87,15 +90,8 @@ public class Department {
      * @param locationId the locationId to set
      */
     public void setLocationId(int locationId) {
-        int oldLocationId = this.locationId;
         this.locationId = locationId;
-        propertyChangeSupport.firePropertyChange(PROP_LOCATIONID, oldLocationId, locationId);
     }
-    private final transient PropertyChangeSupport propertyChangeSupport = new java.beans.PropertyChangeSupport(this);
-    public static final String PROP_DEPARTMENTID = "departmentId";
-    public static final String PROP_DEPARTMENTNAME = "departmentName";
-    public static final String PROP_MANAGERID = "managerId";
-    public static final String PROP_LOCATIONID = "locationId";
-
+    
     
 }

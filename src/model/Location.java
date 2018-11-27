@@ -20,6 +20,24 @@ public class Location {
     /**
      * @return the locationId
      */
+    
+    public Location() {
+    }
+
+    public Location(int locationId, String streetAddress, String postalCode, String city, String stateProvince, String countryId) {
+        this.locationId = locationId;
+        this.streetAddress = streetAddress;
+        this.postalCode = postalCode;
+        this.city = city;
+        this.stateProvince = stateProvince;
+        this.countryId = countryId;
+    }
+
+
+    
+    
+    
+
     public int getLocationId() {
         return locationId;
     }

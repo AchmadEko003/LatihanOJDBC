@@ -6,43 +6,57 @@
 package daos;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import model.Employee;
 
 /**
  *
- * @author Nitani
+ * @author Nine
  */
 public class EmployeeDAO {
+
+    /**
+     * public EmployeeDAO(Connection connection) --> database private static
+     * java.sql.Timestamp getCurrentTimeStamp()---------->????
+     */
     private Connection connection;
-    
+
     public EmployeeDAO(Connection connection) {
         this.connection = connection;
     }
-    public List<Employee> getAllEmployee(){
+
+    /**
+     * public List<Employee> data(a)----->function for get and set data to list
+     * from employee model
+     *
+     * @param a
+     * @return
+     */
+    public List<Employee> getDatas(String query) {
         List<Employee> datas = new ArrayList<>();
-        String query = "SELECT * FROM Employees";
         try {
-            PreparedStatement preparedStatement = 
-                    connection.prepareStatement(query);
+            PreparedStatement preparedStatement
+                    = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
-            
+
             while (resultSet.next()) {
-                Employee employee = new Employee(); //instansiasi
-                employee.setEmployeeId(resultSet.getInt("employee_id"));
-                employee.setFirstName(resultSet.getString("first_name"));
-                employee.setLastName(resultSet.getString("last_name"));
-                employee.setEmail(resultSet.getString("email"));
-                employee.setPhoneNumber(resultSet.getString("phone_number"));
-                employee.setHireDate(resultSet.getDate("hire_date"));
-                employee.setJobId(resultSet.getString("job_id"));
-                employee.setSalary(resultSet.getInt("salary"));
-                employee.setCommisionPct(resultSet.getInt("commission_pct"));
-                employee.setManagerId(resultSet.getInt("manager_id"));
-                employee.setDepartmentId(resultSet.getInt("department_id"));
+                Employee employee = new Employee();
+                employee.setEmployeeId(resultSet.getInt(1));
+                employee.setFirstName(resultSet.getString(2));
+                employee.setLastName(resultSet.getString(3));
+                employee.setEmail(resultSet.getString(4));
+                employee.setPhoneNumber(resultSet.getString(5));
+                employee.setHireDate(resultSet.getString(6));
+                employee.setJobId(resultSet.getString(7));
+                employee.setSalary(resultSet.getInt(8));
+                employee.setCommisionPct(resultSet.getInt(9));
+                employee.setManagerId(resultSet.getInt(10));
+                employee.setDepartmentId(resultSet.getInt(11));
                 datas.add(employee);
             }
         } catch (Exception e) {
@@ -50,9 +64,31 @@ public class EmployeeDAO {
         }
         return datas;
     }
+
     
+
     /**
-     * this is function delete for table employee create by Aji
+     * public List<Employee> getAllEmployee()----->get all data ditabel
+     *
+     * @return
+     */
+    public List<Employee> getAllEmployee() {
+        return getDatas("SELECT * FROM Employees order by 1");
+    }
+
+    /**
+     * public List<Employee> getEmployeeId(int id)------->get by id
+     * @param id
+     * @return
+     */
+    public List<Employee> getEmployeeId(int id) {
+        return getDatas("SELECT * FROM EMPLOYEES WHERE EMPLOYEE_ID= " + id);
+    }
+
+    /**
+     * this is function delete for table employee create by Aji public boolean
+     * deleteEmployees(int id)-----> delete berdasarkan id;
+     *
      * @param id
      * @return true if the query is success executed
      */
@@ -68,80 +104,76 @@ public class EmployeeDAO {
         }
         return result;
     }
+
+
     /**
-     * 
-     * @param employee by ADHE
-     * @return 
+     * function search by Tika MP public List<Employee> searchByEmployees(Object
+     * data)--->function for search by object
+     *
+     * @param data
+     * @return
      */
-    public boolean updateEmployee(Employee employee){
-        boolean result = false;
-        String query ="UPDATE EMPLOYEES SET first_name=?, last_name=?,"
-                + " email=?, phone_number=?, hire_date=?, job_id=?,"
-                + "salary=?, commission_pct=?, manager_id=?, department_id=? where employee_id = ?";        
+    public List<Employee> searchByEmployees(Object data) {
+        String a = "SELECT * FROM Employees where employee_id LIKE '%" + data + "%'"
+                + " OR first_name LIKE '%" + data + "%'"
+                + " OR last_name LIKE '%" + data + "%'"
+                + " OR email LIKE '%" + data + "%'"
+                + " OR phone_number LIKE '%" + data + "%'"
+                + " OR hire_date LIKE '%" + data + "%'"
+                + " OR job_id LIKE '%" + data + "%'"
+                + " OR salary LIKE '%" + data + "%'"
+                + " OR commission_pct LIKE '%" + data + "%'"
+                + " OR manager_id LIKE '%" + data + "%'"
+                + " OR department_id LIKE '%" + data + "%'";
+        return getDatas(a);
+    }
+
+    /**
+     * insert employee--->insert data
+     *
+     * @param employee
+     * @return
+     */
+    public boolean insertEmployee(Employee employee) {
+        String query = "INSERT INTO EMPLOYEES (first_name, last_name,"
+                + " email, phone_number, hire_date, job_id, salary, commission_pct,"
+                + " manager_id, department_id, employee_id)"
+                + "     VALUES (?,?,?,?,to_date(?, 'mm/dd/yy'),?,?,?,?,?,?)";
+        return insertDatas(query, employee);
+    }
+    
+    /**
+     * public boolean updateEmployee(Employee employee)--->update
+     *
+     * @param employee by ADHE
+     * @return
+     */
+    public boolean updateEmployee(Employee employee) {
+        String query = "UPDATE EMPLOYEES SET first_name=?, last_name=?,"
+                + " email=?, phone_number=?, hire_date=(TO_DATE(?, 'MM/DD/YYYY')), job_id=?,"
+                + "salary=?, commission_pct=?, manager_id=?, department_id=? where employee_id = ?";
+        return insertDatas(query, employee);
+    }
+    
+    public boolean insertDatas(String query, Employee employee) {
         try {
-            PreparedStatement preparedStatement = connection.prepareCall(query);            
+            PreparedStatement preparedStatement = connection.prepareCall(query);
             preparedStatement.setString(1, employee.getFirstName());
             preparedStatement.setString(2, employee.getLastName());
             preparedStatement.setString(3, employee.getEmail());
             preparedStatement.setString(4, employee.getPhoneNumber());
-            preparedStatement.setDate(5, (employee.getHireDate()));
+            preparedStatement.setString(5, employee.getHireDate());
             preparedStatement.setString(6, employee.getJobId());
             preparedStatement.setInt(7, employee.getSalary());
-            preparedStatement.setInt(8, employee.getCommisionPct());
+            preparedStatement.setDouble(8, employee.getCommisionPct());
             preparedStatement.setInt(9, employee.getManagerId());
             preparedStatement.setInt(10, employee.getDepartmentId());
             preparedStatement.setInt(11, employee.getEmployeeId());
-            
-            preparedStatement.executeUpdate();   
-            result = true;
+            preparedStatement.executeUpdate();
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return result;
-    }
-    /**
-     * function search 
-     * by Tika MP
-     * @param data
-     * @return 
-     */
-    public List<Employee> searchByEmployees(Object data){
-        List<Employee> datas = new ArrayList<>();
-        String query = "SELECT * FROM Employees where employee_id LIKE '%"+data+"%'"
-                + " OR first_name LIKE '%"+data+"%'"
-                + " OR last_name LIKE '%"+data+"%'"
-                + " OR email LIKE '%"+data+"%'"
-                + " OR phone_number LIKE '%"+data+"%'"
-                + " OR hire_date LIKE '%"+data+"%'"
-                + " OR job_id LIKE '%"+data+"%'"
-                + " OR salary LIKE '%"+data+"%'"
-                + " OR commission_pct LIKE '%"+data+"%'"
-                + " OR manager_id LIKE '%"+data+"%'"
-                + " OR department_id LIKE '%"+data+"%'"; 
-                
-        try {
-            PreparedStatement preparedStatement =
-                    connection.prepareStatement(query);
-            ResultSet resultSet = preparedStatement
-                    .executeQuery();
-            while (resultSet.next()) {
-                Employee employee = new Employee();
-                employee.setEmployeeId(resultSet.getInt(1));
-                employee.setFirstName(resultSet.getString(2));
-                employee.setLastName(resultSet.getString(3));
-                employee.setEmail(resultSet.getString(4));
-                employee.setPhoneNumber(resultSet.getString(5));
-                employee.setHireDate(resultSet.getDate(6));
-                employee.setJobId(resultSet.getString(7));
-                employee.setSalary(resultSet.getInt(8));
-                employee.setCommisionPct(resultSet.getInt(9));
-                employee.setManagerId(resultSet.getInt(10));
-                employee.setDepartmentId(resultSet.getInt(11));
-                datas.add(employee);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return datas;
+        return false;
     }
 }

@@ -7,20 +7,25 @@ package model;
 
 /**
  *
- * @author Nitani
+ * @author EMDES
  */
 public class Region {
+
     private int regionId;
     private String regionName;
 
-    public Region() {
-       
-    }
-    
     /**
-     * 
+     *
+     */
+    public Region() {
+
+    }
+
+    /**
+     *
      * @param regionId
-     * @param regionName 
+     * @param regionId
+     * @param regionName
      */
     public Region(int regionId, String regionName) {
         this.regionId = regionId;
@@ -28,32 +33,34 @@ public class Region {
     }
 
     /**
-     * @return the regionId
+     *
+     * @return
      */
     public int getRegionId() {
         return regionId;
     }
 
     /**
-     * @param regionId the regionId to set
+     *
+     * @param regionId
      */
     public void setRegionId(int regionId) {
         this.regionId = regionId;
     }
 
     /**
-     * @return the regionName
+     *
+     * @return
      */
     public String getRegionName() {
         return regionName;
     }
 
     /**
-     * @param regionName the regionName to set
+     *
+     * @param regionName
      */
     public void setRegionName(String regionName) {
         this.regionName = regionName;
     }
-
-    
 }

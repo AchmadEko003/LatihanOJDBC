@@ -7,15 +7,14 @@ package model;
 
 /**
  *
- * @author Nitani
+ * @author Nine
  */
 public class Country {
     private String countryId;
     private String countryName;
     private int regionId;
-    
+
     public Country() {
-        
     }
 
     public Country(String countryId, String countryName, int regionId) {
@@ -23,6 +22,8 @@ public class Country {
         this.countryName = countryName;
         this.regionId = regionId;
     }
+
+    
 
     /**
      * @return the countryId
@@ -53,18 +54,18 @@ public class Country {
     }
 
     /**
-     * @return the region
+     * @return the regionId
      */
     public int getRegionId() {
         return regionId;
     }
 
     /**
-     * @param region the region to set
+     * @param regionId the regionId to set
      */
-    public void setRegionId(int region) {
-        this.regionId = region;
+    public void setRegionId(int regionId) {
+        this.regionId = regionId;
     }
-    
+
     
 }

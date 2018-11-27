@@ -8,96 +8,110 @@ package controllers;
 import daos.RegionDAO;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import model.Region;
 
 /**
  *
- * @author EMDES
+ * @author Nitani
  */
-public class RegionController extends javax.swing.JFrame {
+public class RegionController {
 
-    public static List<Region> getByID;
+    /*
+    tot buat apa?
+     */
     private Connection connection;
-    private RegionDAO rdao;
+    private RegionDAO edao;
+    private Region region;
+    List<Region> datas = new ArrayList<>();
 
+    /**
+     *
+     */
     public RegionController() {
-
     }
 
+    /**
+     *
+     * @param connection
+     */
     public RegionController(Connection connection) {
         this.connection = connection;
-        this.rdao = new RegionDAO(connection);
+        this.edao = new RegionDAO(connection);
     }
 
-    public void setConnection(Connection connection) {
-        this.connection = connection;
-        this.rdao = new RegionDAO(connection);
-    }
-
-        public List<Region> find(Object data) {
-        return rdao.search(data);
-    }
     /**
-     * Insert Data Ragions
+     * gets() --> to get all data
      *
-     * @param regionId
-     * @param regionName
      * @return
      */
-    public boolean insert(String regionId, String regionName) {
+    public List<Region> gets() {
+        return edao.getAllRegion();
+    }
+
+    /**
+     * find(Object data) --> function search by object
+     *
+     * @param data
+     * @return
+     */
+    public List<Region> find(Object data) {
+        return edao.searchByRegions(data);
+    }
+
+    /**
+     * getid(int id) --> function search by id
+     *
+     * @param id
+     * @return
+     */
+    public List<Region> getid(String id) {
+        int idRegion = Integer.parseInt(id);
+        return edao.getRegionId(idRegion);
+    }
+
+    /**
+     * delete(int id) --> function delete by id
+     *
+     * @param id
+     * @return
+     */
+    public boolean delete(String id) {
+        int idRegion = Integer.parseInt(id);
+        return edao.deleteRegions(idRegion);
+    }
+
+    /**
+     *
+     */
+    public void getid() {
+        System.out.println(region.getRegionId());
+    }
+
+    /**
+     *
+     * @param nameRegion
+     * @param idRegion
+     * @return
+     */
+    public boolean update(String nameRegion, int idRegion) {
+        Region region = new Region(nameRegion, idRegion);
+        return edao.updateRegion(region);
+    }
+
+    /**
+     * insert --> function for add new data region
+     *
+     * @param regionname
+     * @param regionid
+     * @return
+     */
+    public boolean insert(String regionname, String regionid) {
         boolean result = false;
-        int idRegion = Integer.parseInt(regionId);
-        Region region = new Region(idRegion, regionName);
-        result = rdao.insertRegion(region);
+        int idRegion = Integer.valueOf(regionid);
+        Region region = new Region(regionname, idRegion);
+        result = edao.insertRegion(region);
         return result;
     }
-
-    /**
-     * Edit data Regions
-     *
-     * @param regionId
-     * @param regionName
-     * @return
-     */
-    public boolean update(String regionName, String regionId) {
-        //boolean result = false;
-        int idRegion = Integer.parseInt(regionId);
-        Region region = new Region(idRegion, regionName);
-        return rdao.updateRegion(region);
-    }
-    
-    public List<Region> search(){
-        return rdao.getAllRegions();
-    }
-
-    /**
-     * SetById Regions
-     *
-     * @param object
-     * @return
-     */
-    public List<Region> getByID(String regionId) {
-        int data = Integer.parseInt(regionId);
-        return rdao.getByID(regionId);
-    }
-
-    /**
-     * View All Data Regions
-     *
-     * @param object
-     * @return
-     */
-    public List<Region> getAllRegion(Object object) {
-        List<Region> result = new ArrayList<>();
-        result = rdao.getAllRegions();
-        return result;
-    }
-
-    public boolean delete(String regionId){
-        boolean result = false;
-        result = rdao.deleteRegion(regionId);
-        return result;
-    }
-
 }

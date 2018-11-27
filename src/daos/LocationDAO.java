@@ -146,4 +146,24 @@ public class LocationDAO {
         }
         return datas;
     }
+    public List<Location> getCity(int id){
+        String query = "SELECT location_id, city FROM locations ORDER BY city where location_id ="+id;
+        return execLocation(query);
+    }
+    public List<Location> execLocation(String query){
+        List<Location> data = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Location location = new Location();
+                location.setLocationId(resultSet.getInt("location_id"));
+                location.setCity(resultSet.getString("city"));
+                data.add(location);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
 }

@@ -126,4 +126,10 @@ public class DepartmentController {
     public List<Department> searchDepartment(Object obj){
         return ddao.search(obj);
     }
+    public List<Employee> getManagerName(String id){
+        return edao.getManagerName(Integer.parseInt(id));
+    }
+    public List<Location> getCity(String id){
+        return ldao.getCity(Integer.parseInt(id));
+    }
 }

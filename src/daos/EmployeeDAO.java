@@ -258,4 +258,9 @@ public class EmployeeDAO {
         }
         return datas;
     }
+    public List<Employee> getManagerName(int id){
+        String query = "SELECT employee_id, first_name, last_name FROM employees "
+                + "ORDER BY first_name ASC where manager_id ="+id;
+        return execEmployee(query);
+    }
 }

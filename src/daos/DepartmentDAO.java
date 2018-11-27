@@ -109,7 +109,7 @@ public class DepartmentDAO {
     }
     
     public List<Department> selectAllDepartment() {
-        return getDBValues("SELECT * FROM DEPARTMENTS");
+        return getDBValues("SELECT * FROM DEPARTMENTS order by department_id");
     }
     
     /**

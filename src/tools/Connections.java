@@ -25,13 +25,13 @@ public class Connections {
     public Connection getConnection(){ //buat koneksi
         try {
             OracleDataSource ods = new OracleDataSource();
-            ods.setServerName("localhost");
+            ods.setServerName("oel64");
             ods.setDriverType("thin");
             ods.setPortNumber(1521);
             ods.setServiceName("XE");
 //            ods.setDatabaseName("HR");
-            ods.setUser("system");
-            ods.setPassword("sys");
+            ods.setUser("mydba");
+            ods.setPassword("mydba");
             this.connection = ods.getConnection();
             this.connection.createStatement().execute("alter session set current_schema=hr");
         } catch (Exception e) {

@@ -10,6 +10,9 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import model.Country;
+import model.Department;
+import model.Employee;
+import model.Location;
 import model.Region;
 
 /**
@@ -29,9 +32,21 @@ public class CountryController {
         this.cdao = new CountryDAO(connection);
     }
 
-    public List<Country> selectCountry() {
+    public List<Country> getAll() {
         return cdao.getAllCountries();
     }
+    public List<Country> selectCountry() {
+        List<Country> result = new ArrayList<>();
+        result = cdao.getAllCountries();
+        return result;
+    }
+    public List<Region> selectRegionId() {
+        List<Region> result = new ArrayList<>();
+        result = cdao.selectRegionId();
+        return result;
+    }
+
+
 
     public List<Country> getById(String countryId) {
         return cdao.getById(countryId);
@@ -39,14 +54,14 @@ public class CountryController {
 
     public List<Region> selectRegion() {
         return cdao.getAllRegions();
-        
+
     }
 
     public boolean insert(String countryId, String countryName, String regionId) {
         int idRegion = Integer.parseInt(regionId);
         Country country = new Country(countryId, countryName, idRegion);
-        return  cdao.insertCountry(country);
-        
+        return cdao.insertCountry(country);
+
     }
 
     public boolean update(String countryId, String countryName, String regionId) {
@@ -56,12 +71,12 @@ public class CountryController {
     }
 
     public List<Country> search(Object object) {
-  
+
         return cdao.search(object);
     }
 
     public boolean delete(String countryId) {
-        
+
         return cdao.deleteCountry(countryId);
     }
 

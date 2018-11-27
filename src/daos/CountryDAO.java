@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import model.Country;
+import model.Employee;
 import model.Region;
 
 /**
@@ -28,7 +29,7 @@ public class CountryDAO {
     public CountryDAO() {
     }
 
-        public List<Country> getDatas(String query) {
+    public List<Country> getDatas(String query) {
         List<Country> datas = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -46,15 +47,33 @@ public class CountryDAO {
         }
         return datas;
     }
+
+    public List<Region> selectRegionId() {
+        List<Region> datas = new ArrayList<>();
+        String query = "SELECT region_id from regions order by region_id asc";//mengambil dari tabel hr.regions
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Region region = new Region();
+                region.setRegionId(resultSet.getInt("region_id"));
+                datas.add(region);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return datas;
+    }
+
     /**
-     * 
+     *
      * @return mengambil semua values dari tabel Countries
      */
-    
     public List<Country> getAllCountries() {
         return getDatas("SELECT * FROM COUNTRIES ORDER BY 1");
     }
-    
+
     /**
      *
      * @param countryId
@@ -65,9 +84,9 @@ public class CountryDAO {
     }
 
     /**
-     * 
+     *
      * @param data
-     * @return search table Countries 
+     * @return search table Countries
      */
     public List<Country> search(Object data) {
         String search = "SELECT * FROM COUNTRIES where country_id LIKE '%" + data + "%'"
@@ -75,12 +94,14 @@ public class CountryDAO {
                 + " OR region_id like '%" + data + "%'";
         return getDatas(search);
     }
-     /**
-     * 
+
+    /**
+     *
      * @param id
-     * @return boolean which is true for success delete and false for fail delete
+     * @return boolean which is true for success delete and false for fail
+     * delete
      */
-    public boolean deleteCountry(String  id){
+    public boolean deleteCountry(String id) {
         boolean result = false;
         String query = "DELETE FROM COUNTRIES where country_id = '" + id + "'";
         try {
@@ -93,16 +114,15 @@ public class CountryDAO {
         return result;
     }
 
-       
-    
     /**
      * insert country
+     *
      * @param country
-     * @return 
+     * @return
      */
-    public boolean insertCountry(Country country){
+    public boolean insertCountry(Country country) {
         boolean result = false;
-        String query ="INSERT INTO countries VALUES(?,?,?)";        
+        String query = "INSERT INTO countries VALUES(?,?,?)";
         try {
             PreparedStatement preparedStatement = connection.prepareCall(query);
             preparedStatement.setString(1, country.getCountryId());
@@ -110,7 +130,7 @@ public class CountryDAO {
             preparedStatement.setInt(3, country.getRegionId());
             preparedStatement.executeUpdate();
             result = true;
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return result;
@@ -132,21 +152,22 @@ public class CountryDAO {
         }
         return result;
     }
-        public List<Region> getAllRegions() {
+
+    public List<Region> getAllRegions() {
         List<Region> datas = new ArrayList<>();
         String query = "SELECT * FROM REGIONS";//mengambil dari tabel hr.regions
-        try{
-            PreparedStatement preparedStatement =
-                    connection.prepareStatement(query);
+        try {
+            PreparedStatement preparedStatement
+                    = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()){ //perulangan dilakukan selama data region ditemukan
-                Region region = new Region(); //instansiasi Region
-                region.setRegionId(resultSet.getInt("region_id")); //untuk mengambil region_id
-                region.setRegionId(resultSet.getInt(1)); //untuk mengambil region_id
-                region.setRegionName(resultSet.getString("region_name")); //untuk mengambil region_name
-                datas.add(region); //penambahan data kedalam list tiap kali data region datemukan
+
+            while (resultSet.next()) {
+                Region region = new Region();
+                region.setRegionId(resultSet.getInt("region_id"));
+                region.setRegionName(resultSet.getString("region_name"));
+                datas.add(region);
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return datas;

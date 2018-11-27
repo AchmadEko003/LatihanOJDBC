@@ -5,10 +5,7 @@
  */
 package views;
 
-import views.Locations;
 import controllers.LocationController;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 import tools.Connections;
 
@@ -16,24 +13,17 @@ import tools.Connections;
  *
  * @author Mukhlish
  */
-public class insertLocations extends javax.swing.JFrame {
-
+public class insertLocationsView extends javax.swing.JInternalFrame {
+    
     Connections con = new Connections();
     LocationController lc = new LocationController(con.getConnection());
 
+
     /**
-     * Creates new form insert
+     * Creates new form insertLocationsView
      */
-    public insertLocations() {
+    public insertLocationsView() {
         initComponents();
-
-        Dimension layar = Toolkit.getDefaultToolkit().getScreenSize();
-
-        // membuat titik x dan y
-        int x = layar.width / 2 - this.getSize().width / 2;
-        int y = layar.height / 2 - this.getSize().height / 2;
-
-        this.setLocation(x, y);
     }
 
     /**
@@ -45,22 +35,27 @@ public class insertLocations extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnBack = new javax.swing.JButton();
         txtLocationId = new javax.swing.JTextField();
-        txtStreetAddr = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        txtStreetAddr = new javax.swing.JTextField();
         txtPostalCode = new javax.swing.JTextField();
         txtCity = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        txtCountryId = new javax.swing.JTextField();
         txtStateProvince = new javax.swing.JTextField();
+        txtCountryId = new javax.swing.JTextField();
         btnInsert = new javax.swing.JButton();
-        btnBack = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        btnBack.setText("back");
+        btnBack.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBackMouseClicked(evt);
+            }
+        });
 
         txtLocationId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -71,14 +66,6 @@ public class insertLocations extends javax.swing.JFrame {
         jLabel1.setText("Location Id ");
 
         jLabel2.setText("Street address");
-
-        jLabel3.setText("Postal Code");
-
-        jLabel4.setText("City");
-
-        jLabel5.setText("State Province");
-
-        jLabel6.setText("Country Id");
 
         txtCountryId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -98,12 +85,13 @@ public class insertLocations extends javax.swing.JFrame {
             }
         });
 
-        btnBack.setText("back");
-        btnBack.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnBackMouseClicked(evt);
-            }
-        });
+        jLabel6.setText("Country Id");
+
+        jLabel5.setText("State Province");
+
+        jLabel4.setText("City");
+
+        jLabel3.setText("Postal Code");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -113,17 +101,19 @@ public class insertLocations extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6)))
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(54, 54, 54)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtCity)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnInsert)
-                                .addGap(0, 231, Short.MAX_VALUE))
+                                .addGap(0, 358, Short.MAX_VALUE))
                             .addComponent(txtCountryId, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtStateProvince)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -165,9 +155,9 @@ public class insertLocations extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(txtPostalCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(txtCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtStateProvince, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -183,6 +173,11 @@ public class insertLocations extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseClicked
+        new LocationsView().show();
+        this.setVisible(false);
+    }//GEN-LAST:event_btnBackMouseClicked
 
     private void txtLocationIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLocationIdActionPerformed
         // TODO add your handling code here:
@@ -201,9 +196,15 @@ public class insertLocations extends javax.swing.JFrame {
         String province = txtStateProvince.getText();
         String country = txtCountryId.getText();
 
-        if (!idlocation.equals("") && !StreetAddr.equals("") && !PostalCode.equals("") && !City.equals("") && !province.equals("") && !country.equals("")) {
-            if (lc.insert(idlocation, StreetAddr, PostalCode, City, province, country) == true) {
+        if (!StreetAddr.equals("") && !PostalCode.equals("") && !City.equals("") && !province.equals("") && !country.equals("") && !idlocation.equals("")) {
+            if (lc.insert(StreetAddr, PostalCode, City, province, country, idlocation) == true) {
                 JOptionPane.showMessageDialog(null, "insert berhasil");
+                txtCountryId.setText("");
+                txtStateProvince.setText("");
+                txtPostalCode.setText("");
+                txtCity.setText("");
+                txtStreetAddr.setText("");
+                txtLocationId.setText("");
             } else {
                 JOptionPane.showMessageDialog(null, "insert gagal");
             }
@@ -211,52 +212,12 @@ public class insertLocations extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "gaboleh kosong");
         }
-
     }//GEN-LAST:event_btnInsertMouseClicked
 
     private void btnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnInsertActionPerformed
 
-    private void btnBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseClicked
-        new Locations().show();
-        this.setVisible(false);
-    }//GEN-LAST:event_btnBackMouseClicked
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(insertLocations.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(insertLocations.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(insertLocations.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(insertLocations.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new insertLocations().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;

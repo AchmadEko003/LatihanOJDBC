@@ -32,6 +32,9 @@ public class Location {
         this.stateProvince = stateProvince;
         this.countryId = countryId;
     }
+
+
+    
     
     
 

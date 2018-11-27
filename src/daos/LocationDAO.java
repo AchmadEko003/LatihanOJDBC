@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import model.Country;
 import model.Location;
 import model.Region;
 
@@ -34,7 +35,6 @@ public class LocationDAO {
             while (resultSet.next()) { //perulangan dilakukan selama data location ditemukan
                 Location location = new Location(); //instansiasi Location
                 location.setLocationId(resultSet.getInt("location_id")); //untuk mengambil location_id
-                //job.setJobId(resultSet.getInt(1)); //untuk mengambil region_id
                 location.setStreetAddress(resultSet.getString("street_address")); //untuk mengambil street_address
                 location.setPostalCode(resultSet.getString("postal_code")); //untuk mengambil postal_code
                 location.setCity(resultSet.getString("city")); //untuk mengambil city
@@ -67,7 +67,6 @@ public class LocationDAO {
 
     public List<Location> getAllLocations() {
         return GetDatas("SELECT * FROM HR.LOCATIONS");//mengambil dari tabel hr.locations
-
     }
 
     /**
@@ -121,7 +120,6 @@ public class LocationDAO {
      * @return
      */
     public boolean updateLoc(Location location) {
-        boolean result = false;
         String query = "UPDATE LOCATIONS SET street_address=?, postal_code=?,"
                 + " city=?, state_province=?, country_id=? where location_id = ?";
         return dataInsert(query, location);
@@ -130,5 +128,22 @@ public class LocationDAO {
     public boolean insertLocation(Location location) {
         String query = "INSERT INTO LOCATIONS (STREET_ADDRESS, POSTAL_CODE, CITY, STATE_PROVINCE, COUNTRY_ID, LOCATION_ID) VALUES (?,?,?,?,?,?)";
         return dataInsert(query, location);
+    }
+    public List<Country> selectCountryId() {
+        List<Country> datas = new ArrayList<>();
+        String query = "Select country_id from countries order by 1";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Country country = new Country();
+                country.setCountryId(resultSet.getString("country_id"));
+                datas.add(country);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return datas;
     }
 }

@@ -27,6 +27,9 @@ public class JobView extends javax.swing.JInternalFrame {
      */
     public JobView() {
         initComponents();
+        bindingTable(jc.getAllJob());
+        btnDelete.setEnabled(false);
+        btnUpdate.setEnabled(false);
     }
 
     public void clearTxt() {
@@ -40,23 +43,26 @@ public class JobView extends javax.swing.JInternalFrame {
     }
 
     public void bindingTable(List<Job> jobs) {
-        Object[] header = {"Job ID", "Job Title", "Min Salary", "Max Salary"};
+        Object[] header = {"No", "Job ID", "Job Title", "Min Salary", "Max Salary"};
         DefaultTableModel data = new DefaultTableModel(null, header);
         tableJob.setModel(data);
-
+        
+        int no = 1;
         try {
             for (Job job : jobs) {
-                String isi1 = job.getJobId();
-                String isi2 = job.getJobTitle();
-                String isi3 = String.valueOf(job.getMinSalary());
-                String isi4 = String.valueOf(job.getMaxSalary());
+                String isi1 = String.valueOf(no);
+                String isi2 = job.getJobId();
+                String isi3 = job.getJobTitle();
+                String isi4 = String.valueOf(job.getMinSalary());
+                String isi5 = String.valueOf(job.getMaxSalary());
 
-                String kolom[] = {isi1, isi2, isi3, isi4};
+                String kolom[] = {isi1, isi2, isi3, isi4, isi5};
                 data.addRow(kolom);
-            }
+                no++;
+            }         
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Oops! : " + e.getMessage());
-        }
+        }      
     }
 
     /**
@@ -72,7 +78,6 @@ public class JobView extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         btnDelete = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        btnSearch = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         btnUpdate = new javax.swing.JButton();
         txtJobId = new javax.swing.JTextField();
@@ -80,12 +85,16 @@ public class JobView extends javax.swing.JInternalFrame {
         txtJobTitle = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txtMinSalary = new javax.swing.JTextField();
-        txtSearch = new javax.swing.JTextField();
         txtMaxSalary = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableJob = new javax.swing.JTable();
-        btnGetAll = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        txtSearch = new javax.swing.JTextField();
+        txtSearchId = new javax.swing.JTextField();
+        btnSearchId = new javax.swing.JButton();
+        btnSearch = new javax.swing.JButton();
+
+        setClosable(true);
 
         btnInsert.setText("Save");
         btnInsert.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -104,13 +113,6 @@ public class JobView extends javax.swing.JInternalFrame {
         });
 
         jLabel3.setText("Min Salary       :");
-
-        btnSearch.setText("Search");
-        btnSearch.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnSearchMouseClicked(evt);
-            }
-        });
 
         jLabel4.setText("Max Salary     :");
 
@@ -149,14 +151,21 @@ public class JobView extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tableJob);
 
-        btnGetAll.setText("Refresh");
-        btnGetAll.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabel1.setText("Job ID             :");
+
+        btnSearchId.setText("Search ID");
+        btnSearchId.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnGetAllMouseClicked(evt);
+                btnSearchIdMouseClicked(evt);
             }
         });
 
-        jLabel1.setText("Job ID             :");
+        btnSearch.setText("Search");
+        btnSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSearchMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -164,51 +173,47 @@ public class JobView extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(224, 224, 224)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel3)
-                                            .addComponent(jLabel4))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(btnClear, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
-                                            .addComponent(txtMaxSalary, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(txtMinSalary, javax.swing.GroupLayout.Alignment.TRAILING))
-                                        .addGap(18, 18, 18))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel1)
-                                                    .addComponent(jLabel2))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addComponent(txtJobTitle)
-                                                    .addComponent(txtJobId)))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(2, 2, 2)
-                                                .addComponent(btnGetAll)))
-                                        .addGap(18, 18, 18)))
+                                    .addComponent(btnClear, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                                    .addComponent(txtMaxSalary, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtMinSalary, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addGap(18, 18, 18))
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnInsert, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(22, 22, 22))))
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtJobTitle)
+                                    .addComponent(txtJobId))
+                                .addGap(18, 18, 18)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnInsert, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtSearchId, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnSearchId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addGap(22, 22, 22))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(235, 235, 235)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -234,25 +239,25 @@ public class JobView extends javax.swing.JInternalFrame {
                     .addComponent(jLabel3))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(34, 34, 34)
-                                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtSearch)))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtMaxSalary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnClear)))
+                        .addComponent(btnClear))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnSearchId, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtSearchId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGetAll))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
                 .addGap(44, 44, 44))
         );
 
@@ -272,6 +277,7 @@ public class JobView extends javax.swing.JInternalFrame {
             if (!jobId.equals("") && !jobTitle.equals("") && !minSalary.equals("") && !maxSalary.equals("")) {
                 if (jc.insert(jobId, jobTitle, minSalary, maxSalary) == true) {
                     JOptionPane.showMessageDialog(null, "Insert Data Berhasil !");
+                    bindingTable(jc.getAllJob());
                 } else {
                     JOptionPane.showMessageDialog(null, "Insert Data Gagal !", "Message Alert",
                             JOptionPane.WARNING_MESSAGE);
@@ -294,6 +300,7 @@ public class JobView extends javax.swing.JInternalFrame {
             if (!jobId.equals("")) {
                 if (jc.delete(jobId) == true) {
                     JOptionPane.showMessageDialog(null, "Data berhasil di Hapus !");
+                    bindingTable(jc.getAllJob());
                 } else {
                     JOptionPane.showMessageDialog(null, "Data ini tidak dapat di hapus !", "Message Alert",
                             JOptionPane.WARNING_MESSAGE);
@@ -305,10 +312,6 @@ public class JobView extends javax.swing.JInternalFrame {
             clearTxt();
         }
     }//GEN-LAST:event_btnDeleteMouseClicked
-
-    private void btnSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseClicked
-        bindingTable(jc.searchByJobs(txtSearch.getText()));
-    }//GEN-LAST:event_btnSearchMouseClicked
 
     private void btnUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUpdateMouseClicked
         String jobId = txtJobId.getText();
@@ -324,6 +327,7 @@ public class JobView extends javax.swing.JInternalFrame {
             if (!jobId.equals("") && !jobTitle.equals("") && !minSalary.equals("") && !maxSalary.equals("")) {
                 if (jc.update(jobId, jobTitle, minSalary, maxSalary) == true) {
                     JOptionPane.showMessageDialog(null, "Data berhasil di Update !");
+                    bindingTable(jc.getAllJob());
                 } else {
                     JOptionPane.showMessageDialog(null, "Update Data gagal !", "Message Alert",
                             JOptionPane.WARNING_MESSAGE);
@@ -340,24 +344,30 @@ public class JobView extends javax.swing.JInternalFrame {
         clearTxt();
         btnDelete.setEnabled(false);
         btnUpdate.setEnabled(false);
+        btnInsert.setEnabled(true);
     }//GEN-LAST:event_btnClearMouseClicked
 
     private void tableJobMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableJobMouseClicked
         txtJobId.setEditable(false);
         btnDelete.setEnabled(true);
         btnUpdate.setEnabled(true);
+        btnInsert.setEnabled(false);
 
         int i = tableJob.getSelectedRow();
         TableModel model = tableJob.getModel();
-        txtJobId.setText(model.getValueAt(i, 0).toString());
-        txtJobTitle.setText(model.getValueAt(i, 1).toString());
-        txtMinSalary.setText(model.getValueAt(i, 2).toString());
-        txtMaxSalary.setText(model.getValueAt(i, 3).toString());
+        txtJobId.setText(model.getValueAt(i, 1).toString());
+        txtJobTitle.setText(model.getValueAt(i, 2).toString());
+        txtMinSalary.setText(model.getValueAt(i, 3).toString());
+        txtMaxSalary.setText(model.getValueAt(i, 4).toString());
     }//GEN-LAST:event_tableJobMouseClicked
 
-    private void btnGetAllMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGetAllMouseClicked
-        bindingTable(jc.getAllJob());
-    }//GEN-LAST:event_btnGetAllMouseClicked
+    private void btnSearchIdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchIdMouseClicked
+        bindingTable(jc.getById(txtSearchId.getText()));
+    }//GEN-LAST:event_btnSearchIdMouseClicked
+
+    private void btnSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseClicked
+        bindingTable(jc.searchByJobs(txtSearch.getText()));
+    }//GEN-LAST:event_btnSearchMouseClicked
 
     /**
      * @param args the command line arguments
@@ -389,7 +399,7 @@ public class JobView extends javax.swing.JInternalFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JobForm().setVisible(true);
+                new JobView().setVisible(true);
             }
         });
     }
@@ -397,9 +407,9 @@ public class JobView extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnDelete;
-    private javax.swing.JButton btnGetAll;
     private javax.swing.JButton btnInsert;
     private javax.swing.JButton btnSearch;
+    private javax.swing.JButton btnSearchId;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -413,5 +423,6 @@ public class JobView extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtMaxSalary;
     private javax.swing.JTextField txtMinSalary;
     private javax.swing.JTextField txtSearch;
+    private javax.swing.JTextField txtSearchId;
     // End of variables declaration//GEN-END:variables
 }

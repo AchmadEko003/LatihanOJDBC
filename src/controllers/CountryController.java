@@ -34,7 +34,6 @@ public class CountryController {
     }
 
     public List<Country> getById(String countryId) {
-        List<Country> result = new ArrayList<>();
         return cdao.getById(countryId);
     }
 

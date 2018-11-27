@@ -34,6 +34,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         menuJob = new javax.swing.JMenuItem();
+        insertCountriesView = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -87,6 +88,15 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
         mnEmployees.add(menuJob);
+
+        insertCountriesView.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
+        insertCountriesView.setText("Countries");
+        insertCountriesView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                insertCountriesViewActionPerformed(evt);
+            }
+        });
+        mnEmployees.add(insertCountriesView);
 
         jMenuBar1.add(mnEmployees);
 
@@ -142,6 +152,13 @@ public class MainFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_menuJobActionPerformed
 
+    private void insertCountriesViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertCountriesViewActionPerformed
+        // TODO add your handling code here:
+        CountriesView countriesView = new CountriesView();
+        countriesView.show();
+        dsktpMain.add(countriesView);
+    }//GEN-LAST:event_insertCountriesViewActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -179,6 +196,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane dsktpMain;
+    private javax.swing.JMenuItem insertCountriesView;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;

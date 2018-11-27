@@ -17,16 +17,46 @@ import tools.Connections;
  *
  * @author AD
  */
-public class JobForm extends javax.swing.JFrame {
+public class JobView extends javax.swing.JInternalFrame {
 
     Connections con = new Connections();
     JobController jc = new JobController(con.getConnection());
 
     /**
-     * Creates new form JobForm
+     * Creates new form JobView
      */
-    public JobForm() {
+    public JobView() {
         initComponents();
+    }
+
+    public void clearTxt() {
+        txtJobId.setEditable(true);
+
+        txtJobId.setText("");
+        txtJobTitle.setText("");
+        txtMinSalary.setText("");
+        txtMaxSalary.setText("");
+        txtSearch.setText("");
+    }
+
+    public void bindingTable(List<Job> jobs) {
+        Object[] header = {"Job ID", "Job Title", "Min Salary", "Max Salary"};
+        DefaultTableModel data = new DefaultTableModel(null, header);
+        tableJob.setModel(data);
+
+        try {
+            for (Job job : jobs) {
+                String isi1 = job.getJobId();
+                String isi2 = job.getJobTitle();
+                String isi3 = String.valueOf(job.getMinSalary());
+                String isi4 = String.valueOf(job.getMaxSalary());
+
+                String kolom[] = {isi1, isi2, isi3, isi4};
+                data.addRow(kolom);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Oops! : " + e.getMessage());
+        }
     }
 
     /**
@@ -38,39 +68,68 @@ public class JobForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        btnInsert = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        btnDelete = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        btnSearch = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        btnUpdate = new javax.swing.JButton();
         txtJobId = new javax.swing.JTextField();
+        btnClear = new javax.swing.JButton();
         txtJobTitle = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
         txtMinSalary = new javax.swing.JTextField();
+        txtSearch = new javax.swing.JTextField();
         txtMaxSalary = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableJob = new javax.swing.JTable();
         btnGetAll = new javax.swing.JButton();
-        btnInsert = new javax.swing.JButton();
-        btnDelete = new javax.swing.JButton();
-        btnSearch = new javax.swing.JButton();
-        btnUpdate = new javax.swing.JButton();
-        btnClear = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        txtSearch = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowActivated(java.awt.event.WindowEvent evt) {
-                formWindowActivated(evt);
+        btnInsert.setText("Save");
+        btnInsert.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnInsertMouseClicked(evt);
             }
         });
 
-        jLabel1.setText("Job ID             :");
-
         jLabel2.setText("Job Title          :");
+
+        btnDelete.setText("Delete");
+        btnDelete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDeleteMouseClicked(evt);
+            }
+        });
 
         jLabel3.setText("Min Salary       :");
 
+        btnSearch.setText("Search");
+        btnSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSearchMouseClicked(evt);
+            }
+        });
+
         jLabel4.setText("Max Salary     :");
+
+        btnUpdate.setText("Update");
+        btnUpdate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnUpdateMouseClicked(evt);
+            }
+        });
+
+        btnClear.setText("Clear");
+        btnClear.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnClearMouseClicked(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel5.setText("TABLE JOBS");
 
         tableJob.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -97,43 +156,7 @@ public class JobForm extends javax.swing.JFrame {
             }
         });
 
-        btnInsert.setText("Save");
-        btnInsert.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnInsertMouseClicked(evt);
-            }
-        });
-
-        btnDelete.setText("Delete");
-        btnDelete.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnDeleteMouseClicked(evt);
-            }
-        });
-
-        btnSearch.setText("Search");
-        btnSearch.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnSearchMouseClicked(evt);
-            }
-        });
-
-        btnUpdate.setText("Update");
-        btnUpdate.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnUpdateMouseClicked(evt);
-            }
-        });
-
-        btnClear.setText("Clear");
-        btnClear.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnClearMouseClicked(evt);
-            }
-        });
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel5.setText("TABLE JOBS");
+        jLabel1.setText("Job ID             :");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -236,40 +259,6 @@ public class JobForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void clearTxt() {
-        txtJobId.setEditable(true);
-
-        txtJobId.setText("");
-        txtJobTitle.setText("");
-        txtMinSalary.setText("");
-        txtMaxSalary.setText("");
-        txtSearch.setText("");
-    }
-
-    public void bindingTable(List<Job> jobs) {
-        Object[] header = {"Job ID", "Job Title", "Min Salary", "Max Salary"};
-        DefaultTableModel data = new DefaultTableModel(null, header);
-        tableJob.setModel(data);
-
-        try {
-            for (Job job : jobs) {
-                String isi1 = job.getJobId();
-                String isi2 = job.getJobTitle();
-                String isi3 = String.valueOf(job.getMinSalary());
-                String isi4 = String.valueOf(job.getMaxSalary());
-
-                String kolom[] = {isi1, isi2, isi3, isi4};
-                data.addRow(kolom);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Oops! : " + e.getMessage());
-        }
-    }
-
-    private void btnGetAllMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGetAllMouseClicked
-        bindingTable(jc.getAllJob());
-    }//GEN-LAST:event_btnGetAllMouseClicked
-
     private void btnInsertMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInsertMouseClicked
         String jobId = txtJobId.getText();
         String jobTitle = txtJobTitle.getText();
@@ -317,19 +306,6 @@ public class JobForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnDeleteMouseClicked
 
-    private void tableJobMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableJobMouseClicked
-        txtJobId.setEditable(false);
-        btnDelete.setEnabled(true);
-        btnUpdate.setEnabled(true);
-        
-        int i = tableJob.getSelectedRow();
-        TableModel model = tableJob.getModel();
-        txtJobId.setText(model.getValueAt(i, 0).toString());
-        txtJobTitle.setText(model.getValueAt(i, 1).toString());
-        txtMinSalary.setText(model.getValueAt(i, 2).toString());
-        txtMaxSalary.setText(model.getValueAt(i, 3).toString());
-    }//GEN-LAST:event_tableJobMouseClicked
-
     private void btnSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseClicked
         bindingTable(jc.searchByJobs(txtSearch.getText()));
     }//GEN-LAST:event_btnSearchMouseClicked
@@ -366,11 +342,22 @@ public class JobForm extends javax.swing.JFrame {
         btnUpdate.setEnabled(false);
     }//GEN-LAST:event_btnClearMouseClicked
 
-    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+    private void tableJobMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableJobMouseClicked
+        txtJobId.setEditable(false);
+        btnDelete.setEnabled(true);
+        btnUpdate.setEnabled(true);
+
+        int i = tableJob.getSelectedRow();
+        TableModel model = tableJob.getModel();
+        txtJobId.setText(model.getValueAt(i, 0).toString());
+        txtJobTitle.setText(model.getValueAt(i, 1).toString());
+        txtMinSalary.setText(model.getValueAt(i, 2).toString());
+        txtMaxSalary.setText(model.getValueAt(i, 3).toString());
+    }//GEN-LAST:event_tableJobMouseClicked
+
+    private void btnGetAllMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGetAllMouseClicked
         bindingTable(jc.getAllJob());
-        btnDelete.setEnabled(false);
-        btnUpdate.setEnabled(false);
-    }//GEN-LAST:event_formWindowActivated
+    }//GEN-LAST:event_btnGetAllMouseClicked
 
     /**
      * @param args the command line arguments
@@ -397,7 +384,6 @@ public class JobForm extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(JobForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

@@ -146,9 +146,13 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void menuJobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuJobActionPerformed
         // TODO add your handling code here:
-        JobForm jobForm = new JobForm();
-        jobForm.show();
-        dsktpMain.add(jobForm);
+//        JobForm jobForm = new JobForm();
+//        jobForm.show();
+//        dsktpMain.add(jobForm);
+//        
+        JobView jobView = new JobView();
+        jobView.show();
+        dsktpMain.add(jobView);
         
     }//GEN-LAST:event_menuJobActionPerformed
 

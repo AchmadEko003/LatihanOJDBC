@@ -207,7 +207,7 @@ public class RegionViews extends javax.swing.JInternalFrame {
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
-        bindingTable(.find(txtsearch.getText()));
+        bindingTable(rc.find(txtsearch.getText()));
     }//GEN-LAST:event_btnSearchActionPerformed
 
 

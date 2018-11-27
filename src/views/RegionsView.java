@@ -27,6 +27,12 @@ public class RegionsView extends javax.swing.JInternalFrame {
      */
     public RegionsView() {
         initComponents();
+        bindingTable(regionController.gets());
+        update_Button.setEnabled(false);
+        deletebutton.setEnabled(false);
+        btnNewRegion.setEnabled(false);
+        txtRegionId.setEditable(false);
+        txtRegionId.setText(String.valueOf(regionController.maxRegionId()));
     }
 
     public void getTextInput() {
@@ -35,22 +41,27 @@ public class RegionsView extends javax.swing.JInternalFrame {
     }
 
     public void bindingTable(List<Region> regions) {
-        Object[] header = {"Region_Id", "Region_Name"};
+        Object[] header = {"No", "Region_Id", "Region_Name"};
         DefaultTableModel model = new DefaultTableModel(null, header);
         getidTable.setModel(model);
 
         try {
+            int no = 1;
             for (Region region : regions) {
+                String isi0 = String.valueOf(no);
                 String isi1 = String.valueOf(region.getRegionId());
                 String isi2 = region.getRegionName();
 
-                String kolom[] = {isi1, isi2};
+                String kolom[] = {isi0, isi1, isi2};
                 model.addRow(kolom);
+                no++;
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Ops! " + e.getMessage());
         }
     }
+    
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -72,7 +83,9 @@ public class RegionsView extends javax.swing.JInternalFrame {
         searchButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         txtRegionName = new javax.swing.JTextField();
+        btnNewRegion = new javax.swing.JButton();
 
+        setClosable(true);
         setTitle("Region Views");
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
@@ -173,11 +186,24 @@ public class RegionsView extends javax.swing.JInternalFrame {
             }
         });
 
+        btnNewRegion.setText("New Data");
+        btnNewRegion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnNewRegionMouseClicked(evt);
+            }
+        });
+        btnNewRegion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNewRegionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -187,22 +213,18 @@ public class RegionsView extends javax.swing.JInternalFrame {
                                 .addComponent(searchButton))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addContainerGap()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(txtRegionId, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(txtRegionName, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtRegionId, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createSequentialGroup()
-                                    .addContainerGap()
-                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtRegionName, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 10, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnNewRegion)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(update_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(16, 16, 16)
                         .addComponent(insertbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -231,8 +253,9 @@ public class RegionsView extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(update_Button)
                     .addComponent(insertbutton)
-                    .addComponent(deletebutton))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(deletebutton)
+                    .addComponent(btnNewRegion))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -247,9 +270,10 @@ public class RegionsView extends javax.swing.JInternalFrame {
         if (!regionId.equals("") && !regionName.equals("")) {
             if (regionController.insert(regionName, regionId)) {
                 JOptionPane.showMessageDialog(null, "insert berhasil");
-                txtRegionName.setText(" ");
-                txtRegionId.setText(" ");
+                txtRegionName.setText("");
+                txtRegionId.setText("");
                 bindingTable(regionController.gets());
+                txtRegionId.setText(String.valueOf(regionController.maxRegionId()));
             } else {
                 JOptionPane.showMessageDialog(null, "insert gagal");
             }
@@ -266,15 +290,21 @@ public class RegionsView extends javax.swing.JInternalFrame {
 
     private void deletebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletebuttonActionPerformed
         // TODO add your handling code here:   
-        String nil = txtRegionId.getText();
-        regionController.delete(nil);
-        bindingTable(regionController.gets());
+        int Pilih = JOptionPane.showConfirmDialog(null, "Yakin akan menghapus data ?", "Pertanyaan", JOptionPane.YES_NO_OPTION);
+        if (Pilih == JOptionPane.YES_OPTION) {
+            JOptionPane.showMessageDialog(null, "Hapus data ?");
+            String nil = txtRegionId.getText();
+            regionController.delete(nil);
+            bindingTable(regionController.gets());
 
-        txtRegionId.setText("");
-        txtRegionName.setText("");
-        deletebutton.setEnabled(false);
-        update_Button.setEnabled(false);
-        insertbutton.setEnabled(true);
+            txtRegionId.setText("");
+            txtRegionName.setText("");
+            deletebutton.setEnabled(false);
+            update_Button.setEnabled(false);
+            insertbutton.setEnabled(true);
+        } else if (Pilih == JOptionPane.NO_OPTION) {
+            JOptionPane.showMessageDialog(null, "Batalkan hapus data ?");
+        }
     }//GEN-LAST:event_deletebuttonActionPerformed
 
     private void update_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update_ButtonActionPerformed
@@ -303,11 +333,18 @@ public class RegionsView extends javax.swing.JInternalFrame {
     private void txtSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyPressed
         // TODO add your handling code here:
         bindingTable(regionController.find(txtSearch.getText()));
+        txtRegionId.setText("");
+        txtRegionName.setText("");
     }//GEN-LAST:event_txtSearchKeyPressed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         // TODO add your handling code here:
         bindingTable(regionController.find(txtSearch.getText()));
+        txtRegionId.setEditable(false);
+        update_Button.setEnabled(false);
+        deletebutton.setEnabled(false);
+        insertbutton.setEnabled(true);
+        txtRegionId.setText(String.valueOf(regionController.maxRegionId()));
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void txtRegionNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRegionNameActionPerformed
@@ -316,23 +353,38 @@ public class RegionsView extends javax.swing.JInternalFrame {
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
         // TODO add your handling code here:
-        bindingTable(regionController.gets());
-        update_Button.setEnabled(false);
     }//GEN-LAST:event_formInternalFrameActivated
 
     private void getidTabletableClick(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_getidTabletableClick
         // TODO add your handling code here:
         int i = getidTable.getSelectedRow();
         TableModel model = getidTable.getModel();
-        txtRegionId.setText(model.getValueAt(i, 0).toString());
-        txtRegionName.setText(model.getValueAt(i, 1).toString());
+        txtRegionId.setText(model.getValueAt(i, 1).toString());
+        txtRegionName.setText(model.getValueAt(i, 2).toString());
         deletebutton.setEnabled(true);
         insertbutton.setEnabled(false);
         update_Button.setEnabled(true);
+        btnNewRegion.setEnabled(true);
     }//GEN-LAST:event_getidTabletableClick
+
+    private void btnNewRegionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewRegionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnNewRegionActionPerformed
+
+    private void btnNewRegionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNewRegionMouseClicked
+        // TODO add your handling code here:
+        txtRegionId.setText("");
+        txtRegionName.setText("");
+        txtSearch.setText("");
+        deletebutton.setEnabled(false);
+        update_Button.setEnabled(false);
+        insertbutton.setEnabled(true);
+        txtRegionId.setText(String.valueOf(regionController.maxRegionId()));
+    }//GEN-LAST:event_btnNewRegionMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnNewRegion;
     private javax.swing.JButton deletebutton;
     private javax.swing.JTable getidTable;
     private javax.swing.JButton insertbutton;

@@ -22,7 +22,7 @@ public class RegionController {
     tot buat apa?
      */
     private Connection connection;
-    private RegionDAO edao;
+    private RegionDAO rdao;
     private Region region;
     List<Region> datas = new ArrayList<>();
 
@@ -38,7 +38,7 @@ public class RegionController {
      */
     public RegionController(Connection connection) {
         this.connection = connection;
-        this.edao = new RegionDAO(connection);
+        this.rdao = new RegionDAO(connection);
     }
 
     /**
@@ -47,7 +47,11 @@ public class RegionController {
      * @return
      */
     public List<Region> gets() {
-        return edao.getAllRegion();
+        return rdao.getAllRegion();
+    }
+    
+        public int maxRegionId() {
+        return rdao.maxRegionId();
     }
 
     /**
@@ -57,7 +61,7 @@ public class RegionController {
      * @return
      */
     public List<Region> find(Object data) {
-        return edao.searchByRegions(data);
+        return rdao.searchByRegions(data);
     }
 
     /**
@@ -68,7 +72,7 @@ public class RegionController {
      */
     public List<Region> getid(String id) {
         int idRegion = Integer.parseInt(id);
-        return edao.getRegionId(idRegion);
+        return rdao.getRegionId(idRegion);
     }
 
     /**
@@ -79,7 +83,7 @@ public class RegionController {
      */
     public boolean delete(String id) {
         int idRegion = Integer.parseInt(id);
-        return edao.deleteRegions(idRegion);
+        return rdao.deleteRegions(idRegion);
     }
 
     /**
@@ -97,7 +101,7 @@ public class RegionController {
      */
     public boolean update(String nameRegion, int idRegion) {
         Region region = new Region(nameRegion, idRegion);
-        return edao.updateRegion(region);
+        return rdao.updateRegion(region);
     }
 
     /**
@@ -111,7 +115,7 @@ public class RegionController {
         boolean result = false;
         int idRegion = Integer.valueOf(regionid);
         Region region = new Region(regionname, idRegion);
-        result = edao.insertRegion(region);
+        result = rdao.insertRegion(region);
         return result;
     }
 }

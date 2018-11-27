@@ -32,6 +32,8 @@ public class MainFrame extends javax.swing.JFrame {
         mnEmployees = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        menuJob = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -67,6 +69,24 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
         mnEmployees.add(jMenuItem2);
+
+        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_MASK));
+        jMenuItem3.setText("Locations");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        mnEmployees.add(jMenuItem3);
+
+        menuJob.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J, java.awt.event.InputEvent.ALT_MASK));
+        menuJob.setText("Jobs");
+        menuJob.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuJobActionPerformed(evt);
+            }
+        });
+        mnEmployees.add(menuJob);
 
         jMenuBar1.add(mnEmployees);
 
@@ -104,6 +124,23 @@ public class MainFrame extends javax.swing.JFrame {
         departmentView.show();
         dsktpMain.add(departmentView);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        LocationsView locationsView = new LocationsView();
+        insertLocationsView lv = new insertLocationsView();
+        locationsView.show();
+        dsktpMain.add(locationsView);
+        dsktpMain.add(lv);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void menuJobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuJobActionPerformed
+        // TODO add your handling code here:
+        JobForm jobForm = new JobForm();
+        jobForm.show();
+        dsktpMain.add(jobForm);
+        
+    }//GEN-LAST:event_menuJobActionPerformed
 
     /**
      * @param args the command line arguments
@@ -146,6 +183,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem menuJob;
     private javax.swing.JMenu mnEmployees;
     // End of variables declaration//GEN-END:variables
 }

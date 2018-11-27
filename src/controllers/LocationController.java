@@ -40,9 +40,11 @@ public class LocationController {
      * @return 
      */
 
-    public boolean insert(String locationId, String streetAddress, String postalCode, String city, String stateProvince, String countryId) {
-        int location_id = Integer.parseInt(locationId);
-        location = new Location(location_id, streetAddress, postalCode, city, stateProvince, countryId);
+    
+        
+    public boolean insert(String streetAddress, String postalCode, String city, String stateProvince, String countryId, String location_id) {
+        int locationId = Integer.parseInt(location_id);
+        location = new Location(locationId,streetAddress, postalCode, city, stateProvince, countryId);
         return ldao.insertLocation(location);
     }
 
@@ -93,7 +95,7 @@ public class LocationController {
      * @param countryId
      * @return 
      */
-    public boolean update(String location_id, String streetAddress, String postalCode, String city, String stateProvince, String countryId) {
+    public boolean update(String streetAddress, String postalCode, String city, String stateProvince, String countryId, String location_id) {
         int locationId = Integer.parseInt(location_id);
         location = new Location(locationId,streetAddress, postalCode, city, stateProvince, countryId);
         return ldao.updateLoc(location);

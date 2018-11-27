@@ -5,23 +5,46 @@
  */
 package views;
 
-import daos.RegionDAO;
-import java.awt.TextField;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
+import controllers.RegionController;
+import java.util.List;
+import tools.Connections;
+//import java.sql.Connection;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Region;
 
 /**
  *
- * @author Nitani
+ * @author EMDES
  */
 public class RegionView extends javax.swing.JFrame {
 
+    Connections con = new Connections();
+    RegionController rc = new RegionController(con.getConnection());
+
     /**
-     * Creates new form RegionView
+     * Creates new form Region
      */
     public RegionView() {
         initComponents();
+    }
+    
+    public void bindingTable(List<Region> regions){
+        Object[] header = {"Region Id", "Region Name"};
+        DefaultTableModel data = new DefaultTableModel(null, header);
+        tabelregion.setModel(data);
+
+        try {
+            for (Region region : rc.getAllRegion(data)) {
+                String is1 = String.valueOf(region.getRegionName());
+                String is2 = String.valueOf(region.getRegionId());
+
+                String kolom[] = {is1, is2};
+                data.addRow(kolom);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Oops!.." + e.getMessage());
+        }
     }
 
     /**
@@ -33,22 +56,135 @@ public class RegionView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        regionName = new javax.swing.JTextField();
-        idRegion1 = new javax.swing.JTextField();
-        save = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtRegionId = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        txtRegionName = new javax.swing.JTextField();
+        btnSave = new javax.swing.JButton();
+        btnEdit = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
+        btnSearch = new javax.swing.JButton();
+        btnGetById = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabelregion = new javax.swing.JTable();
+        btnShowTable = new javax.swing.JButton();
+        txtSearch = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        idRegion1.addActionListener(new java.awt.event.ActionListener() {
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setText("Region");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel2.setText("Region Id");
+
+        txtRegionId.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel3.setText("Region Name");
+
+        txtRegionName.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+
+        btnSave.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        btnSave.setText("Save");
+        btnSave.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSaveMouseClicked(evt);
+            }
+        });
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                idRegion1ActionPerformed(evt);
+                btnSaveActionPerformed(evt);
             }
         });
 
-        save.setText("Save");
-        save.addActionListener(new java.awt.event.ActionListener() {
+        btnEdit.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        btnEdit.setText("Edit");
+        btnEdit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEditMouseClicked(evt);
+            }
+        });
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveActionPerformed(evt);
+                btnEditActionPerformed(evt);
+            }
+        });
+
+        btnDelete.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        btnDelete.setText("Delete");
+        btnDelete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDeleteMouseClicked(evt);
+            }
+        });
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+
+        btnSearch.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        btnSearch.setText("Search");
+        btnSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSearchMouseClicked(evt);
+            }
+        });
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
+
+        btnGetById.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        btnGetById.setText("Search By ID");
+        btnGetById.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnGetByIdMouseClicked(evt);
+            }
+        });
+
+        tabelregion.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2"
+            }
+        ));
+        tabelregion.setCellSelectionEnabled(true);
+        tabelregion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelregionMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tabelregion);
+
+        btnShowTable.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        btnShowTable.setText("Refresh Data");
+        btnShowTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnShowTableMouseClicked(evt);
+            }
+        });
+        btnShowTable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnShowTableActionPerformed(evt);
+            }
+        });
+
+        txtSearch.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+
+        jButton1.setText("Clear");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
             }
         });
 
@@ -56,104 +192,256 @@ public class RegionView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnGetById, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21))
             .addGroup(layout.createSequentialGroup()
-                .addGap(153, 153, 153)
-                .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(164, Short.MAX_VALUE))
+                .addGap(267, 267, 267)
+                .addComponent(jLabel1)
+                .addGap(0, 245, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(regionName, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(92, 92, 92))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(94, 94, 94)
-                    .addComponent(idRegion1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(93, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnShowTable)
+                        .addGap(26, 26, 26)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtRegionId)
+                            .addComponent(txtRegionName, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(41, 41, 41))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(100, 100, 100)
-                .addComponent(regionName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(save)
-                .addContainerGap(62, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(49, 49, 49)
-                    .addComponent(idRegion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(154, Short.MAX_VALUE)))
+                .addContainerGap(39, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(39, 39, 39)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtRegionId, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtRegionName, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnShowTable, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnGetById, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public JTextField getIdTextField() {
-        return idRegion1;
-    }
-
-    public void setIdTextField(JTextField idRegion1) {
-        this.idRegion1 = idRegion1;
-    }
-
-    public JTextField getRegionNameTextField() {
-        return regionName;
-    }
-
-    public void setRegionNameTextField(JTextField regionName) {
-        this.regionName = regionName;
-    }
-
-    public JButton getRegionIdSaveButton() {
-        return save;
-    }
-
-    public void setRegionIdSaveButton(JButton save) {
-        this.save = save;
-    }
-    
-    private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
-//        String Nil = idRegion1.getText();
-//        int Des = Integer.parseInt(Nil);
-//        String Nam = regionName.getText();
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnShowTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnShowTableMouseClicked
+        Object[] header = {"Region Id", "Region Name"};
+        DefaultTableModel data = new DefaultTableModel(null, header);
+        tabelregion.setModel(data);
+        try {
+            for (Region region : rc.getAllRegion(data)) {
+                String isi1 = String.valueOf(region.getRegionId()); // is1 = String.valueOf(region.getRegionId());
+                String isi2 = region.getRegionName();
+
+                String kolom[] = {isi1, isi2};
+                data.addRow(kolom);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Oops!.." + e.getMessage());
+        }
+    }//GEN-LAST:event_btnShowTableMouseClicked
+
+    private void btnShowTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowTableActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnShowTableActionPerformed
+
+    private void btnEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditMouseClicked
+        //private void btnUpdateMouseClicked(java.awt.event.MouseEvent evt) {                                       
+        String idRegion = txtRegionId.getText();
+        String nameRegion = txtRegionName.getText();
+
+        if (!idRegion.equals("") && !nameRegion.equals("")) {
+            if (rc.update(nameRegion, idRegion) == true) {
+                JOptionPane.showMessageDialog(null, "Edit berhasil !");
+            } else {
+                JOptionPane.showMessageDialog(null, "Edit gagal !");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Kolom tidak boleh kosong");
+        }
+
+//        String regionId = (String) txtRegionId.getText();
+//        String regionName = txtRegionName.getText();
 //
-//        RegionDAO reg = new RegionDAO();
+//        if (!regionId.equals("") && !regionName.equals("")) {
+//            if (rc.update(regionId, regionName) == true) {
+//                JOptionPane.showMessageDialog(null, "Berhasil Update");
+//            }
+//        } else {
+//            JOptionPane.showMessageDialog(null, "Oops!..");
+//        }
+//        rc.update(regionId, regionName);
+    }//GEN-LAST:event_btnEditMouseClicked
+    /**
+     * SUkses Input Data Region
+     *
+     * @param evt
+     */
+    private void btnSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaveMouseClicked
+        //FUNGSI INPUT
+        String regionId = (String) txtRegionId.getText();
+        String regionName = txtRegionName.getText();
 
-    }//GEN-LAST:event_saveActionPerformed
+        if (!regionId.equals("") && !regionName.equals("")) {
+            if (rc.insert(regionId, regionName) == true) {
+                JOptionPane.showMessageDialog(null, "Berhasil Input Data");
+            } else {
+                JOptionPane.showMessageDialog(null, "Oops!.. Data Gagal Ditambahkan");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Inputan Tidak Boleh Kosong");
+        }
+    }//GEN-LAST:event_btnSaveMouseClicked
 
-    private void idRegion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idRegion1ActionPerformed
+    private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
+        // FUNGSI DELETE
+        String regionId = txtRegionId.getText();
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(this, "Data akan di hapus ?",
+                "Hapus Data", dialogButton);
+
+        if (dialogResult == 0) {
+            if (!regionId.equals("")) {
+                if (rc.delete(regionId) == true) {
+                    JOptionPane.showMessageDialog(null, "Data berhasil di Hapus !");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Data ini tidak dapat di hapus !", "Message Alert",
+                            JOptionPane.WARNING_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Form input tidak boleh kosong", "Message Alert",
+                        JOptionPane.WARNING_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_btnDeleteMouseClicked
+
+    private void btnSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_idRegion1ActionPerformed
+        bindingTable(RegionController.getByID);
+//        String regionId = (String) txtRegionId.getText();
+//        String regionName = txtRegionName.getText();
+//
+//        Object[] header = {"Region Id", "Region Name"};
+//        DefaultTableModel data = new DefaultTableModel(null, header);
+//        tabelregion.setModel(data);
+//
+//        String object = txtSearch.getText();
+//        if (regionId.equals("") && regionName.equals("")) {
+//            JOptionPane.showMessageDialog(null, "Form tidak boleh kosong");
+//        } else {
+//            for (Region region : rc.getAllRegion(object)) {
+//                String isi1 = String.valueOf(region.getRegionId());
+//                String isi2 = String.valueOf(region.getRegionName());
+//
+//                String kolom[] = {isi1, isi2};
+//                data.addRow(kolom);
+//            }
+//        }
+    }//GEN-LAST:event_btnSearchMouseClicked
+
+    
+            
+    private void btnGetByIdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGetByIdMouseClicked
+        String regionId = (String) txtSearch.getText();
+//        String countryName = txtSearch.getText();
+//        String regionId = (String) txtSearch.getText();
+
+        Object[] header = {"Region ID", "Region Name"};
+        DefaultTableModel data = new DefaultTableModel(null, header);
+        tabelregion.setModel(data);
+
+        try {
+//            String object = txtSearch.getText();
+            for (Region region : rc.getByID(regionId)) {
+                String isi1 = String.valueOf(region.getRegionId());// region.getRegionId();
+                String isi2 = region.getRegionName();
+
+                String kolom[] = {isi1, isi2};
+                data.addRow(kolom);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Oops! : " + e.getMessage());
+        }
+    }//GEN-LAST:event_btnGetByIdMouseClicked
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        txtRegionId.setText("");
+        txtRegionName.setText("");
+        txtSearch.setText("");
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void tabelregionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelregionMouseClicked
+
+        int row = tabelregion.getSelectedRow();
+        int column = tabelregion.getSelectedColumn();
+        String data = tabelregion.getValueAt(row, column).toString();
+        String regionId = tabelregion.getValueAt(row, 0).toString();
+        String regionName = tabelregion.getValueAt(row, 1).toString();
+
+        txtRegionId.setText(regionId);
+        txtRegionName.setText(regionName);
+    }//GEN-LAST:event_tabelregionMouseClicked
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEditActionPerformed
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSearchActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RegionView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RegionView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RegionView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RegionView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new RegionView().setVisible(true);
@@ -162,8 +450,21 @@ public class RegionView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField idRegion1;
-    private javax.swing.JTextField regionName;
-    private javax.swing.JButton save;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnGetById;
+    private javax.swing.JButton btnSave;
+    private javax.swing.JButton btnSearch;
+    private javax.swing.JButton btnShowTable;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tabelregion;
+    private javax.swing.JTextField txtRegionId;
+    private javax.swing.JTextField txtRegionName;
+    private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
+
 }

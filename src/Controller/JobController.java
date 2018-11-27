@@ -53,8 +53,4 @@ public class JobController {
     public List<Job> searchByJobs(Object object) {
         return jdao.searchByJobs(object);
     }
-
-    public List<Job> getById(String jobId) {
-        return jdao.getById(jobId);
-    }
 }

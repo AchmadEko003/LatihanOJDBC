@@ -6,6 +6,7 @@
 package View;
 
 import Controller.JobController;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -51,13 +52,17 @@ public class JobForm extends javax.swing.JFrame {
         btnInsert = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnSearch = new javax.swing.JButton();
-        btnSearchId = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         txtSearch = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jLabel1.setText("Job ID             :");
 
@@ -85,7 +90,7 @@ public class JobForm extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tableJob);
 
-        btnGetAll.setText("Show Data");
+        btnGetAll.setText("Refresh");
         btnGetAll.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnGetAllMouseClicked(evt);
@@ -110,13 +115,6 @@ public class JobForm extends javax.swing.JFrame {
         btnSearch.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnSearchMouseClicked(evt);
-            }
-        });
-
-        btnSearchId.setText("Search By ID");
-        btnSearchId.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnSearchIdMouseClicked(evt);
             }
         });
 
@@ -145,13 +143,12 @@ public class JobForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnGetAll)
-                        .addGap(145, 145, 145)
+                        .addGap(224, 224, 224)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(242, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -165,14 +162,19 @@ public class JobForm extends javax.swing.JFrame {
                                             .addComponent(txtMaxSalary, javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(txtMinSalary, javax.swing.GroupLayout.Alignment.TRAILING))
                                         .addGap(18, 18, 18))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel1)
-                                            .addComponent(jLabel2))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(txtJobTitle)
-                                            .addComponent(txtJobId))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jLabel1)
+                                                    .addComponent(jLabel2))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addComponent(txtJobTitle)
+                                                    .addComponent(txtJobId)))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(2, 2, 2)
+                                                .addComponent(btnGetAll)))
                                         .addGap(18, 18, 18)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnInsert, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -180,9 +182,7 @@ public class JobForm extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(btnSearchId, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE))
+                                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 0, Short.MAX_VALUE))
                                     .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(22, 22, 22))))
@@ -211,19 +211,12 @@ public class JobForm extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                        .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnSearchId, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(34, 34, 34)
                                 .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addComponent(txtSearch)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnGetAll)))
+                            .addComponent(txtSearch)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -231,21 +224,35 @@ public class JobForm extends javax.swing.JFrame {
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnClear)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGetAll))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnGetAllMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGetAllMouseClicked
+    public void clearTxt() {
+        txtJobId.setEditable(true);
+
+        txtJobId.setText("");
+        txtJobTitle.setText("");
+        txtMinSalary.setText("");
+        txtMaxSalary.setText("");
+        txtSearch.setText("");
+    }
+
+    public void bindingTable(List<Job> jobs) {
         Object[] header = {"Job ID", "Job Title", "Min Salary", "Max Salary"};
         DefaultTableModel data = new DefaultTableModel(null, header);
         tableJob.setModel(data);
 
         try {
-            for (Job job : jc.getAllJob()) {
+            for (Job job : jobs) {
                 String isi1 = job.getJobId();
                 String isi2 = job.getJobTitle();
                 String isi3 = String.valueOf(job.getMinSalary());
@@ -257,6 +264,10 @@ public class JobForm extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Oops! : " + e.getMessage());
         }
+    }
+
+    private void btnGetAllMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGetAllMouseClicked
+        bindingTable(jc.getAllJob());
     }//GEN-LAST:event_btnGetAllMouseClicked
 
     private void btnInsertMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInsertMouseClicked
@@ -280,6 +291,7 @@ public class JobForm extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Form input tidak boleh kosong !", "Message Alert",
                         JOptionPane.WARNING_MESSAGE);
             }
+            clearTxt();
         }
     }//GEN-LAST:event_btnInsertMouseClicked
 
@@ -301,12 +313,15 @@ public class JobForm extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Form input tidak boleh kosong", "Message Alert",
                         JOptionPane.WARNING_MESSAGE);
             }
+            clearTxt();
         }
     }//GEN-LAST:event_btnDeleteMouseClicked
 
     private void tableJobMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableJobMouseClicked
         txtJobId.setEditable(false);
-
+        btnDelete.setEnabled(true);
+        btnUpdate.setEnabled(true);
+        
         int i = tableJob.getSelectedRow();
         TableModel model = tableJob.getModel();
         txtJobId.setText(model.getValueAt(i, 0).toString());
@@ -316,24 +331,7 @@ public class JobForm extends javax.swing.JFrame {
     }//GEN-LAST:event_tableJobMouseClicked
 
     private void btnSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseClicked
-        Object[] header = {"Job ID", "Job Title", "Min Salary", "Max Salary"};
-        DefaultTableModel data = new DefaultTableModel(null, header);
-        tableJob.setModel(data);
-
-        try {
-            String object = txtSearch.getText();
-            for (Job job : jc.searchByJobs(object)) {
-                String isi1 = job.getJobId();
-                String isi2 = job.getJobTitle();
-                String isi3 = String.valueOf(job.getMinSalary());
-                String isi4 = String.valueOf(job.getMaxSalary());
-
-                String kolom[] = {isi1, isi2, isi3, isi4};
-                data.addRow(kolom);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Oops! : " + e.getMessage());
-        }
+        bindingTable(jc.searchByJobs(txtSearch.getText()));
     }//GEN-LAST:event_btnSearchMouseClicked
 
     private void btnUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUpdateMouseClicked
@@ -358,40 +356,21 @@ public class JobForm extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Form input tidak boleh kosong !", "Message Alert",
                         JOptionPane.WARNING_MESSAGE);
             }
+            clearTxt();
         }
     }//GEN-LAST:event_btnUpdateMouseClicked
 
     private void btnClearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClearMouseClicked
-        txtJobId.setEditable(true);
-
-        txtJobId.setText("");
-        txtJobTitle.setText("");
-        txtMinSalary.setText("");
-        txtMaxSalary.setText("");
-        txtSearch.setText("");
+        clearTxt();
+        btnDelete.setEnabled(false);
+        btnUpdate.setEnabled(false);
     }//GEN-LAST:event_btnClearMouseClicked
 
-    private void btnSearchIdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchIdMouseClicked
-
-        Object[] header = {"Job ID", "Job Title", "Min Salary", "Max Salary"};
-        DefaultTableModel data = new DefaultTableModel(null, header);
-        tableJob.setModel(data);
-
-        try {
-            String jobId = txtSearch.getText();
-            for (Job job : jc.getById(jobId)) {
-                String isi1 = job.getJobId();
-                String isi2 = job.getJobTitle();
-                String isi3 = String.valueOf(job.getMinSalary());
-                String isi4 = String.valueOf(job.getMaxSalary());
-
-                String kolom[] = {isi1, isi2, isi3, isi4};
-                data.addRow(kolom);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Oops! : " + e.getMessage());
-        }
-    }//GEN-LAST:event_btnSearchIdMouseClicked
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        bindingTable(jc.getAllJob());
+        btnDelete.setEnabled(false);
+        btnUpdate.setEnabled(false);
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
@@ -434,7 +413,6 @@ public class JobForm extends javax.swing.JFrame {
     private javax.swing.JButton btnGetAll;
     private javax.swing.JButton btnInsert;
     private javax.swing.JButton btnSearch;
-    private javax.swing.JButton btnSearchId;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

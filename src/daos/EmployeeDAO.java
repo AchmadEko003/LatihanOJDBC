@@ -67,8 +67,6 @@ public class EmployeeDAO {
         return datas;
     }
 
-    
-
     /**
      * public List<Employee> getAllEmployee()----->get all data ditabel
      *
@@ -78,8 +76,14 @@ public class EmployeeDAO {
         return getDatas("SELECT * FROM Employees order by 1");
     }
 
+    public int getLastId(){
+        int id = 0;
+        String query = "select max(EMPLOYEE_ID) from employees";
+        return id;
+    }
     /**
      * public List<Employee> getEmployeeId(int id)------->get by id
+     *
      * @param id
      * @return
      */
@@ -87,12 +91,13 @@ public class EmployeeDAO {
         return getDatas("SELECT * FROM EMPLOYEES WHERE EMPLOYEE_ID= " + id);
     }
 
-    public List<Employee> getManagerId(int id){
+    public List<Employee> getManagerId(int id) {
         String query = "SELECT employee_id, first_name, last_name FROM employees "
-                + "ORDER BY first_name ASC where manager_id ="+id;
+                + "ORDER BY first_name ASC where manager_id =" + id;
         return execEmployee(query);
     }
-    public List<Employee> execEmployee(String query){
+
+    public List<Employee> execEmployee(String query) {
         List<Employee> data = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -109,6 +114,7 @@ public class EmployeeDAO {
         }
         return data;
     }
+
     /**
      * this is function delete for table employee create by Aji public boolean
      * deleteEmployees(int id)-----> delete berdasarkan id;
@@ -128,7 +134,6 @@ public class EmployeeDAO {
         }
         return result;
     }
-
 
     /**
      * function search by Tika MP public List<Employee> searchByEmployees(Object
@@ -165,7 +170,7 @@ public class EmployeeDAO {
                 + "     VALUES (?,?,?,?,to_date(?, 'mm/dd/yy'),?,?,?,?,?,?)";
         return insertDatas(query, employee);
     }
-    
+
     /**
      * public boolean updateEmployee(Employee employee)--->update
      *
@@ -178,7 +183,7 @@ public class EmployeeDAO {
                 + "salary=?, commission_pct=?, manager_id=?, department_id=? where employee_id = ?";
         return insertDatas(query, employee);
     }
-    
+
     public boolean insertDatas(String query, Employee employee) {
         try {
             PreparedStatement preparedStatement = connection.prepareCall(query);
@@ -200,7 +205,7 @@ public class EmployeeDAO {
         }
         return false;
     }
-    
+
     public List<Job> selectJobId() {
         List<Job> datas = new ArrayList<>();
         String query = "SELECT job_id, job_title, min_salary, max_salary FROM jobs ORDER BY job_title ASC";
@@ -220,7 +225,7 @@ public class EmployeeDAO {
         }
         return datas;
     }
-    
+
     public List<Department> selectDepartmentId() {
         List<Department> datas = new ArrayList<>();
         String query = "SELECT DEPARTMENT_ID, DEPARTMENT_NAME, MANAGER_ID, LOCATION_ID FROM departments ORDER BY DEPARTMENT_NAME ASC";

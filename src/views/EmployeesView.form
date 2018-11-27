@@ -31,11 +31,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="344" max="-2" attributes="0"/>
-                      <Component id="managerid_field" min="-2" pref="152" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                      <Component id="departmentid_field" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="214" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="txtSearch" min="-2" pref="130" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="searchButton" min="-2" max="-2" attributes="0"/>
@@ -123,8 +119,6 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="txtSearch" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="searchButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="managerid_field" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="departmentid_field" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -213,15 +207,13 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel12">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Department ID"/>
+        <Property name="text" type="java.lang.String" value="Department"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="lastname_field">
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lastname_fieldActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JTextField" name="departmentid_field">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
@@ -244,7 +236,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel8">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Job ID"/>
+        <Property name="text" type="java.lang.String" value="Job"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="employeeid_field">
@@ -286,7 +278,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel11">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Manager ID"/>
+        <Property name="text" type="java.lang.String" value="Manager"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
@@ -346,8 +338,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Employee ID"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="managerid_field">
     </Component>
     <Component class="javax.swing.JTextField" name="firstname_field">
       <Events>

@@ -36,6 +36,7 @@ public class EmployeesView extends javax.swing.JInternalFrame {
         selectJobId();
         selectEmployeeId();
         selectDepartmentId();
+        
     }
 
     public void kosongData() {
@@ -44,27 +45,14 @@ public class EmployeesView extends javax.swing.JInternalFrame {
         email_field.setText("");
         phonenumber_field.setText("");
         hiredate_field.setText("");
-        jobid_field.setSelectedItem("");
+        jobid_field.setSelectedItem("Pilih Job");
         salary_field.setText("");
         commissionpct_field.setText("");
-        managerid_field.setText("");
-        departmentid_field.setText("");
+        cbxmanageId.setSelectedItem("Pilih Manager");
+        cbxDepartmentId.setSelectedItem("Pilih Department");
         employeeid_field.setText("");
     }
 
-    public void getTextInput() {
-        String employeeid = employeeid_field.getText();
-        String firstname = firstname_field.getText();
-        String lastname = lastname_field.getText();
-        String email = email_field.getText();
-        String phonenumber = phonenumber_field.getText();
-        String hiredate = hiredate_field.getText();
-        String jobid = (String) jobid_field.getSelectedItem();
-        String salary = salary_field.getText();
-        String commissionpct = commissionpct_field.getText();
-        String managerid = managerid_field.getText();
-        String departmentid = departmentid_field.getText();
-    }
 
     public void bindingTable(List<Employee> employees) {
         Object[] header = {"Employee Id", "First Name", "Last Name", "Email", "Phone Number", "Hire Date", "Job Id", "Salary", "Commission Pct", "Manager ID", "Department Id"};
@@ -106,7 +94,6 @@ public class EmployeesView extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         lastname_field = new javax.swing.JTextField();
-        departmentid_field = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         email_field = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -128,7 +115,6 @@ public class EmployeesView extends javax.swing.JInternalFrame {
         txtSearch = new javax.swing.JTextField();
         searchButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        managerid_field = new javax.swing.JTextField();
         firstname_field = new javax.swing.JTextField();
         jobid_field = new javax.swing.JComboBox<>();
         cbxmanageId = new javax.swing.JComboBox<>();
@@ -164,7 +150,7 @@ public class EmployeesView extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Last Name");
 
-        jLabel12.setText("Department ID");
+        jLabel12.setText("Department");
 
         lastname_field.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -178,7 +164,7 @@ public class EmployeesView extends javax.swing.JInternalFrame {
 
         jLabel14.setText("Hire Date");
 
-        jLabel8.setText("Job ID");
+        jLabel8.setText("Job");
 
         employeeid_field.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -204,7 +190,7 @@ public class EmployeesView extends javax.swing.JInternalFrame {
 
         jLabel10.setText("Commission Pct");
 
-        jLabel11.setText("Manager ID");
+        jLabel11.setText("Manager");
 
         jLabel4.setText("First Name");
 
@@ -290,11 +276,7 @@ public class EmployeesView extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(344, 344, 344)
-                        .addComponent(managerid_field, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31)
-                        .addComponent(departmentid_field)
-                        .addGap(214, 214, 214)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(searchButton))
@@ -361,9 +343,7 @@ public class EmployeesView extends javax.swing.JInternalFrame {
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(searchButton)
-                    .addComponent(managerid_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(departmentid_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(searchButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -544,7 +524,7 @@ public class EmployeesView extends javax.swing.JInternalFrame {
         salary_field.setText(model.getValueAt(i, 7).toString());
         commissionpct_field.setText(model.getValueAt(i, 8).toString());
         cbxmanageId.setSelectedItem(model.getValueAt(i, 9).toString());
-        departmentid_field.setText(model.getValueAt(i, 10).toString());
+        cbxDepartmentId.setSelectedItem(model.getValueAt(i, 10).toString());
         employeeid_field.setEnabled(false);
         insertbutton.setEnabled(false);
         update_Button.setEnabled(true);
@@ -642,7 +622,6 @@ public class EmployeesView extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> cbxmanageId;
     private javax.swing.JTextField commissionpct_field;
     private javax.swing.JButton deletebutton;
-    private javax.swing.JTextField departmentid_field;
     private javax.swing.JTextField email_field;
     private javax.swing.JTextField employeeid_field;
     private javax.swing.JTextField firstname_field;
@@ -663,7 +642,6 @@ public class EmployeesView extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<String> jobid_field;
     private javax.swing.JTextField lastname_field;
-    private javax.swing.JTextField managerid_field;
     private javax.swing.JTextField phonenumber_field;
     private javax.swing.JTextField salary_field;
     private javax.swing.JButton searchButton;

@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import model.Department;
 import model.Employee;
 import model.Job;
 
@@ -98,8 +99,8 @@ public class EmployeeController {
      * @param ID
      * @return 
      */
-    public boolean update(String empFN, String empLN, String email, String phoneNum, String hireNum, String jobId, int sal, double comm, String managerId, int departmentId, int ID) {
-        Employee employee = new Employee(empFN, empLN, email, phoneNum, hireNum, jobId, sal, comm, Integer.valueOf(managerId), departmentId, ID);
+    public boolean update(String empFN, String empLN, String email, String phoneNum, String hireNum, String jobId, int sal, double comm, String managerId, String departmentId, int ID) {
+        Employee employee = new Employee(empFN, empLN, email, phoneNum, hireNum, jobId, sal, comm, Integer.valueOf(managerId), Integer.valueOf(departmentId), ID);
         return edao.updateEmployee(employee);
     }
     
@@ -141,6 +142,11 @@ public class EmployeeController {
         return result;
     }
     
+    public List<Department> selectDepartmentId() {
+        List<Department> result = new ArrayList<>();
+        result = edao.selectDepartmentId();
+        return result;
+    }
     public List<Employee> getManagerId(String id){
         return edao.getManagerId(Integer.parseInt(id));
     }

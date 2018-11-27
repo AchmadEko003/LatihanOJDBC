@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import model.Department;
 import model.Employee;
 import model.Job;
 
@@ -199,6 +200,7 @@ public class EmployeeDAO {
         }
         return false;
     }
+    
     public List<Job> selectJobId() {
         List<Job> datas = new ArrayList<>();
         String query = "SELECT job_id, job_title, min_salary, max_salary FROM jobs ORDER BY job_title ASC";
@@ -212,6 +214,26 @@ public class EmployeeDAO {
                 job.setMinSalary(resultSet.getInt("min_salary"));
                 job.setMaxSalary(resultSet.getInt("max_salary"));
                 datas.add(job);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return datas;
+    }
+    
+    public List<Department> selectDepartmentId() {
+        List<Department> datas = new ArrayList<>();
+        String query = "SELECT DEPARTMENT_ID, DEPARTMENT_NAME, MANAGER_ID, LOCATION_ID FROM departments ORDER BY DEPARTMENT_NAME ASC";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Department department = new Department();
+                department.setDepartmentId(resultSet.getInt("DEPARTMENT_ID"));
+                department.setDepartmentName(resultSet.getString("DEPARTMENT_NAME"));
+                department.setManagerId(resultSet.getInt("MANAGER_ID"));
+                department.setLocationId(resultSet.getInt("LOCATION_ID"));
+                datas.add(department);
             }
         } catch (Exception e) {
             e.printStackTrace();

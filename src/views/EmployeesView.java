@@ -12,6 +12,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import model.Department;
 import model.Employee;
 import model.Job;
 import tools.Connections;
@@ -34,6 +35,21 @@ public class EmployeesView extends javax.swing.JInternalFrame {
         initComponents();
         selectJobId();
         selectEmployeeId();
+        selectDepartmentId();
+    }
+
+    public void kosongData() {
+        firstname_field.setText("");
+        lastname_field.setText("");
+        email_field.setText("");
+        phonenumber_field.setText("");
+        hiredate_field.setText("");
+        jobid_field.setSelectedItem("");
+        salary_field.setText("");
+        commissionpct_field.setText("");
+        managerid_field.setText("");
+        departmentid_field.setText("");
+        employeeid_field.setText("");
     }
 
     public void getTextInput() {
@@ -116,6 +132,7 @@ public class EmployeesView extends javax.swing.JInternalFrame {
         firstname_field = new javax.swing.JTextField();
         jobid_field = new javax.swing.JComboBox<>();
         cbxmanageId = new javax.swing.JComboBox<>();
+        cbxDepartmentId = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setTitle("Employees Views");
@@ -258,6 +275,13 @@ public class EmployeesView extends javax.swing.JInternalFrame {
             }
         });
 
+        cbxDepartmentId.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Department" }));
+        cbxDepartmentId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxDepartmentIdActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -268,7 +292,9 @@ public class EmployeesView extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(344, 344, 344)
                         .addComponent(managerid_field, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(31, 31, 31)
+                        .addComponent(departmentid_field)
+                        .addGap(214, 214, 214)
                         .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(searchButton))
@@ -288,7 +314,7 @@ public class EmployeesView extends javax.swing.JInternalFrame {
                                         .addComponent(update_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(insertbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(departmentid_field)))
+                                    .addComponent(cbxDepartmentId, 0, 200, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -336,7 +362,8 @@ public class EmployeesView extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(searchButton)
-                    .addComponent(managerid_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(managerid_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(departmentid_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -382,14 +409,14 @@ public class EmployeesView extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel12)
-                            .addComponent(departmentid_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbxDepartmentId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(update_Button)
                             .addComponent(insertbutton)
                             .addComponent(deletebutton)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         pack();
@@ -408,10 +435,11 @@ public class EmployeesView extends javax.swing.JInternalFrame {
         String salary = salary_field.getText();
         String commissionpct = commissionpct_field.getText();
         String managerId = (String) cbxmanageId.getSelectedItem();
-        String departmentid = departmentid_field.getText();
-        String jobId= jobid.substring(0, jobid.indexOf(" ")); 
-        String mngId= managerId.substring(0, managerId.indexOf(" ")); 
-        
+        String departmentid = (String) cbxDepartmentId.getSelectedItem();
+        String jobId = jobid.substring(0, jobid.indexOf(" "));
+        String mngId = managerId.substring(0, managerId.indexOf(" "));
+        String dprtId = departmentid.substring(0, departmentid.indexOf(" "));
+
         if (!employeeid.equals("") && !firstname.equals("")
                 && !lastname.equals("") && !email.equals("")
                 && !phonenumber.equals("") && !hiredate.equals("")
@@ -421,21 +449,11 @@ public class EmployeesView extends javax.swing.JInternalFrame {
             if (employeeController.insert(firstname,
                     lastname, email,
                     phonenumber,
-                    hiredate, jobid,
+                    hiredate, jobId,
                     salary, commissionpct,
-                    managerId, departmentid, employeeid)) {
+                    mngId, dprtId, employeeid)) {
                 JOptionPane.showMessageDialog(null, "insert berhasil");
-                firstname_field.setText("");
-                lastname_field.setText("");
-                email_field.setText("");
-                phonenumber_field.setText("");
-                hiredate_field.setText("");
-                jobid_field.setSelectedItem("");
-                salary_field.setText("");
-                commissionpct_field.setText("");
-                managerid_field.setText("");
-                departmentid_field.setText("");
-                employeeid_field.setText("");
+                kosongData();
                 employeeid_field.setEnabled(true);
                 bindingTable(employeeController.gets());
             } else {
@@ -462,24 +480,12 @@ public class EmployeesView extends javax.swing.JInternalFrame {
         int dialogResult = JOptionPane.showConfirmDialog(null, "Hapus data?", "Warning", dialogButton);
         if (dialogResult == JOptionPane.YES_OPTION) {
             String nil = employeeid_field.getText();
-            if(employeeController.delete(nil)==true)
-            {
-            employeeid_field.setEnabled(true);
-            bindingTable(employeeController.gets());
-            JOptionPane.showConfirmDialog(null, "Data berhasil di hapus", "Warning", dialogButton);
-            firstname_field.setText("");
-            lastname_field.setText("");
-            email_field.setText("");
-            phonenumber_field.setText("");
-            hiredate_field.setText("");
-            jobid_field.setSelectedItem("");
-            salary_field.setText("");
-            commissionpct_field.setText("");
-            managerid_field.setText("");
-            departmentid_field.setText("");
-            employeeid_field.setText("");
-            }
-            else{
+            if (employeeController.delete(nil) == true) {
+                employeeid_field.setEnabled(true);
+                bindingTable(employeeController.gets());
+                JOptionPane.showConfirmDialog(null, "Data berhasil di hapus", "Warning", dialogButton);
+                kosongData();
+            } else {
                 JOptionPane.showConfirmDialog(null, "Data gagal di hapus", "Warning", dialogButton);
             }
         }
@@ -496,31 +502,31 @@ public class EmployeesView extends javax.swing.JInternalFrame {
         int sal = Integer.valueOf(salary_field.getText());
         double comm = Double.valueOf(commissionpct_field.getText());
         String managerId = (String) cbxmanageId.getSelectedItem();
-        int departmentId = Integer.valueOf(departmentid_field.getText());
+        String departmentId = (String) cbxDepartmentId.getSelectedItem();
         int ID = Integer.valueOf(employeeid_field.getText());
-        String jobId= jobid.substring(0, jobid.indexOf(" ")); 
-        String mngId= managerId.substring(0, managerId.indexOf(" ")); 
-
-        if (employeeController.update(empFN, empLN, email, phoneNum, hireNum, jobId, sal, comm, mngId, departmentId, ID) == true) {
-            JOptionPane.showMessageDialog(null, "Update Berhasil");
-            firstname_field.setText("");
-            lastname_field.setText("");
-            email_field.setText("");
-            phonenumber_field.setText("");
-            hiredate_field.setText("");
-            jobid_field.setSelectedItem("");
-            salary_field.setText("");
-            commissionpct_field.setText("");
-            managerid_field.setText("");
-            departmentid_field.setText("");
-            employeeid_field.setText("");
+        String jobId = jobid.substring(0, jobid.indexOf(" "));
+        String mngId = managerId.substring(0, managerId.indexOf(" "));
+        String dprtId = departmentId.substring(0, departmentId.indexOf(" "));
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Update data?", "Warning", dialogButton);
+        if (dialogResult == JOptionPane.YES_OPTION) {
+            if (employeeController.update(empFN, empLN, email, phoneNum, hireNum, jobId, sal, comm, mngId, dprtId, ID) == true) {
+                JOptionPane.showMessageDialog(null, "Update Berhasil");
+                kosongData();
+                employeeid_field.setEnabled(true);
+                insertbutton.setEnabled(true);
+                deletebutton.setEnabled(true);
+                update_Button.setEnabled(false);
+                bindingTable(employeeController.gets());
+            } else {
+                JOptionPane.showMessageDialog(null, "Update Gagal");
+            }
+        } else {
+            kosongData();
             employeeid_field.setEnabled(true);
             insertbutton.setEnabled(true);
             deletebutton.setEnabled(true);
             update_Button.setEnabled(false);
-            bindingTable(employeeController.gets());
-        } else {
-            JOptionPane.showMessageDialog(null, "Update Gagal");
         }
     }//GEN-LAST:event_update_ButtonActionPerformed
 
@@ -555,17 +561,7 @@ public class EmployeesView extends javax.swing.JInternalFrame {
         insertbutton.setEnabled(true);
         update_Button.setEnabled(false);
         deletebutton.setEnabled(true);
-        firstname_field.setText("");
-        lastname_field.setText("");
-        email_field.setText("");
-        phonenumber_field.setText("");
-        hiredate_field.setText("");
-        jobid_field.setSelectedItem("");
-        salary_field.setText("");
-        commissionpct_field.setText("");
-        managerid_field.setText("");
-        departmentid_field.setText("");
-        employeeid_field.setText("");
+        kosongData();
     }//GEN-LAST:event_txtSearchKeyPressed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
@@ -594,36 +590,55 @@ public class EmployeesView extends javax.swing.JInternalFrame {
         update_Button.setEnabled(false);
         bindingTable(employeeController.gets());
     }//GEN-LAST:event_formInternalFrameOpened
-    
+
+    private void cbxDepartmentIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxDepartmentIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxDepartmentIdActionPerformed
+
     public void selectJobId() {
-         String jobId;
+        String jobId;
         try {
             for (Job job : employeeController.selectJobId()) {
                 jobId = job.getJobId();
                 String jobName = job.getJobTitle();
-                String mix = jobId +" "+ jobName;
+                String mix = jobId + " " + jobName;
                 jobid_field.addItem(mix);
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "selectLocationId is " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "selectJob is " + e.getMessage());
         }
     }
-    
+
     public void selectEmployeeId() {
         String employeeId;
         try {
             for (Employee employee : employeeController.gets()) {
                 employeeId = String.valueOf(employee.getManagerId());
                 String employeeName = employee.getLastName();
-                String mix = employeeId +" "+ employeeName;
+                String mix = employeeId + " " + employeeName;
                 cbxmanageId.addItem(mix);
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "selectEmployeeId is " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "selectEmployee is " + e.getMessage());
+        }
+    }
+
+    public void selectDepartmentId() {
+        String departmentId;
+        try {
+            for (Department department : employeeController.selectDepartmentId()) {
+                departmentId = String.valueOf(department.getDepartmentId());
+                String departmentName = department.getDepartmentName();
+                String mix = departmentId + " " + departmentName;
+                cbxDepartmentId.addItem(mix);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "selectDepartment is " + e.getMessage());
         }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cbxDepartmentId;
     private javax.swing.JComboBox<String> cbxmanageId;
     private javax.swing.JTextField commissionpct_field;
     private javax.swing.JButton deletebutton;

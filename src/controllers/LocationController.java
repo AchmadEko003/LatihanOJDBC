@@ -9,6 +9,7 @@ import daos.LocationDAO;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
+import model.Country;
 import model.Location;
 
 /**
@@ -29,19 +30,19 @@ public class LocationController {
         this.c = c;
         this.ldao = new LocationDAO(c);
     }
+
     /**
      * untuk menambahkan data ke entity
+     *
      * @param locationId
      * @param streetAddress
      * @param postalCode
      * @param city
      * @param stateProvince
      * @param countryId
-     * @return 
+     * @return
      */
 
-    
-        
     public boolean insert(String streetAddress, String postalCode, String city, String stateProvince, String countryId, String location_id) {
         int locationId = Integer.parseInt(location_id);
         location = new Location(locationId,streetAddress, postalCode, city, stateProvince, countryId);
@@ -50,8 +51,9 @@ public class LocationController {
 
     /**
      * untuk menghapus
+     *
      * @param location_id
-     * @return 
+     * @return
      */
     public boolean delete(String location_id) {
         int locationId = Integer.parseInt(location_id);
@@ -60,7 +62,8 @@ public class LocationController {
 
     /**
      * untuk mendapatkan semua data dari entity
-     * @return 
+     *
+     * @return
      */
     public List<Location> getAll() {
         return ldao.getAllLocations();
@@ -68,8 +71,9 @@ public class LocationController {
 
     /**
      * search by Id location
+     *
      * @param location_id
-     * @return 
+     * @return
      */
     public List<Location> getById(String location_id) {
         int locationId = Integer.parseInt(location_id);
@@ -78,8 +82,9 @@ public class LocationController {
 
     /**
      * controller untuk search by object
+     *
      * @param data
-     * @return 
+     * @return
      */
     public List<Location> search(Object data) {
         return ldao.searchByLocation(data);
@@ -87,17 +92,24 @@ public class LocationController {
 
     /**
      * controller untuk update location
+     *
      * @param location_id
      * @param streetAddress
      * @param postalCode
      * @param city
      * @param stateProvince
      * @param countryId
-     * @return 
+     * @return
      */
     public boolean update(String streetAddress, String postalCode, String city, String stateProvince, String countryId, String location_id) {
         int locationId = Integer.parseInt(location_id);
-        location = new Location(locationId,streetAddress, postalCode, city, stateProvince, countryId);
+        location = new Location(locationId, streetAddress, postalCode, city, stateProvince, countryId);
         return ldao.updateLoc(location);
+    }
+
+    public List<Country> getCountryId() {
+        List<Country> result = new ArrayList<>();
+        result = ldao.selectCountryId();
+        return result;
     }
 }

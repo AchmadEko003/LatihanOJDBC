@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
+  <Properties>
+    <Property name="closable" type="boolean" value="true"/>
+  </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
   </SyntheticProperties>
@@ -49,30 +52,37 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="txtSearchAll" min="-2" pref="184" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btnSearch1" min="-2" pref="77" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="144" max="-2" attributes="0"/>
-                      <Component id="txtSearchId" min="-2" pref="128" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btnSearchId" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="txtSearchAll" min="-2" pref="184" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="btnSearch1" min="-2" pref="77" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="144" max="-2" attributes="0"/>
+                              <Component id="txtSearchId" min="-2" pref="128" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="btnSearchId" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="btnInsert" min="-2" pref="77" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="btnUpdate" min="-2" pref="82" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="182" max="-2" attributes="0"/>
+                              <Component id="btnDelete" min="-2" pref="82" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="txtCity" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtStateProvince" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtPostalCode" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtStreetAddr" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtLocationId" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
-                      <Component id="btnInsert" min="-2" pref="77" max="-2" attributes="0"/>
+                      <Component id="comboCountryId" min="-2" pref="151" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="btnUpdate" min="-2" pref="82" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="182" max="-2" attributes="0"/>
-                      <Component id="btnDelete" min="-2" pref="82" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="txtCity" alignment="0" max="32767" attributes="0"/>
-                  <Component id="txtStateProvince" alignment="0" max="32767" attributes="0"/>
-                  <Component id="txtCountryId" alignment="0" max="32767" attributes="0"/>
-                  <Component id="txtPostalCode" alignment="0" max="32767" attributes="0"/>
-                  <Component id="txtStreetAddr" alignment="0" max="32767" attributes="0"/>
-                  <Component id="txtLocationId" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
           </Group>
           <Group type="102" attributes="0">
               <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
@@ -92,11 +102,14 @@
                   <Component id="btnSearchId" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="142" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="comboCountryId" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="txtLocationId" min="-2" max="-2" attributes="0"/>
@@ -120,8 +133,6 @@
                           <Component id="txtStateProvince" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="txtCountryId" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -136,7 +147,7 @@
                   </Group>
                   <Component id="btnInsert" min="-2" pref="34" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="1" max="32767" attributes="0"/>
               <Component id="jInternalFrame1" min="-2" pref="0" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
@@ -174,11 +185,6 @@
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtStreetAddr">
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtCountryId">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCountryIdActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtStateProvince">
     </Component>
@@ -286,6 +292,11 @@
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnSearchIdMouseClicked"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="comboCountryId">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

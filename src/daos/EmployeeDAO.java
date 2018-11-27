@@ -76,9 +76,22 @@ public class EmployeeDAO {
         return getDatas("SELECT * FROM Employees order by 1");
     }
 
-    public int getLastId(){
+    /**
+     * lastDepartmentId() -> get last id
+     * @return 
+     */
+    public int lastId() {
         int id = 0;
-        String query = "select max(EMPLOYEE_ID) from employees";
+        try {
+            String query = "select * from employees where EMPLOYEE_ID=(select max(EMPLOYEE_ID) from employees )";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                id = resultSet.getInt("EMPLOYEE_ID") + 1;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return id;
     }
     /**

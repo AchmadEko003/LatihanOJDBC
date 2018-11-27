@@ -35,8 +35,6 @@ public class NewClassTest {
 
         EmployeeController ec = new EmployeeController(con.getConnection());
         //System.out.println(ec.gets().size());
-        System.out.println(edao.getLastId());
-        
 //        int record = ec.hitung();
 //        
 //        for (int bar=0;bar<record;bar++){

@@ -80,6 +80,10 @@ public class EmployeeController {
         return edao.deleteEmployees(idEmp);
     }
     
+    public String lastId(){
+        return String.valueOf(edao.lastId());
+    }
+    
     public void getname() {
         System.out.println(employee.getFirstName());
     }

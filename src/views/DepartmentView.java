@@ -19,16 +19,28 @@ import tools.Connections;
  * @author yudafatah
  */
 public class DepartmentView extends javax.swing.JInternalFrame {
-    Connections connection = new Connections();
-    DepartmentController departmentController = new DepartmentController(connection.getConnection());
+    Connections con = new Connections();
+    DepartmentController departmentController = new DepartmentController(con.getConnection());
     /**
      * Creates new form DepartmentView
      */
     public DepartmentView() {
         initComponents();
-        getDatas(departmentController.selectDepartment());
+        reset();
         selectEmployeeId();
         selectLocatoId();
+    }
+    
+    public void reset() {
+        txtDepartID.setEditable(true);
+        txtDepartID.setText("");
+        txtDepartName.setText("");
+        txtSearch.setText("");
+        txtSearchId.setText("");
+        btnSave.setText("Save");
+        cbxManagID.setSelectedItem("Pilih Manager");
+        cbxLocaId.setSelectedItem("Pilih Location");
+        getDatas(departmentController.selectDepartment());
     }
 
     /**
@@ -60,13 +72,10 @@ public class DepartmentView extends javax.swing.JInternalFrame {
 
         tableDepart.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Department ID", "Department Name", "Manager ID", "Location ID"
             }
         ));
         tableDepart.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -78,15 +87,17 @@ public class DepartmentView extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Department ID");
 
+        txtDepartID.setEditable(false);
+
         jLabel2.setText("Department Name");
 
         jLabel3.setText("Manager ID");
 
         jLabel4.setText("Location ID");
 
-        cbxManagID.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxManagID.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Manager" }));
 
-        cbxLocaId.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxLocaId.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Location" }));
 
         btnSave.setText("Save");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
@@ -127,34 +138,41 @@ public class DepartmentView extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtDepartID)
-                    .addComponent(txtDepartName)
-                    .addComponent(cbxManagID, 0, 120, Short.MAX_VALUE)
-                    .addComponent(cbxLocaId, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnReset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtSearchId, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                    .addComponent(txtSearch))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnSearchId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(cbxLocaId, 0, 608, Short.MAX_VALUE)
+                                .addComponent(cbxManagID, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtDepartID)
+                                .addComponent(txtDepartName))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnSave)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnDelete)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(17, 17, 17))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtSearchId, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnSearchId)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 749, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 17, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -166,24 +184,28 @@ public class DepartmentView extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtDepartName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSave)
-                    .addComponent(txtSearchId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearchId))
+                    .addComponent(txtDepartName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(cbxManagID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDelete)
-                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearch))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbxManagID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(cbxLocaId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxLocaId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSave)
+                    .addComponent(btnDelete)
                     .addComponent(btnReset))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSearch)
+                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearchId)
+                    .addComponent(txtSearchId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -198,17 +220,16 @@ public class DepartmentView extends javax.swing.JInternalFrame {
         String idManager = (String) cbxManagID.getSelectedItem();
         String idLocation = (String) cbxLocaId.getSelectedItem();
         
-        if (!idDepartment.equals("") && !nameDepartment.equals("") && !idManager.equals("") && !idLocation.equals("")) {
+        if (!idDepartment.equals("") && !nameDepartment.equals("") && !idManager.equals("Pilih Manager") && !idDepartment.equals("Pilih Location")) {
             if (departmentController.insertDepartment(nameDepartment, idManager, idLocation,idDepartment)) {
                 JOptionPane.showMessageDialog(null, "Insert departmen berhasil");
+                reset();
             } else {
                 JOptionPane.showMessageDialog(null, "Insert departmen gagal");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Form input tidak boleh kosong");
         }
-        
-        getDatas(departmentController.selectDepartment());
         }
         if (btnSave.getText().equals("Update")){
             String idDepartment = txtDepartID.getText();
@@ -216,17 +237,16 @@ public class DepartmentView extends javax.swing.JInternalFrame {
         String idManager = (String) cbxManagID.getSelectedItem();
         String idLocation = (String) cbxLocaId.getSelectedItem();
         
-        if (!idDepartment.equals("") && !nameDepartment.equals("") && !idManager.equals("") && !idLocation.equals("")) {
+        if (!idDepartment.equals("") && !nameDepartment.equals("")) {
             if (departmentController.updateDepartment(nameDepartment, idManager, idLocation, idDepartment) == true) {
                 JOptionPane.showMessageDialog(null, "Update departmen berhasil");
+                reset();
             } else {
                 JOptionPane.showMessageDialog(null, "Update departmen gagal");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Form input tidak boleh kosong");
-        }
-        
-            getDatas(departmentController.selectDepartment());
+        } 
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -244,8 +264,20 @@ public class DepartmentView extends javax.swing.JInternalFrame {
         txtDepartID.setEditable(false);
         txtDepartID.setText(idDepartment);
         txtDepartName.setText(nameDepartment);
-        cbxManagID.setSelectedItem(idManager);
-        cbxLocaId.setSelectedItem(idLocation);
+        
+        if (idManager.equals("0")) {
+            cbxManagID.setSelectedItem("Pilih Manager");
+            cbxLocaId.setSelectedItem(idLocation);
+        } else if (idLocation.equals("0")) {
+            cbxManagID.setSelectedItem(idManager);
+            cbxLocaId.setSelectedItem("Pilih Location");
+        } else if (idManager.equals("0") && idLocation.equals("0")) {
+            cbxManagID.setSelectedItem("Pilih Manager");
+            cbxLocaId.setSelectedItem("Pilih Location");
+        } else {
+            cbxManagID.setSelectedItem(idManager);
+            cbxLocaId.setSelectedItem(idLocation);
+        }
         
         btnSave.setText("Update");
     }//GEN-LAST:event_tableDepartMouseClicked
@@ -255,39 +287,43 @@ public class DepartmentView extends javax.swing.JInternalFrame {
         /**
          * execute delete function with parameter got from textfield values
          */
-        if(txtDepartID!=null){
+        if(!txtDepartID.getText().equals("")){
             if(departmentController.deleteDepartment(txtDepartID.getText())==true){
                 JOptionPane.showMessageDialog(null, "Data dengan id = " + txtDepartID.getText()+" berhasil dihapus");
+                reset();
             }
             else{
                 JOptionPane.showMessageDialog(null, "Gagal menghapus data!");
             }
         }
         else{
-            JOptionPane.showMessageDialog(null, "Form input tidak boleh kosong");
+            JOptionPane.showMessageDialog(null, "Pilih data yang ingin dihapus!");
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnSearchIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchIdActionPerformed
         // TODO add your handling code here:
-        getDatas(departmentController.getById(txtSearchId.getText()));
+        if (!txtSearchId.getText().equals("")) {
+            getDatas(departmentController.getById(txtSearchId.getText()));
+        } else {
+            JOptionPane.showMessageDialog(null, "Form input tidak boleh kosong");
+        }
+        
     }//GEN-LAST:event_btnSearchIdActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
-        getDatas(departmentController.searchDepartment(txtSearch.getText()));
+        if (!txtSearch.getText().equals("")) {
+            getDatas(departmentController.searchDepartment(txtSearch.getText()));
+        } else {
+            JOptionPane.showMessageDialog(null, "Form input tidak boleh kosong");
+        }
+            
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
         // TODO add your handling code here:
-        txtDepartID.setEditable(true);
-        txtDepartID.setText("");
-        txtDepartName.setText("");
-        cbxManagID.setSelectedItem("");
-        cbxLocaId.setSelectedItem("");
-        txtSearchId.setText("");
-        txtSearch.setText("");
-        btnSave.setText("Save");
+        reset();
     }//GEN-LAST:event_btnResetActionPerformed
 
     private void getDatas(List<Department> dpm){

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import model.Employee;
+import model.Job;
 
 /**
  *
@@ -27,6 +28,7 @@ public class EmployeeController {
     private Employee employee;
     int tot = 0;
     List<Employee> datas = new ArrayList<>();
+    
 
     public EmployeeController() {
     }
@@ -130,6 +132,11 @@ public class EmployeeController {
                 empCom,empmanager,
                 empdepartment, empid);
         result = edao.insertEmployee(employee);
+        return result;
+    }
+    public List<Job> selectJobId() {
+        List<Job> result = new ArrayList<>();
+        result = edao.selectJobId();
         return result;
     }
 }

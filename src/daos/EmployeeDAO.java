@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import model.Employee;
+import model.Job;
 
 /**
  *
@@ -175,5 +176,24 @@ public class EmployeeDAO {
             e.printStackTrace();
         }
         return false;
+    }
+    public List<Job> selectJobId() {
+        List<Job> datas = new ArrayList<>();
+        String query = "SELECT job_id, job_title, min_salary, max_salary FROM jobs ORDER BY job_title ASC";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Job job = new Job();
+                job.setJobId(resultSet.getString("job_id"));
+                job.setJobTitle(resultSet.getString("job_title"));
+                job.setMinSalary(resultSet.getInt("min_salary"));
+                job.setMaxSalary(resultSet.getInt("max_salary"));
+                datas.add(job);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return datas;
     }
 }

@@ -60,7 +60,8 @@ public class DepartmentDAO {
      * @return
      */
     public boolean insertDepartment(Department department) {
-        String query = "INSERT INTO departments VALUES (?,?,?,?)";
+        String query = "INSERT INTO departments(department_name, manager_id, location_id, department_id)"
+                + " VALUES (?,?,?,?)";
         return DBExecution(query, department);
     }
 

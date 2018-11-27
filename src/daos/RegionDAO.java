@@ -72,6 +72,11 @@ public class RegionDAO {
     public List<Region> getRegionId(int id) {
         return getDatas("SELECT * FROM REGIONS WHERE REGIONS_ID= " + id);
     }
+
+    /**
+     *
+     * @return
+     */
     public int maxRegionId() {
         int id = 0;
         try {

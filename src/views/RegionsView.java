@@ -35,11 +35,18 @@ public class RegionsView extends javax.swing.JInternalFrame {
         txtRegionId.setText(String.valueOf(regionController.maxRegionId()));
     }
 
+    /**
+     *
+     */
     public void getTextInput() {
         String regionId = txtRegionId.getText();
         String regionName = txtRegionName.getText();
     }
 
+    /**
+     *
+     * @param regions
+     */
     public void bindingTable(List<Region> regions) {
         Object[] header = {"No", "Region_Id", "Region_Name"};
         DefaultTableModel model = new DefaultTableModel(null, header);

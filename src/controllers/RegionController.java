@@ -50,7 +50,11 @@ public class RegionController {
         return rdao.getAllRegion();
     }
     
-        public int maxRegionId() {
+    /**
+     *
+     * @return
+     */
+    public int maxRegionId() {
         return rdao.maxRegionId();
     }
 
